@@ -37,12 +37,17 @@ export class BlogEditorComponent implements OnInit {
     onSubmit(form: NgForm) {    
       
       if (this.fileToUpload !== null) {
-        this.postService.AddPost(form,  this.fileToUpload).subscribe((data: any) => {
-          this.router.navigate(['/profile']);
-        })
-            
-       }
+        this.postService.AddPost(form,  this.fileToUpload).subscribe((data: any) => {  
+          //this.router.navigate(['/profile']); 
+          
+          this.postService.GetPostByTitle(form);
+          });     
+        
+       }      
      }
+
+
+
      maxLength(e) {
       if(e.editor.getLength() > 10000) {
       e.editor.deleteText(10, e.editor.getLength());

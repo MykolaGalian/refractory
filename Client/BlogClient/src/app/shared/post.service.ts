@@ -20,6 +20,8 @@ export class PostService {
   posts: Post[] = null;
   post: Post =null;
   readonly rootUrl = 'https://localhost:44302/api/post';
+  postForGetId: Post = null;
+  bodyForNewPost: string = null;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -67,7 +69,7 @@ export class PostService {
    AddPost(data: any, fileToUpload: File)  {  
       const formData: FormData = new FormData();
       formData.append('PostPicture', fileToUpload, fileToUpload.name);     
-      formData.append("Post", btoa(data.value.body));   //шифруем HTML разметку перед отправкой utf-8
+      this.bodyForNewPost =data.value.body;//formData.append("Post", btoa(data.value.body));   //шифруем HTML разметку перед отправкой utf-8
       formData.append("Title", data.value.title);
       formData.append("Hashtags", data.value.hashtags);  
     
@@ -84,6 +86,39 @@ export class PostService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
     return this.http.put(this.rootUrl + '/'+postId , body, {headers: tokenHeader});
   }
+
+  //for new post add text body, after send picture and get post Id
+  AddBodyForPost(post: Post) {
+    const body: Editpost = {
+      PostBody: this.bodyForNewPost, //PostBody - Body
+      PostTitle: post.PostTitle,
+      Hashtags: post.Hashtags    
+    }
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.put(this.rootUrl + '/'+post.Id , body, {headers: tokenHeader}).
+    subscribe((res: any) => {
+      this.router.navigate(['/profile']); 
+    });
+  }
+
+  //getpostbytitle
+  GetPostByTitle(data: any){
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });       
+
+    const body: Editpost = {
+      PostBody: data.value.body, 
+      PostTitle: data.value.title, // send title
+      Hashtags: data.value.hashtags    
+    }
+    
+       return this.http.post(this.rootUrl + '/getpostbytitle', body , {headers:reqHeader}).
+ 
+       subscribe((res: any) => {
+           this.postForGetId = res as Post;   // getting Post and PostId from it
+           this.AddBodyForPost(this.postForGetId)
+  });
+}  
+
 
 
   DeletePost(Id: number) {

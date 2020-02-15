@@ -19,6 +19,8 @@ namespace BLL.Contracts
         Task<IEnumerable<DTOPost>> GetPostsByTeg(string teg);
         Task<IEnumerable<string>> GetAllTeg();
 
+        Task<DTOPost> GetPostByPosTitle(string postTitle);
+
 
     }
 }

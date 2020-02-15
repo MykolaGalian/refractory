@@ -75,6 +75,15 @@ namespace BLL.Services
                 throw new ArgumentException("Post not exist");
             return AutoMapper.Mapper.Map<Post, DTOPost>(post);
         }
+        // for get post Id by post title
+        public async Task<DTOPost> GetPostByPosTitle(string postTitle)
+        {            
+            Post post = (await _uow.Posts.SelectAll(x => x.PostTitle == postTitle)).FirstOrDefault(); 
+
+            if (post == null)
+                throw new ArgumentException("Post not exist");
+            return AutoMapper.Mapper.Map<Post, DTOPost>(post);
+        }
 
         public async Task<IEnumerable<DTOPost>> GetPostsByUserId(int userid)
         {

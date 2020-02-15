@@ -59,6 +59,7 @@ namespace WebApi.Controllers
             PostViewModel Post_ = AutoMapper.Mapper.Map<DTOPost, PostViewModel>(post);
             return Ok(Post_);
         }
+     
 
         [HttpPost]
         [AllowAnonymous]
@@ -147,12 +148,12 @@ namespace WebApi.Controllers
 
             string filename = AddImage(postedFile);  //add image for post     
 
-            string postBodyCode = httpRequest.Params["Post"];
-            string postBody = Base64Decode(postBodyCode); //decoding string with html tag
+            //string postBodyCode = httpRequest.Params["Post"];
+            //string postBody = Base64Decode(postBodyCode); //decoding string with html tag
 
             DTOPost pos = new DTOPost
             {
-                PostBody = postBody,
+                PostBody = "", //postBody
                 Hashtags = httpRequest.Params["Hashtags"],
                 PostTitle = httpRequest.Params["Title"],
                 DateCreate = DateTime.Now,
@@ -196,6 +197,22 @@ namespace WebApi.Controllers
 
             await _uow.PostService.EditPost(post);
             return Ok("Post edited");
+        }
+
+        // for geting post id by post title
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("getpostbytitle")]
+        public async Task<IHttpActionResult> GetPostByTitle([FromBody] PostEditViewModel Post)
+        {
+            if (Post.PostTitle == null)
+                NotFound();  //code 404    
+
+            var post = (await _uow.PostService.GetPostByPosTitle(Post.PostTitle));
+            if (post == null)
+                NotFound();  //code 404         
+            PostViewModel Post_ = AutoMapper.Mapper.Map<DTOPost, PostViewModel>(post);
+            return Ok(Post_);
         }
 
         [HttpDelete]
@@ -242,10 +259,11 @@ namespace WebApi.Controllers
 
         }
 
-        public static string Base64Decode(string base64EncodedData)
-        {
-            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
-        }
+
+        //public static string Base64Decode(string base64EncodedData)
+        //{
+        //    var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+        //    return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        //}
     }
 }
