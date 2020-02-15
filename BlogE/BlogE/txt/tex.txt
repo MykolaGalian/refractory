@@ -1,0 +1,40 @@
+WebApi + identity
+- automapper
+- Ninject.Web.Common.WebHost
+- Microsoft.Owin.Cors
+- WebApiContrib.IoC.Ninject
+
+DLL
+- Microsoft.AspNet.Identity.Core 
+- Microsoft.AspNet.Identity.EntityFramework
+- AMicrosoft.AspNet.Identity.Owin
+
+
+BLL
+- automapper
+- Microsoft.AspNet.Identity.EntityFramework
+- Ninject
+- Ninject.WebApi
+- Microsoft.AspNet.WebApi.Cors
+
+
+
+
+
+
+       
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
