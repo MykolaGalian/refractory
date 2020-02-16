@@ -10,7 +10,7 @@ namespace WebApi.Models.Comment
     {
         public int Id { get; set; }
         public string CommentBody { get; set; }
-        public int PostId { get; set; }
+        public int RefractoryId { get; set; }
         public DateTime? DateCreation { get; set; }
         public DateTime? LastEdit { get; set; }
 

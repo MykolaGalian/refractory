@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../shared/post.service';
+import { RefractoryService } from '../../../shared/refractory.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommentService } from '../../../shared/comment.service';
@@ -15,10 +15,10 @@ export class UserPostComponent implements OnInit {
   private postOnEdit:boolean=false;
   private commentText: string = '';
 
-  constructor(private postService: PostService, private router: Router,
-     private commentService: CommentService,private toastr: ToastrService) {}
+  constructor(private postService: RefractoryService, private router: Router,
+              private commentService: CommentService, private toastr: ToastrService) {}
 
-  
+
 
   ngOnInit() {
   }

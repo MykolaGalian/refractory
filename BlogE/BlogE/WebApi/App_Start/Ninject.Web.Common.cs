@@ -44,7 +44,7 @@ namespace WebApi.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var modules = new INinjectModule[] { new DIResolver("BlogDB") };
+            var modules = new INinjectModule[] { new DIResolver("RefractoryDB") }; 
             Kernel = new StandardKernel(modules); // pass to the kernel configuration modules that implement the interface INinjectModule
 
             try

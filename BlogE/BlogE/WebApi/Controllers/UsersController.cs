@@ -45,10 +45,10 @@ namespace WebApi.Controllers
 
             ProfileViewModel profileView = AutoMapper.Mapper.Map<DTOUser, ProfileViewModel>(profile);
            
-            var posts = (await _uow.PostService.GetPostsByUserId(profile.Id)).ToList();
+            var posts = (await _uow.RefractoryService.GetRefractoriesByUserId(profile.Id)).ToList();
             posts.RemoveAll(x => x.IsBlocked == true);      // remove all Blocked post
 
-            profileView.Posts = AutoMapper.Mapper.Map<IEnumerable<DTOPost>, List<PostViewModel>>(posts);
+            profileView.Refractories = AutoMapper.Mapper.Map<IEnumerable<DTORefractory>, List<RefractoryViewModel>>(posts);
             profileView.IsAdmin = User.IsInRole("admin");
             profileView.IsModerator = User.IsInRole("moderator");
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../shared/post.service';
+import { RefractoryService } from '../../../shared/refractory.service';
 import { CommentService } from '../../../shared/comment.service';
 import { UserService } from '../../../shared/user.service';
 import { ModeratorService } from '../../../shared/moderator.service';
@@ -9,14 +9,14 @@ import { ModeratorService } from '../../../shared/moderator.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit { 
+export class PostListComponent implements OnInit {
 
-  constructor(private postService: PostService,private commentService: CommentService,
-    private service: UserService, private moderService: ModeratorService) { }
+  constructor(private postService: RefractoryService, private commentService: CommentService,
+              private service: UserService, private moderService: ModeratorService) { }
 
   ngOnInit() {
     this.postService.GetAllPosts();
   }
-  
+
 
 }

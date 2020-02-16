@@ -23,9 +23,9 @@ namespace DAL.Models
         public int UserInfoId { get; set; }
        
 
-        [ForeignKey("PostId")]
-        public virtual Post Post { get; set; }
-        public int PostId { get; set; }
+        [ForeignKey("RefractoryId")]
+        public virtual Refractory Refractory { get; set; }
+        public int RefractoryId { get; set; }
        
     }
 

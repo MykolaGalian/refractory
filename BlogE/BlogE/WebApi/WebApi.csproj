@@ -211,7 +211,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
-    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\RefractoryController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,8 +221,8 @@
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
-    <Compile Include="Models\Post\PostEditViewModel.cs" />
-    <Compile Include="Models\Post\PostViewModel.cs" />
+    <Compile Include="Models\Refractory\RefractoryEditViewModel.cs" />
+    <Compile Include="Models\Refractory\RefractoryViewModel.cs" />
     <Compile Include="Models\User\ChangePassViewModel.cs" />
     <Compile Include="Models\User\ChangeProfileViewModel.cs" />
     <Compile Include="Models\User\ProfileViewModel.cs" />

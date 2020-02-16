@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/user.service';
 import { Router} from '@angular/router';
-import { PostService } from '../../shared/post.service';
-import { Post } from '../../model/post/post';
+import { RefractoryService } from '../../shared/refractory.service';
+import { Refractory } from '../../model/refractory/refractory';
 
 
 
@@ -15,9 +15,9 @@ export class ProfileComponent implements OnInit {
 
   private fileToUpload: File = null;
 
-  constructor(private router: Router, private service: UserService, private postService: PostService) { }
+  constructor(private router: Router, private service: UserService, private postService: RefractoryService) { }
 
-  ngOnInit() {      
+  ngOnInit() {
 
     this.service.getUserProfile();
 
@@ -29,37 +29,37 @@ export class ProfileComponent implements OnInit {
         console.log("LogedOut");
        },
       err => {
-        console.log(err);        
+        console.log(err);
       },
     );
 
     localStorage.removeItem('access_token');
-    localStorage.removeItem('Login');  
+    localStorage.removeItem('Login');
     this.postService.post=null;
     this.postService.posts=null;
     this.postService.moderPosts=null;
     this.service.userDetails=null;
-    this.service.usersDetails=null;   
+    this.service.usersDetails=null;
     this.router.navigate(['/login']);
   }
 
   addPost(){
-    this.router.navigateByUrl('/blog-editor'); 
+    this.router.navigateByUrl('/blog-editor');
   }
   userManager(){
-    this.router.navigateByUrl('/admin'); 
+    this.router.navigateByUrl('/admin');
   }
 
   postModerator(){
-    this.router.navigateByUrl('/moder'); 
+    this.router.navigateByUrl('/moder');
   }
 
   onProfileEdit(){
     this.router.navigateByUrl('/profile-edit');
   }
 
-  populateForms(pd: Post) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
-    
+  populateForms(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
+
     this.postService.post = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в  Object.assign({}, pd);
     this.router.navigate(['/user-post']);
   }
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
     reader.readAsDataURL(this.fileToUpload);
     if (this.fileToUpload !== null) {
       this.service.UpdateAvatar(this.fileToUpload).subscribe();
-    } 
+    }
   }
 
 

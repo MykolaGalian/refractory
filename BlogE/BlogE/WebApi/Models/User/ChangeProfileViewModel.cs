@@ -20,8 +20,8 @@ namespace WebApi.Models.User
         [Display(Name = "Lastname:")]
         public string LastName { get; set; }
 
-        [Display(Name = "Address:")]
-        public string Address { get; set; }
+        [Display(Name = "Position:")]
+        public string Position { get; set; }
 
         [Display(Name = "Avatar:")]
         public string UserAvatar { get; set; }

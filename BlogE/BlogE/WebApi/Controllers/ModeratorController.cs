@@ -19,16 +19,16 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("block/post/{postId}")]
-        public async Task<IHttpActionResult> BlockPost([FromUri]int postId)
+        [Route("block/refractory/{refId}")]
+        public async Task<IHttpActionResult> BlockRefractory([FromUri]int refId)
         {
 
-            DTOPost post = await _uow.PostService.GetPostByPosId(postId);
-            if (post == null)
+            DTORefractory refractory = await _uow.RefractoryService.GetRefractoryByRefId(refId);
+            if (refractory == null)
                 return NotFound();
 
-            if (post.IsBlocked)
-                return BadRequest("Post already blocked.");
+            if (refractory.IsBlocked)
+                return BadRequest("Refractory already blocked.");
 
             var userName = User.Identity.GetUserName();
 
@@ -37,29 +37,29 @@ namespace WebApi.Controllers
             if (userName == null || !User.IsInRole("moderator"))
                 return this.Unauthorized();
 
-            await _uow.ModeratorService.BlockPost(postId, userName);
+            await _uow.ModeratorService.BlockRefractory(refId, userName);
 
-            return Ok("Post blocked");
+            return Ok("Refractory blocked");
         }
 
         [HttpGet]
-        [Route("unblock/post/{postId}")]
-        public async Task<IHttpActionResult> UnblockPost([FromUri]int postId)
+        [Route("unblock/refractory/{refId}")]
+        public async Task<IHttpActionResult> UnblockRefractory([FromUri]int refId)
         {
-            DTOPost post = await _uow.PostService.GetPostByPosId(postId);
-            if (post == null)
+            DTORefractory refractory = await _uow.RefractoryService.GetRefractoryByRefId(refId);
+            if (refractory == null)
                 return NotFound();
 
-            if (!post.IsBlocked)
-                return BadRequest("Post not blocked.");
+            if (!refractory.IsBlocked)
+                return BadRequest("Refractory not blocked.");
 
             var userId = this.User.Identity.GetUserId();
             if (userId == null || !User.IsInRole("admin"))
                 return this.Unauthorized();
 
 
-            await _uow.ModeratorService.UnblockPost(postId);
-            return Ok("Post unblocked");
+            await _uow.ModeratorService.UnblockRefractory(refId);
+            return Ok("Refractory unblocked");
         }
     }
 }

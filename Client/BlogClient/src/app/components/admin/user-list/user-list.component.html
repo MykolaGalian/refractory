@@ -3,17 +3,17 @@
       <tr>
         <th>Login</th>
         <th>Full Name</th>
-        <th>Adress</th>    
-        <th>Block status</th>           
-  
+        <th>Adress</th>
+        <th>Block status</th>
+
       </tr>
     </thead>
     <tr *ngFor="let pd of service.usersDetails">
       <td (click)="populateForm(pd)">{{pd.Login}}</td>
       <td (click)="populateForm(pd)">{{pd.Name}} {{pd.LastName}}</td>
-      <td (click)="populateForm(pd)">{{pd.Address}}</td> 
-      <td (click)="populateForm(pd)">{{pd.IsBlocked}}</td>  
-     
+      <td (click)="populateForm(pd)">{{pd.Position}}</td>
+      <td (click)="populateForm(pd)">{{pd.IsBlocked}}</td>
+
     </tr>
   </table>
- 
+

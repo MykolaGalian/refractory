@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../shared/post.service';
+import { RefractoryService } from '../../shared/refractory.service';
 import { UserService } from '../../shared/user.service';
 
-import { Post } from '../../model/post/post';
+import { Refractory } from '../../model/refractory/refractory';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private postService: PostService, private router: Router, private service: UserService) { }
+  constructor(private postService: RefractoryService, private router: Router, private service: UserService) { }
 
   ngOnInit() {
     this.postService.GetPosts();
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  populateForm(pd: Post) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
+  populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
     this.postService.post = Object.assign({}, pd);   // Object.assign
     this.postService.tempPostId = pd.Id;
     this.router.navigate(['/read-post']);

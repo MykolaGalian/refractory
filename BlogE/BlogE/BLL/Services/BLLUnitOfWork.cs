@@ -14,7 +14,7 @@ namespace BLL.Services
         private readonly IUnitOfWork _uow;
         private AdminService _adminService;
         private CommentService _commentService;
-        private PostService _postService;
+        private RefractoryService _refractoryService;
         private UserInfoService _userInfoService;
         private UserManagerService _userManagerService;
         private ModeratorService _moderatorService;
@@ -60,15 +60,15 @@ namespace BLL.Services
                 return _commentService;
             }
         }
-        public IPostService PostService
+        public IRefractoryService RefractoryService
         {
             get
             {
-                if (this._postService == null)
+                if (this._refractoryService == null)
                 {
-                    this._postService = new PostService(_uow);
+                    this._refractoryService = new RefractoryService(_uow);
                 }
-                return _postService;
+                return _refractoryService;
             }
         }
         public IUserInfoService UserInfoService

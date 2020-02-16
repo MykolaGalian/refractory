@@ -10,9 +10,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit { 
+export class EditProfileComponent implements OnInit {
 
- 
+
   constructor(private router: Router,private service: UserService, private toastr: ToastrService ) { }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class EditProfileComponent implements OnInit {
    this.initEditProfile();
 
   }
- 
+
   initEditProfile(){
   this.service.editProfile =
   { Id: this.service.userDetails.Id,
@@ -30,35 +30,35 @@ export class EditProfileComponent implements OnInit {
     Name: this.service.userDetails.Name,
     LastName: this.service.userDetails.LastName,
     Email: this.service.userDetails.Email,
-    Address: this.service.userDetails.Address,
+    Position: this.service.userDetails.Position,
     UserAvatar: this.service.userDetails.UserAvatar,
     DateRegistration: this.service.userDetails.DateRegistration,
-    Posts: this.service.userDetails.Posts,
+    Refractories: this.service.userDetails.Refractories,
     IsAdmin: this.service.userDetails.IsAdmin,
     IsModerator: this.service.userDetails.IsModerator,
     IsBlocked: this.service.userDetails.IsBlocked
   };
     this.service.ChangePassword ={
-      
-    }; 
+
+    };
   }
 
   OnSubmit() {
     this.service.EditUserProfile().
       subscribe(
         (res:any) => {
-          this.service.getUserProfile();  
+          this.service.getUserProfile();
           this.toastr.success('User profile updated');
           console.log("updated");
-            
+
          },
         err => {
           console.log(err);
           this.toastr.error('HTTP status code', err.status);
         }
-    
-      );       
-      
+
+      );
+
   }
 
   OnSubmitPass() {
@@ -73,8 +73,8 @@ export class EditProfileComponent implements OnInit {
         console.log(err);
         this.toastr.error('HTTP status code', err.status);
       }
-  
-    );     
+
+    );
 
 
   }
@@ -93,9 +93,9 @@ export class EditProfileComponent implements OnInit {
         console.log(err);
         this.toastr.error('HTTP status code', err.status);
       }
-  
-    );     
-     
+
+    );
+
   }
 
 }

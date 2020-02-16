@@ -13,13 +13,8 @@ using Microsoft.Owin.Security;
 using WebApi.Models.Account;
 
 
-
-
-
-
 namespace WebApi.Controllers
 {
-
     [RoutePrefix("api/accounts")]
     public class AccountsController : ApiController
     {
@@ -38,9 +33,7 @@ namespace WebApi.Controllers
         {
             _uow = uow;
         }
-
-  
-
+        
 
         [Authorize]
         [HttpGet]
@@ -51,7 +44,7 @@ namespace WebApi.Controllers
             _authenticationManager.SignOut();
             return Ok(User.Identity.Name + " logged out");
         }
-
+        // Change - registration only by Admin
         [HttpPost]
         [System.Web.Mvc.ValidateAntiForgeryToken]
         [AllowAnonymous]

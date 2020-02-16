@@ -16,24 +16,24 @@ namespace BLL.Services
         {
             _uow = uow;
         }
-        public async Task BlockPost(int postId, string aLogin)
+        public async Task BlockRefractory(int refId, string userName)
         {
-            if (postId > 0 && aLogin != null && aLogin.Length > 3)
+            if (refId > 0 && userName != null && userName.Length > 3)
             {
-                Post post = await _uow.Posts.SelectById(postId);
-                post.IsBlocked = true;
-                await _uow.Posts.Update(post);
+                Refractory refractory = await _uow.Refractory.SelectById(refId);
+                refractory.IsBlocked = true;
+                await _uow.Refractory.Update(refractory);
             }
             else throw new ArgumentException("Wrong data");
         }
 
-        public async Task UnblockPost(int postId)
+        public async Task UnblockRefractory(int refId)
         {
-            if (postId > 0)
+            if (refId > 0)
             {
-                Post post = await _uow.Posts.SelectById(postId);
-                post.IsBlocked = false;
-                await _uow.Posts.Update(post);
+                Refractory refractory = await _uow.Refractory.SelectById(refId);
+                refractory.IsBlocked = false;
+                await _uow.Refractory.Update(refractory);
             }
             else throw new ArgumentException("Wrong data");
         }

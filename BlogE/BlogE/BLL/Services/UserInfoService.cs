@@ -30,7 +30,7 @@ namespace BLL.Services
        
         public async Task Update(DTOUser user)
         {
-            if(user != null && user.Id > 0 && user.IsBlocked == false && user.Address.Length > 1 && user.Name.Length > 1 &&
+            if(user != null && user.Id > 0 && user.IsBlocked == false && user.Position.Length > 1 && user.Name.Length > 1 &&
               user.LastName.Length > 1)
             {
                
@@ -46,9 +46,9 @@ namespace BLL.Services
             else throw new ArgumentException("Wrong user data");
         }
 
-        public async Task Delete(int userId)
+        public async Task Delete(int userId)  // optional
         {
-
+            // delete comments
             List<Comment> userComments = new List<Comment>();
             userComments.AddRange(await _uow.Comments.SelectAll(x => x.UserInfoId == userId));
             foreach (var i in userComments)
@@ -56,11 +56,12 @@ namespace BLL.Services
                 await _uow.Comments.Delete(i.Id);
             }
 
-            List<Post> userPosts = new List<Post>();
-            userPosts.AddRange(await _uow.Posts.SelectAll(x => x.UserInfoId == userId));
-            foreach (var i in userPosts)
+            //delete refractories
+            List<Refractory> userRefractories = new List<Refractory>();
+            userRefractories.AddRange(await _uow.Refractory.SelectAll(x => x.UserInfoId == userId));
+            foreach (var i in userRefractories)
             {
-                await _uow.Posts.Delete(i.Id);
+                await _uow.Refractory.Delete(i.Id);
             }
 
             await _uow.UserInfo.Delete(userId);
@@ -84,7 +85,7 @@ namespace BLL.Services
             return AutoMapper.Mapper.Map<UserInfo, DTOUser>(await _uow.UserInfo.SelectById(id));
         }
 
-        public async Task<DTOUser> GetUserByLogin(string login)
+        public async Task<DTOUser> GetUserByLogin(string login) //login = userName
         {
             return AutoMapper.Mapper.Map<UserInfo, DTOUser>((await _uow.UserInfo.SelectAll(x => x.Login == login)).FirstOrDefault());
         }

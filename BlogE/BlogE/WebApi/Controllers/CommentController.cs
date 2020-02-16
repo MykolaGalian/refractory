@@ -26,14 +26,14 @@ namespace WebApi.Controllers
         }
 
        [HttpPost]
-       [Route("{postId}")]
-        public async Task<IHttpActionResult> AddComment([FromUri]int postId)
+       [Route("{refId}")]
+        public async Task<IHttpActionResult> AddComment([FromUri]int refId)
         {
             var httpRequest = HttpContext.Current.Request;
             string comment = httpRequest.Params["Coment"];
 
-            DTOPost post = await _uow.PostService.GetPostByPosId(postId);
-            if (post == null)
+            DTORefractory refractory = await _uow.RefractoryService.GetRefractoryByRefId(refId);
+            if (refractory == null)
                 return NotFound();            
 
             var userId = this.User.Identity.GetUserId();
@@ -47,7 +47,7 @@ namespace WebApi.Controllers
                 return this.BadRequest(this.ModelState);
 
             DTOUser user = await _uow.UserInfoService.GetUserById(User.Identity.GetUserId<int>());
-            DTOComment dtoComment = new DTOComment { DateCreation = DateTime.Now, PostId = postId, UserInfoId = user.Id, CommentBody = comment };
+            DTOComment dtoComment = new DTOComment { DateCreation = DateTime.Now, RefractoryId = refId, UserInfoId = user.Id, CommentBody = comment };
 
             await _uow.CommentService.AddComment(dtoComment);
             return Content(HttpStatusCode.Created, "Comment added.");
@@ -55,25 +55,25 @@ namespace WebApi.Controllers
 
 
         [HttpGet]
-        [Route("{postId}")]
-        public async Task<IHttpActionResult> GetComments([FromUri]int postId)
+        [Route("{refId}")]
+        public async Task<IHttpActionResult> GetComments([FromUri]int refId)
         {
             if (!this.ModelState.IsValid)
                 return this.BadRequest(this.ModelState);
 
-            DTOPost post = await _uow.PostService.GetPostByPosId(postId);
-            if (post == null)
+            DTORefractory refractory = await _uow.RefractoryService.GetRefractoryByRefId(refId);
+            if (refractory == null)
                 return NotFound();
 
-            if (post.IsBlocked)
-                return BadRequest("This post blocked");
+            if (refractory.IsBlocked)
+                return BadRequest("This refractory blocked");
 
             var userId = User.Identity.GetUserId();
             if (userId == null)
                 return this.Unauthorized();
 
             List<CommentViewModel> comments = AutoMapper.Mapper.Map<IEnumerable<DTOComment>, List<CommentViewModel>>(
-            await _uow.CommentService.GetCommentsToPost(postId));
+            await _uow.CommentService.GetCommentsToRefractory(refId));
 
             if (comments != null)
                 return Ok(comments);
@@ -96,7 +96,7 @@ namespace WebApi.Controllers
             if (comment == null)
                 return NotFound();
 
-            DTOPost post = await _uow.PostService.GetPostByPosId(comment.PostId);
+            DTORefractory post = await _uow.RefractoryService.GetRefractoryByRefId(comment.RefractoryId);
             if (post == null)
                 return NotFound();
 

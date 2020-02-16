@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http'
 import { ToastrService } from 'ngx-toastr';
-import { PostService } from '../shared/post.service';
+import { RefractoryService } from './refractory.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,17 @@ export class ModeratorService {
 
   readonly rootUrl = 'https://localhost:44302/api/moder';
 
-  constructor(private http: HttpClient,private toastr: ToastrService, private postService: PostService,) { }
+  constructor(private http: HttpClient, private toastr: ToastrService, private postService: RefractoryService) { }
 
- 
-  BlockPost(PostId: string) {
-    console.log(PostId + " :postdId");
+
+  BlockPost(RefId: string) {
+    console.log(RefId + " :refractory Id");
 
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
-    return this.http.get(this.rootUrl + "/block/post/" + PostId, {headers: tokenHeader}).subscribe
+    return this.http.get(this.rootUrl + "/block/refractory/" + RefId, {headers: tokenHeader}).subscribe
     (
       (res:any) => {
-        this.toastr.success('Post Blocked');
+        this.toastr.success('Данi по вогнетриву заблоковано');
         this.postService.GetAllPosts();
         console.log("updated");
        },
@@ -32,14 +32,14 @@ export class ModeratorService {
 
   }
 
-  UnblockPost(PostId: string) {
+  UnblockPost(RefId: string) {
 
-    console.log(PostId + " :postdId");
+    console.log(RefId + " :refractory Id");
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
-    return this.http.get(this.rootUrl + "/unblock/post/" + PostId, {headers: tokenHeader}).subscribe
+    return this.http.get(this.rootUrl + "/unblock/refractory/" + RefId, {headers: tokenHeader}).subscribe
     (
       (res:any) => {
-        this.toastr.success('Post Unblocked');
+        this.toastr.success('Данi по вогнетриву разблоковано');
         this.postService.GetAllPosts();
         console.log("updated");
        },

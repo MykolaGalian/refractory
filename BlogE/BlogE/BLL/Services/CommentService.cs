@@ -40,16 +40,16 @@ namespace BLL.Services
             await _uow.Comments.Delete(dtoCommentId);
         }
 
-        public async Task<IEnumerable<DTOComment>> GetCommentsToPost(int postId)
+        public async Task<IEnumerable<DTOComment>> GetCommentsToRefractory(int refId)
         {
-            var comments = (await _uow.Comments.SelectAll(x => x.PostId == postId)).OrderByDescending(x => x.DateCreation).ToList();
+            var comments = (await _uow.Comments.SelectAll(x => x.RefractoryId == refId)).OrderByDescending(x => x.DateCreation).ToList();
             
             return AutoMapper.Mapper.Map<IEnumerable<Comment>, IEnumerable<DTOComment>>(comments);
         }
 
-        public async Task<DTOComment> GetCommentByComId(int comid)
+        public async Task<DTOComment> GetCommentByComId(int comId)
         {
-            return AutoMapper.Mapper.Map<Comment, DTOComment>(await _uow.Comments.SelectById(comid));
+            return AutoMapper.Mapper.Map<Comment, DTOComment>(await _uow.Comments.SelectById(comId));
         }
     }
 }

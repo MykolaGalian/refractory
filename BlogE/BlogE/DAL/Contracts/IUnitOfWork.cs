@@ -14,7 +14,7 @@ namespace DAL.Contracts
         ApplicationRoleManager RoleManager { get; }
 
         IGenericRepository<Comment> Comments { get; }
-        IGenericRepository<Post> Posts { get; }
+        IGenericRepository<Refractory> Refractory { get; }
         IGenericRepository<UserInfo> UserInfo { get; }
         Task Save(); 
     }

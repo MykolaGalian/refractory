@@ -16,11 +16,11 @@ namespace BLL.DTO
         public string Password { get; set; } //for Identity
         public string Login { get; set; }
         public string UserAvatar { get; set; }
-        public string Address { get; set; }
+        public string Position { get; set; }  //adr
         public bool IsBlocked { get; set; }
         public DateTime? DateRegistration { get; set; }
 
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Refractory> Refractory { get; set; }
         public List<string> Roles { get; set; }
 
 

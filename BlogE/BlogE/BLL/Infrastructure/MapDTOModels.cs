@@ -16,12 +16,12 @@ namespace BLL.Infrastructure
         public MapDTOModels()
         {
             CreateMap<Comment, DTOComment>().ReverseMap(); // bidirectional mapping
-            CreateMap<Post, DTOPost>().ReverseMap();
+            CreateMap<Refractory, DTORefractory>().ReverseMap();
             CreateMap<UserInfo, DTOUser>().ReverseMap();
             CreateMap<ApplicationUser, DTOUser>();
 
             //the set of properties of the ApplicationUser and DTOUser models is different,
-            //so we need to use the additional ForMember () method to map properties of one class onto properties of another class
+            //so we need to use the additional ForMember() method to map properties of one class onto properties of another class
             CreateMap<DTOUser, ApplicationUser>().ForMember(x => x.UserName, opt => opt.MapFrom(y => y.Login))
                 .ForMember(x => x.Roles, opt => opt.Ignore());  //ignore Roles (string type)
         }

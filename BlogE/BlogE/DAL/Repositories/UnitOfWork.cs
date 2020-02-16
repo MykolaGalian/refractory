@@ -15,7 +15,7 @@ namespace DAL.Repositories
         private readonly ApplicationDbContext _db;
 
         private GenericRepository<Comment> _comments;
-        private GenericRepository<Post> _posts;
+        private GenericRepository<Refractory> _refractory;
         private GenericRepository<UserInfo> _users;
 
         private ApplicationUserManager _userManager;
@@ -37,15 +37,15 @@ namespace DAL.Repositories
                 return _comments;
             }
         }
-        public IGenericRepository<Post> Posts
+        public IGenericRepository<Refractory> Refractory
         {
             get
             {
-                if (this._posts == null)
+                if (this._refractory == null)
                 {
-                    this._posts = new GenericRepository<Post>(_db); 
+                    this._refractory = new GenericRepository<Refractory>(_db); 
                 }
-                return _posts;
+                return _refractory;
             }
         }
 

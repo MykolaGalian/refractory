@@ -67,11 +67,11 @@
     <Compile Include="Contracts\IBLLUnitOfWork.cs" />
     <Compile Include="Contracts\ICommentService.cs" />
     <Compile Include="Contracts\IModeratorService.cs" />
-    <Compile Include="Contracts\IPostService.cs" />
+    <Compile Include="Contracts\IRefractoryService.cs" />
     <Compile Include="Contracts\IUserManagerService.cs" />
     <Compile Include="Contracts\IUserInfoService.cs" />
     <Compile Include="DTO\DTOComment.cs" />
-    <Compile Include="DTO\DTOPost.cs" />
+    <Compile Include="DTO\DTORefractory.cs" />
     <Compile Include="DTO\DTOUser.cs" />
     <Compile Include="Infrastructure\DIResolver.cs" />
     <Compile Include="Infrastructure\MapDTOModels.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Services\BLLUnitOfWork.cs" />
     <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\ModeratorService.cs" />
-    <Compile Include="Services\PostService.cs" />
+    <Compile Include="Services\RefractoryService.cs" />
     <Compile Include="Services\UserManagerService.cs" />
     <Compile Include="Services\UserInfoService.cs" />
   </ItemGroup>

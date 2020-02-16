@@ -18,8 +18,5 @@ namespace BLL.Contracts
         Task<DTOUser> GetUserByLogin(string login);
         Task<bool> IsUserInRoleAdmin(int userId); //check user if Admin
         Task<bool> IsUserInRoleModerator(int userId); //check user if Moderator
-       
-
-
     }
 }

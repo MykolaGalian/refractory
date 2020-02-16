@@ -17,8 +17,8 @@ namespace BLL.DTO
         public int UserInfoId { get; set; }
         public virtual DTOUser UserInfo { get; set; }
 
-        public int PostId { get; set; }
-        public virtual DTOPost Post { get; set; }
+        public int RefractoryId { get; set; }
+        public virtual DTORefractory Refractory { get; set; }
         
       
     }

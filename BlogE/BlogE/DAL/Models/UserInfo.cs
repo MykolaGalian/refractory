@@ -26,18 +26,18 @@ namespace DAL.Models
         public string Login { get; set; }
         public string UserAvatar { get; set; }
         [MaxLength(100)]
-        public string Address { get; set; }
+        public string Position { get; set; }  //adr
         public bool IsBlocked { get; set; }
         public DateTime? DateRegistration { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Refractory> Refractories { get; set; }
 
 
         public UserInfo()
         {
-            Posts = new List<Post>();
+            Refractories = new List<Refractory>();
         }
     }
 }

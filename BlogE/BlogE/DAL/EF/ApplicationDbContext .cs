@@ -13,25 +13,30 @@ namespace DAL.EF
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole, int, CustomUserLogin,
         CustomUserRole, CustomUserClaim>
     {
-        static ApplicationDbContext()
-        {
-           Database.SetInitializer<ApplicationDbContext>(new ContextInitializer());  
+        static ApplicationDbContext()  {            
+
+          //  Database.SetInitializer<ApplicationDbContext>(new ContextInitializer()); //remove after creation DB
         }
 
         public ApplicationDbContext(string connection) : base(connection)
         {
+           // Database.Initialize(true);   //remove after creation DB
+        }
+
+        public ApplicationDbContext() : base("RefractoryDB")
+        {
 
         }
-       
+
         public DbSet<Comment> Comment_ { get; set; }  
-        public DbSet<Post> Post_ { get; set; }
+        public DbSet<Refractory> Refractory_ { get; set; }
         public DbSet<UserInfo> UserInfo_ { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {           
             //to prevent cycles or multiple cascade paths
-            modelBuilder.Entity<Post>().HasRequired(i => i.UserInfo).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Refractory>().HasRequired(i => i.UserInfo).WithMany().WillCascadeOnDelete(false);
            
 
             base.OnModelCreating(modelBuilder);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../shared/post.service';
+import { RefractoryService } from '../../../shared/refractory.service';
 import { CommentService } from '../../../shared/comment.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,11 +14,11 @@ export class ReadPostComponent implements OnInit {
   private userLogin: string = '';
   private commentText: string = '';
 
-  constructor(private postService: PostService, private commentService: CommentService,private toastr: ToastrService) { }
+  constructor(private postService: RefractoryService, private commentService: CommentService, private toastr: ToastrService) { }
 
   ngOnInit() {
    this.userLogin =this.postService.post.UserInfo.Login;
-  
+
   }
 
   AutorizeCheck() {

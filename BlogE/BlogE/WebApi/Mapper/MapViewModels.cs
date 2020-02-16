@@ -18,8 +18,8 @@ namespace WebApi.Mapper
             CreateMap<DTOUser, ProfileViewModel>();
             CreateMap<ChangeProfileViewModel, DTOUser>();
 
-            CreateMap<DTOPost, PostViewModel>();
-            CreateMap<PostEditViewModel, DTOPost>();
+            CreateMap<DTORefractory, RefractoryViewModel>();
+            CreateMap<RefractoryEditViewModel, DTORefractory>();
 
             CreateMap<DTOComment, CommentViewModel>();       
 

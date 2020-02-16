@@ -91,7 +91,7 @@
     <Compile Include="Identity\IdentityModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\MyEntity.cs" />
-    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Refractory.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Contracts\IGenericRepository.cs" />

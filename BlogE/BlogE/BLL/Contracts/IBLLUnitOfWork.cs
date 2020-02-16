@@ -10,7 +10,7 @@ namespace BLL.Contracts
     {
         IAdminService AdminService { get; }
         ICommentService CommentService { get; }
-        IPostService PostService { get; }
+        IRefractoryService RefractoryService { get; }
         IUserInfoService UserInfoService { get; }
         IUserManagerService UserManagerService { get; }
         IModeratorService ModeratorService { get; }

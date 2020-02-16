@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../shared/post.service';
-import { Post } from '../../../model/post/post';
+import { RefractoryService } from '../../../shared/refractory.service';
+import { Refractory } from '../../../model/refractory/refractory';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,15 +10,15 @@ import { Router } from '@angular/router';
 })
 export class PostBytegComponent implements OnInit {
 
-  constructor(private postService: PostService, private router: Router) { }
+  constructor(private postService: RefractoryService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  populateForm(pd: Post) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
+  populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
     this.postService.post = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в
     this.postService.tempPostId = pd.Id;
     this.router.navigate(['/read-post']);
-  } 
+  }
 
 }

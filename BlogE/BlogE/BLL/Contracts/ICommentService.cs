@@ -1,8 +1,6 @@
 ﻿using BLL.DTO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Contracts
@@ -11,7 +9,7 @@ namespace BLL.Contracts
     {
         Task AddComment(DTOComment dtoComment);
         Task DeleteComment(int dtoCommentId); 
-        Task<IEnumerable<DTOComment>> GetCommentsToPost(int postId);
-        Task<DTOComment> GetCommentByComId(int comid);
+        Task<IEnumerable<DTOComment>> GetCommentsToRefractory(int refId);
+        Task<DTOComment> GetCommentByComId(int comId);
     }
 }
