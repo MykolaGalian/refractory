@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RefractoryService } from '../../shared/refractory.service';
 import { UserService } from '../../shared/user.service';
-
 import { Refractory } from '../../model/refractory/refractory';
 import { Router } from '@angular/router';
 
@@ -12,26 +11,24 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private postService: RefractoryService, private router: Router, private service: UserService) { }
+  constructor(private refService: RefractoryService, private router: Router, private service: UserService) { }
 
   ngOnInit() {
-    this.postService.GetPosts();
+    this.refService.GetRefractories();
     this.service.getUserProfile();
-    this.postService.GetTegs();
+    this.refService.GetTegs();
   }
 
 
-  populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
-    this.postService.post = Object.assign({}, pd);   // Object.assign
-    this.postService.tempPostId = pd.Id;
+  populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (refService.refractory) типа refractory на основании обьекта выделенного из списка pd в представлении
+    this.refService.refractory = Object.assign({}, pd);   // Object.assign
+    this.refService.tempRefractoryId = pd.Id;
     this.router.navigate(['/read-post']);
   }
 
   searchByTeg(teg: string) {
-    this.postService.SearchByTeg(teg);
+    this.refService.SearchByTeg(teg);
 
   }
-
-
 }
 

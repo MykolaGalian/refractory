@@ -14,61 +14,56 @@ export class RefractoryService {
   private postOnEdit:boolean=false;
 
   tegslist: string[] =null;
-  tempPostId: number = 0;
-  postsByTeg:  Refractory[] = null;
-  moderPosts:  Refractory[] = null;
-  posts: Refractory[] = null;
-  post: Refractory =null;
+  tempRefractoryId: number = 0;
+  refractoryByTeg:  Refractory[] = null;
+  moderRefractories:  Refractory[] = null;
+  refractories: Refractory[] = null;
+  refractory: Refractory =null;
   readonly rootUrl = 'https://localhost:44302/api/refractory';
-  postForGetId: Refractory = null;
-  bodyForNewPost: string = null;
+  refractoryForGetId: Refractory = null;
+  bodyForNewRefractory: string = null;
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  GetPosts() {
-
+  GetRefractories() {
        var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
-
        return this.http.get(this.rootUrl + '/getallrefractories', {headers:reqHeader}).
 
        subscribe((res: any) => {
-           this.posts = res as Refractory[];
+           this.refractories = res as Refractory[];
 
-           for (let i = 0; i < this.posts.length; i++) {
-           this.posts[i].Src = this.rootUrl +'/image/get?imageName=' + this.posts[i].RefractoryPicture +'&userLogin=' + this.posts[i].UserInfo.Login;
+           for (let i = 0; i < this.refractories.length; i++) {
+           this.refractories[i].Src = this.rootUrl +'/image/get?imageName=' + this.refractories[i].RefractoryPicture +'&userLogin=' + this.refractories[i].UserInfo.Login;
           }
          })
        }
 
-       GetPostsById(RefId: number) {
-        var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
-           return this.http.get(this.rootUrl + '/' +RefId, {headers:tokenHeader}).
+  GetRefractoryById(RefId: number) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+      return this.http.get(this.rootUrl + '/' +RefId, {headers:tokenHeader}).
 
-           subscribe((res: any) => {
-               this.post = res as Refractory;
-               this.post.Src = this.rootUrl +'/image/get?imageName=' + this.post.RefractoryPicture +'&userLogin=' + this.post.UserInfo.Login;
+      subscribe((res: any) => {
+        this.refractory = res as Refractory;
+        this.refractory.Src = this.rootUrl +'/image/get?imageName=' + this.refractory.RefractoryPicture +'&userLogin=' + this.refractory.UserInfo.Login;
+     })
+   }
 
-             })
-           }
-
-  GetAllPosts(){
+  GetAllRefractories(){
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
        return this.http.get(this.rootUrl + '/getallrefractoriesmoder', {headers:tokenHeader}).
 
        subscribe((res: any) => {
-           this.moderPosts = res as Refractory[];
-
-
-           for (let i = 0; i < this.moderPosts.length; i++) {
-           this.moderPosts[i].Src = this.rootUrl +'/image/get?imageName=' + this.moderPosts[i].RefractoryPicture +'&userLogin=' + this.moderPosts[i].UserInfo.Login;
+           this.moderRefractories = res as Refractory[];
+           for (let i = 0; i < this.moderRefractories.length; i++) {
+           this.moderRefractories[i].Src = this.rootUrl +'/image/get?imageName=' + this.moderRefractories[i].RefractoryPicture +'&userLogin=' + this.moderRefractories[i].UserInfo.Login;
           }
        })
   }
 
-   AddPost(data: any, fileToUpload: File)  {
+   AddRefractory(data: any, fileToUpload: File)  {
       const formData: FormData = new FormData();
       formData.append('RefPicture', fileToUpload, fileToUpload.name);
-      this.bodyForNewPost = data.value.body;
+      this.bodyForNewRefractory = data.value.body;
       formData.append("Brand", data.value.title);
       formData.append("Type", data.value.hashtags);
 
@@ -76,7 +71,7 @@ export class RefractoryService {
     return this.http.post(this.rootUrl+'/add', formData, {headers: tokenHeader});
   }
 
-  EditPost(postId: number, form: NgForm) {
+  EditRefractory(postId: number, form: NgForm) {
     const body: EditRefractory = {
       RefractoryDescription: form.value.PostBody, //PostBody - Body
       RefractoryBrand: form.value.PostTitle,
@@ -86,10 +81,10 @@ export class RefractoryService {
     return this.http.put(this.rootUrl + '/'+postId , body, {headers: tokenHeader});
   }
 
-  //for new post add text body, after send picture and get post Id
-  AddBodyForPost(post: Refractory) {
+  //for new refractory add text body, after send picture and get post Id
+  AddBodyForRefractory(post: Refractory) {
     const body: EditRefractory = {
-      RefractoryDescription: this.bodyForNewPost, //PostBody - Body
+      RefractoryDescription: this.bodyForNewRefractory, 
       RefractoryBrand: post.RefractoryBrand,
       RefractoryType: post.RefractoryType
     }
@@ -101,7 +96,7 @@ export class RefractoryService {
   }
 
 
-  GetPostByTitle(data: any){
+  GetRefractoryByTitle(data: any){
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
 
     const body: EditRefractory = {
@@ -113,14 +108,14 @@ export class RefractoryService {
        return this.http.post(this.rootUrl + '/getrefbybrand', body , {headers:reqHeader}).
 
        subscribe((res: any) => {
-           this.postForGetId = res as Refractory;   // getting Post and PostId from it
-           this.AddBodyForPost(this.postForGetId)
+           this.refractoryForGetId = res as Refractory;   // getting Refractory and RefId from it
+           this.AddBodyForRefractory(this.refractoryForGetId)
   });
 }
 
 
 
-  DeletePost(Id: number) {
+  DeleteRefractory(Id: number) {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
     return this.http.delete(this.rootUrl + '/' + Id, {headers: tokenHeader} );
   }
@@ -140,11 +135,11 @@ export class RefractoryService {
 
     return this.http.post(this.rootUrl + '/getrefractoriesbytype',formData, {headers: tokenHeader} ).
             subscribe((res: any) => {
-              this.postsByTeg = res as Refractory[];
-              for (let i = 0; i < this.postsByTeg.length; i++) {
-                this.postsByTeg[i].Src = this.rootUrl +'/image/get?imageName=' + this.postsByTeg[i].RefractoryPicture +'&userLogin=' + this.postsByTeg[i].UserInfo.Login;
+              this.refractoryByTeg = res as Refractory[];
+              for (let i = 0; i < this.refractoryByTeg.length; i++) {
+                this.refractoryByTeg[i].Src = this.rootUrl +'/image/get?imageName=' + this.refractoryByTeg[i].RefractoryPicture +'&userLogin=' + this.refractoryByTeg[i].UserInfo.Login;
               }
-              this.router.navigateByUrl('/post-byteg');
+              this.router.navigateByUrl('/ref-byteg');
         });
   }
 

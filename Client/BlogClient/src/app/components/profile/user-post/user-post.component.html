@@ -1,76 +1,65 @@
-<div class="card blog-post pointer"  >
+<div class="card refractory pointer"  >
         <div class="card-body">
-
             <div class="edit-buttons" >
-                <button (click)="postOnEdit=true"> &#9998; </button>
-                <button (click)="OnDeletePost()">&times; </button>
+                <button (click)="refractoryOnEdit=true"> &#9998; </button>
+                <button (click)="OnDeleteRefractory()">&times; </button>
             </div>
-
               <div><br></div>
-              <img [src]="postService.post.Src" alt="Заглавная картинка из поста " height="420">
-              <div><br></div>
+              <img [src]="refractoryService.refractory.Src" alt="Головний малюнок" height="420">            
 
-              <!-- Initial Post     -->
-        <div class="initialPost" *ngIf="!postOnEdit">
-          <h4 class="card-title">{{postService.post.RefractoryBrand}}</h4>
+              <!-- Initial Refractory     -->
+        <div class="initialRefractory" *ngIf="!refractoryOnEdit">
+          <span class="text-black font-weight-bold anchor" >  {{refractoryService.refractory.RefractoryType}} </span>
+          <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>
 
-          <h5 class="card-title">    <label [innerHtml]="postService.post.RefractoryDescription"></label></h5>
-          <span class="text-black font-weight-bold anchor" >Post created {{postService.post.DateCreate | date : "MMM d, y"}}</span>
+          <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>
 
-          <p *ngIf="postService.post.LastEdit!=null">
-              <span class="text-black font-weight-bold anchor" >Post last edited {{postService.post.LastEdit | date : "MMM d, y"}}</span>
-          </p>
-
-          <div><br></div>
-          <span class="text-black font-weight-bold anchor" >  {{postService.post.RefractoryType}} </span>
-          <h5>Posted by: {{postService.post.UserInfo.Login}}</h5>
-          <div><br></div>
-          <h5> Comments:</h5>
-                <div class="comment"  *ngFor="let comment of postService.post.Comments" >
-                    <span>{{comment.DateCreation | date : "MMM d, y"}} </span>
-                    <span>"{{comment.CommentBody}}" </span>
-                    <span>    by:   {{comment.UserInfo.Login}}  </span>
+          <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
+          <span class="text-black font-weight-bold anchor">Стаття розміщенна: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br>
+          <span class="text-black font-weight-bold anchor" *ngIf="refractoryService.refractory.LastEdit!=null">Стаття зміненна: {{refractoryService.refractory.LastEdit | date : "MMM d, y"}}</span><br><br>
+        
+           
+            <h5><u> Відгуки про вогнетрив:</u></h5>
+            <div class="comment"  *ngFor="let comment of refractoryService.refractory.Comments" >
+                    <span>{{comment.DateCreation | date : "MMM d, y"}}</span><br>
+                    <span>"{{comment.CommentBody}}"</span><br>
+                    <span>{{comment.UserInfo.Name}} {{comment.UserInfo.LastName}}, {{comment.UserInfo.Position}}</span>
                     <span>
                       <button class="del-com-button" (click)="OnDeleteComment(comment.Id)"> &times;</button>
-                    </span>
-               </div>
+                    </span><br><br>
+            </div>
 
                          <!--add comment-->
           <div class="addComments" >
               <form #messageForm="ngForm"  #commentInput (ngSubmit)="OnAddComment(CommentText.value);">
                   <div class="form-group">
-                    <label class="col-form-label">New comment:</label>
+                    <label class="col-form-label">Новий відгук про роботу вогнетрива:</label>
                     <textarea class="add-comment form-control" #CommentText [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}"></textarea>
                   </div>
-                  <button id="sendButton" type="submit" class="btn btn-info">Add comment</button>
+                  <button id="sendButton" type="submit" class="btn btn-info">Додати відгук</button>
                 </form>
           </div>
-
         </div>
 
               <!-- Post  edit  -->
-              <form #EditPostForm="ngForm" (ngSubmit)="OnPostEdit(EditPostForm)" *ngIf="postOnEdit">
+              <form #EditPostForm="ngForm" (ngSubmit)="OnRefractoryEdit(EditPostForm)" *ngIf="refractoryOnEdit">
 
                 <div class="form-group">
                    <label class="control-label" for="PostTitle">Title:</label>
-                     <textarea class="form-control" rows="1" #PostTitle="ngModel" name="PostTitle" [(ngModel)]="postService.post.RefractoryBrand"></textarea>  <!--postService.post.PostTitle -->
+                     <textarea class="form-control" rows="1" #PostTitle="ngModel" name="PostTitle" [(ngModel)]="refractoryService.refractory.RefractoryBrand"></textarea>  <!--postService.post.PostTitle -->
                   </div>
 
                   <div class="form-group">
                       <label class="control-label" for="PostBody">Body:</label>
-                  <quill-editor [style]="editorStyle" [modules]="config"  #PostBody="ngModel" name="PostBody" [(ngModel)]="postService.post.RefractoryDescription">  </quill-editor>
+                  <quill-editor [style]="editorStyle" [modules]="config"  #PostBody="ngModel" name="PostBody" [(ngModel)]="refractoryService.refractory.RefractoryDescription">  </quill-editor>
                   </div>
 
 
                   <div class="form-group">
                     <label class="control-label" for="Hashtags">#hashtags:</label>
-                    <textarea class="form-control" rows="1" name="Hashtags" #Hashtags="ngModel" [(ngModel)]="postService.post.RefractoryType"></textarea>
+                    <textarea class="form-control" rows="1" name="Hashtags" #Hashtags="ngModel" [(ngModel)]="refractoryService.refractory.RefractoryType"></textarea>
                   </div>
-
                   <input class="btn btn-danger" type="submit" id="submit" value="Edit">
                 </form>
-
-
-
         </div>
     </div>

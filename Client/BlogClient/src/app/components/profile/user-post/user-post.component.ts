@@ -12,21 +12,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserPostComponent implements OnInit {
 
-  private postOnEdit:boolean=false;
+  private refractoryOnEdit:boolean=false;
   private commentText: string = '';
 
-  constructor(private postService: RefractoryService, private router: Router,
+  constructor(private refractoryService: RefractoryService, private router: Router,
               private commentService: CommentService, private toastr: ToastrService) {}
 
+  ngOnInit() {  }
 
-
-  ngOnInit() {
-  }
-
-
-  OnPostEdit(form:NgForm) {
-    this.postService.EditPost(this.postService.post.Id, form).subscribe((data: any) => {
-        this.postOnEdit = false;
+  OnRefractoryEdit(form:NgForm) {
+    this.refractoryService.EditRefractory(this.refractoryService.refractory.Id, form).subscribe((data: any) => {
+        this.refractoryOnEdit = false;
         this.toastr.success('Post edited');
         },
         Error => {console.log(Error);
@@ -34,9 +30,8 @@ export class UserPostComponent implements OnInit {
         });
   }
 
-
-  OnDeletePost() {
-    this.postService.DeletePost(this.postService.post.Id).subscribe((data: any) => {
+  OnDeleteRefractory() {
+    this.refractoryService.DeleteRefractory(this.refractoryService.refractory.Id).subscribe((data: any) => {
       this.toastr.success('Post deleted');
         this.router.navigate(['/profile']);
       },
@@ -46,7 +41,7 @@ export class UserPostComponent implements OnInit {
   }
 
   OnAddComment(comment:string) {
-    this.commentService.AddComment(this.postService.post.Id, comment).subscribe((data: any) => {
+    this.commentService.AddComment(this.refractoryService.refractory.Id, comment).subscribe((data: any) => {
       this.toastr.success('Comment Added');
         this.commentText = '';
       },
@@ -59,7 +54,7 @@ export class UserPostComponent implements OnInit {
 
     this.commentService.RemoveComment(commentId).subscribe((data: any) => {
       this.toastr.success('Comment deleted');
-      this.postService.GetPostsById(this.postService.tempPostId);
+      this.refractoryService.GetRefractoryById(this.refractoryService.tempRefractoryId);
     },
     Error => {
       this.toastr.error('HTTP status code', Error.status);

@@ -21,7 +21,7 @@ export class ModeratorService {
     (
       (res:any) => {
         this.toastr.success('Данi по вогнетриву заблоковано');
-        this.postService.GetAllPosts();
+        this.postService.GetAllRefractories();
         console.log("updated");
        },
       err => {
@@ -40,7 +40,7 @@ export class ModeratorService {
     (
       (res:any) => {
         this.toastr.success('Данi по вогнетриву разблоковано');
-        this.postService.GetAllPosts();
+        this.postService.GetAllRefractories();
         console.log("updated");
        },
       err => {

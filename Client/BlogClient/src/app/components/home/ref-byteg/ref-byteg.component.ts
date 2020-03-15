@@ -4,20 +4,20 @@ import { Refractory } from '../../../model/refractory/refractory';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-post-byteg',
-  templateUrl: './post-byteg.component.html',
-  styleUrls: ['./post-byteg.component.css']
+  selector: 'app-ref-byteg',
+  templateUrl: './ref-byteg.component.html',
+  styleUrls: ['./ref-byteg.component.css']
 })
-export class PostBytegComponent implements OnInit {
+export class RefractoryBytegComponent implements OnInit {
 
-  constructor(private postService: RefractoryService, private router: Router) { }
+  constructor(private refractoryService: RefractoryService, private router: Router) { }
 
   ngOnInit() {
   }
 
   populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
-    this.postService.post = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в
-    this.postService.tempPostId = pd.Id;
+    this.refractoryService.refractory = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в
+    this.refractoryService.tempRefractoryId = pd.Id;
     this.router.navigate(['/read-post']);
   }
 

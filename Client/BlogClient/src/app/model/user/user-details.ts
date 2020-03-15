@@ -1,5 +1,4 @@
 import { Refractory } from '../refractory/refractory';
-
 export class UserDetails {
     Id: number;
     Login: string;
@@ -9,7 +8,7 @@ export class UserDetails {
     UserAvatar: string;
     DateRegistration: Date;
     Email: string;
-    Refractories:Refractory[];
+    Refractories: Refractory[];
     IsAdmin: Boolean;
     IsModerator: Boolean;
     IsBlocked: Boolean;

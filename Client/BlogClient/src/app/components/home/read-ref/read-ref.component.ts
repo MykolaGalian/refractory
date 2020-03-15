@@ -5,19 +5,19 @@ import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
-  selector: 'app-read-post',
-  templateUrl: './read-post.component.html',
-  styleUrls: ['./read-post.component.css']
+  selector: 'app-read-ref',
+  templateUrl: './read-ref.component.html',
+  styleUrls: ['./read-ref.component.css']
 })
-export class ReadPostComponent implements OnInit {
+export class ReadRefractoryComponent implements OnInit {
 
   private userLogin: string = '';
   private commentText: string = '';
 
-  constructor(private postService: RefractoryService, private commentService: CommentService, private toastr: ToastrService) { }
+  constructor(private refractoryService: RefractoryService, private commentService: CommentService, private toastr: ToastrService) { }
 
   ngOnInit() {
-   this.userLogin =this.postService.post.UserInfo.Login;
+   this.userLogin =this.refractoryService.refractory.UserInfo.Login;
 
   }
 
@@ -26,9 +26,9 @@ export class ReadPostComponent implements OnInit {
   }
 
   OnAddComment(comment:string) {
-    this.commentService.AddComment(this.postService.post.Id, comment).subscribe((data: any) => {
+    this.commentService.AddComment(this.refractoryService.refractory.Id, comment).subscribe((data: any) => {
       this.toastr.success('Comment added');
-      this.postService.GetPostsById(this.postService.tempPostId);
+      this.refractoryService.GetRefractoryById(this.refractoryService.tempRefractoryId);
         this.commentText = '';
       },
       Error => {
@@ -40,7 +40,7 @@ export class ReadPostComponent implements OnInit {
 
     this.commentService.RemoveComment(commentId).subscribe((data: any) => {
       this.toastr.success('Comment deleted');
-      this.postService.GetPostsById(this.postService.tempPostId);
+      this.refractoryService.GetRefractoryById(this.refractoryService.tempRefractoryId);
     },
     Error => {
       this.toastr.error('HTTP status code', Error.status);

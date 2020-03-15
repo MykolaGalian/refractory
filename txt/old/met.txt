@@ -1,0 +1,6 @@
+
+            var profiles = await _uow.UserInfoService.GetAllUserInfo();
+            foreach (DTOPost p in posts)
+            {
+                p.Author = profiles.FirstOrDefault(c => c.Id == p.Author.Id);
+            } 

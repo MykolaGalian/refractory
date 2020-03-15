@@ -1,10 +1,10 @@
 <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand text-white">Your profile:  "{{service.userDetails.Login}}" </a>
-        <button class="btn btn-danger my-2 my-sm-0" (click)="addPost()">Add post</button>
-        <button *ngIf="service.userDetails.IsAdmin" class="btn btn-danger my-2 my-sm-0" (click)="userManager()">User manager</button>
-        <button *ngIf="service.userDetails.IsModerator" class="btn btn-danger my-2 my-sm-0" (click)="postModerator()">Post manager</button>
-        <button class="btn btn-danger my-2 my-sm-0" (click)="onProfileEdit()">Edit Profile</button>
-        <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+        <button class="btn btn-danger my-2 my-sm-0" (click)="addPost()">Додати вогнетрив</button>
+        <button *ngIf="service.userDetails.IsAdmin" class="btn btn-danger my-2 my-sm-0" (click)="userManager()">Керування користувачами</button>
+        <button *ngIf="service.userDetails.IsModerator" class="btn btn-danger my-2 my-sm-0" (click)="postModerator()">Керування статтями</button>
+        <button class="btn btn-danger my-2 my-sm-0" (click)="onProfileEdit()">Редагувати профіль</button>
+        <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Вийти</button>
 </nav>
 
 
@@ -26,25 +26,16 @@
         </ul>
      </div>
 
+     <h4 class="card-title" style="margin-left: 20px">Статті вогнетривів користувача:</h4>
         <div class="card blog-post pointer"  *ngFor="let pd of service.userDetails.Refractories">
           <div class="card-body">
 
             <h4 class="card-title">{{pd.RefractoryBrand}}</h4>
-            <img [src]="pd.Src" alt="Заглавная картинка из поста " height="300">
-
-            <div><br></div>
+            <img [src]="pd.Src" alt="Заглавная картинка из поста " height="300"><div><br></div>
 
             <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span>
-            <span class="text-black font-weight-bold anchor" >  {{pd.RefractoryType}} </span>
-            <h5> Comments:</h5>
-                <div class="comment"  *ngFor="let comment of pd.Comments" >
-                    <span>{{comment.DateCreation | date : "MMM d, y"}} </span>
-                    <span>"{{comment.CommentBody}}" </span>
-                    <span>    by:   {{comment.UserInfo.Login}}  </span>
-               </div>
-
-            <div  (click)="populateForms(pd)" >  <h5>Continue reading...</h5>  </div>
-
+            <span class="text-black font-weight-bold anchor" >  {{pd.RefractoryType}} </span>   
+            <div  (click)="populateForms(pd)" >  <h5><u>Перейти до опису вогнетрива</u></h5></div>
           </div>
       </div>
 

@@ -35,9 +35,9 @@ export class ProfileComponent implements OnInit {
 
     localStorage.removeItem('access_token');
     localStorage.removeItem('Login');
-    this.postService.post=null;
-    this.postService.posts=null;
-    this.postService.moderPosts=null;
+    this.postService.refractory=null;
+    this.postService.refractories=null;
+    this.postService.moderRefractories=null;
     this.service.userDetails=null;
     this.service.usersDetails=null;
     this.router.navigate(['/login']);
@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
 
   populateForms(pd: Refractory) {       // метод обновляет данные во временном обьекте (postService.post) типа Post на основании обьекта выделенного из списка pd в представлении
 
-    this.postService.post = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в  Object.assign({}, pd);
+    this.postService.refractory = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в  Object.assign({}, pd);
     this.router.navigate(['/user-post']);
   }
 

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserDetails } from '../model/user/user-details';
-import { UserEdit } from '../model/user/user-edit';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -11,8 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 export class UserService {
   constructor(private fb:FormBuilder, private http: HttpClient, private toastr: ToastrService) {}
 
-  editProfile: UserEdit = null;
-  userDetails : UserDetails =null;
+  editProfile: UserDetails = null;
+  userDetails : UserDetails = null;
   usersDetails : UserDetails[] =null;
 
   readonly BaseURI = 'https://localhost:44302';
