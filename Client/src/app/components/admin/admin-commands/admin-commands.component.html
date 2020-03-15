@@ -1,0 +1,18 @@
+
+<div class="form-row">
+  <div class="form-group col-md-8">
+    <button class="btn btn-primary my-2 my-sm-0" (click)="adminService.BlockAccount()" style="margin-left: 20px;">Заблокувати</button>
+    <button class="btn btn-primary my-2 my-sm-0" (click)="adminService.UnblockAccount()" style="margin-left: 20px;">Розблокувати</button> 
+    
+ </div>
+</div>
+
+  
+     <div class="form-row">
+        <div class="form-group col-md-8">
+        <p style="margin-left: 20px;">Користувач:</p>
+        <input style="margin-left: 20px;" name="Login" #Login="ngModel" [(ngModel)]="service.userDetails.Login" class="form-control"
+               placeholder="логін" disabled>
+      </div>
+     </div>
+     <button style="margin-left: 20px;" class="btn btn-primary my-2 my-sm-0" (click)="regNewUser()">Зареєструвати нового користувача</button> 

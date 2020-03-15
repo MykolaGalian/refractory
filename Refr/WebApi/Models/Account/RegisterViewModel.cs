@@ -29,7 +29,7 @@ namespace WebApi.Models.Account
         [Display(Name = "Confirm password:")]
         public string ConfirmPassword { get; set; }
 
-        public string Address { get; set; }
+        public string Position { get; set; }
 
         [Required]
         [MaxLength(10)]

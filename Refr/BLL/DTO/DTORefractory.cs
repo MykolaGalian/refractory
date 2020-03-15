@@ -14,7 +14,7 @@ namespace BLL.DTO
         public string RefractoryPicture { get; set; }
         public DateTime? DateCreate { get; set; }
         public DateTime? LastEdit { get; set; }
-        public string RefractoryType { get; set; }
+        public string RefractoryType { get; set; }  //tag
         public bool IsBlocked { get; set; }
 
         public float Density { get; set; }

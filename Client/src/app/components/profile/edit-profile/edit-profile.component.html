@@ -1,0 +1,44 @@
+
+<!--Edit profile-->
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="edit-profile-form jumbotron container col-sm-5">
+  <label class="edit-label" style="font-size: 24px;">Редагувати інформацію профілю:</label><br><br>
+  <form #EditProfileForm="ngForm" novalidate (ngSubmit)="OnSubmit()">
+
+    <div class="form-group">
+      <label class="control-label" for="Name">Ім'я</label>
+
+      <input size="30" style="margin-left: 50px;" name="Name" type="text" required #Name="ngModel"  [(ngModel)]="service.editProfile.Name">
+
+      <span *ngIf="Name.errors?.required" class="label label-warning">Треба заповнити поле Ім'я</span>
+    </div>
+
+    <div class="form-group">
+      <label  class="control-label" for="LastName">Прізвище</label>
+      <input size="30" style="margin-left: 5px;" type="text" required name="LastName" #LastName="ngModel" [(ngModel)]="service.editProfile.LastName">
+      <span *ngIf="LastName.errors?.required" class="label label-warning">Треба заповнити поле Прізвище</span>
+    </div>
+
+    <div class="form-group">
+      <label  class="control-label" for="Address">Посада</label>
+      <input size="30" style="margin-left: 25px;" type="text" required name="Address" #Address="ngModel" [(ngModel)]="service.editProfile.Position">
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Email</label>
+      <input size="30" style="margin-left: 40px;"  type="email" name="Email" #Email="ngModel" [(ngModel)]="service.editProfile.Email" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+      <span *ngIf="(!Email.valid)" class="label label-warning">Email обов'язкове поле та має бути у форматі: example@gmail.com</span>
+    </div>
+
+    <input type="submit" class="btn btn-info" id="submit" value="Зберегти зміни профілю">
+  </form>
+
+  <!--delete acc-->
+  <br>
+  <div class="delete-acc">   
+    <button style="margin-left: 15px;" class="btn btn-danger" (click)="OnDeleteAcc()">Видалити профіль</button>
+  </div>
+ </div>
+</div>
+

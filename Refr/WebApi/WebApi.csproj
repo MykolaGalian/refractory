@@ -223,7 +223,6 @@
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Refractory\RefractoryEditViewModel.cs" />
     <Compile Include="Models\Refractory\RefractoryViewModel.cs" />
-    <Compile Include="Models\User\ChangePassViewModel.cs" />
     <Compile Include="Models\User\ChangeProfileViewModel.cs" />
     <Compile Include="Models\User\ProfileViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

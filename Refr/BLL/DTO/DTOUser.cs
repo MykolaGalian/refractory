@@ -16,7 +16,7 @@ namespace BLL.DTO
         public string Password { get; set; } //for Identity
         public string Login { get; set; }
         public string UserAvatar { get; set; }
-        public string Position { get; set; }  //adr
+        public string Position { get; set; }  
         public bool IsBlocked { get; set; }
         public DateTime? DateRegistration { get; set; }
 

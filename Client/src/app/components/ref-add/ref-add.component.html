@@ -1,0 +1,76 @@
+<div class="add-refractory-form jumbotron container text-center">
+  
+  <form #AddRefForm="ngForm"  (ngSubmit)="onSubmit(AddRefForm) ">
+      <div class="add-image">
+      <p *ngIf="imageUrl!=null">
+        <img [src]="imageUrl">
+      </p>
+      <input  class="btn btn-info" type="button" value="Upload picture" onclick="document.getElementById('fileUpload').click();" />
+      <input visibility="hidden" style="display: none;" type="file" id="fileUpload" #Image [ngModelOptions]="{standalone: true}"
+             ngModel accept="image/*" (change)="handleFileInput($event.target.files)" required>
+    </div>    
+    
+    <div class="form-group">
+        <label class="control-label" for="Brand">Маркування вогнетриву:</label>
+        <textarea class="form-control" rows="1" #Brand="ngModel" name="Brand" (ngModel)="addRefractory.Brand" ></textarea>
+      </div>
+
+    <div class="form-group">
+        <label class="control-label" for="Description">Опис вогнетриву:</label>
+    <quill-editor [style]="editorStyle" [modules]="config"  #Description="ngModel" name="Description" (ngModel)="addRefractory.Description">  </quill-editor> 
+  </div>    
+
+    <div class="form-group">
+      <label class="control-label" for="Type">Застосування вогнетриву (Wall, Slag, Free Board):</label>
+      <textarea class="form-control" rows="1"  #Type="ngModel" name="Type" (ngModel)="addRefractory.Type" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Density">Щільність вогнетриву, гр/см3:</label>
+      <textarea class="form-control" rows="1"  #Density="ngModel" name="Density" (ngModel)="addRefractory.Density" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="MaxWorkTemperature">Максимальна робоча температура, градусів:</label>
+      <textarea class="form-control" rows="1"  #MaxWorkTemperature="ngModel" name="MaxWorkTemperature" (ngModel)="addRefractory.MaxWorkTemperature" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Lime">Концентрація CaO, %:</label>
+      <textarea class="form-control" rows="1"  #Lime="ngModel" name="Lime" (ngModel)="addRefractory.Lime" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Alumina">Концентрація Al2O3, %:</label>
+      <textarea class="form-control" rows="1"  #Alumina="ngModel" name="Alumina" (ngModel)="addRefractory.Alumina" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Silica">Концентрація SiO2, %:</label>
+      <textarea class="form-control" rows="1"  #Silica="ngModel" name="Silica" (ngModel)="addRefractory.Silica" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Magnesia">Концентрація MgO, %:</label>
+      <textarea class="form-control" rows="1"  #Magnesia="ngModel" name="Magnesia" (ngModel)="addRefractory.Magnesia" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Carbon">Концентрація C, %:</label>
+      <textarea class="form-control" rows="1"  #Carbon="ngModel" name="Carbon" (ngModel)="addRefractory.Carbon" ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Price">Вартість, USD/т:</label>
+      <textarea class="form-control" rows="1"  #Price="ngModel" name="Price" (ngModel)="addRefractory.Price" ></textarea>
+    </div>
+    
+    <input class="btn btn-success" type="submit" [disabled]="fileToUpload==null" id="submit" value="Додати новий вогнетрив">
+  </form>
+</div>
+
+
+
+
+    
+ 

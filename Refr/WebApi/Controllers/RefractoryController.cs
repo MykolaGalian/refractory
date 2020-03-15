@@ -1,21 +1,17 @@
 ﻿using System;
-
 using System.Web.Http;
 using System.Threading.Tasks;
 using BLL.DTO;
 using BLL.Contracts;
 using Microsoft.AspNet.Identity;
 using WebApi.Models.Post;
-using WebApi.Models.User;
 using System.Web;
-using System.Web.Http;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Collections.Generic;
-using System.ServiceModel.Activation;
-using System.Text;
+
 
 namespace WebApi.Controllers
 {
@@ -147,14 +143,14 @@ namespace WebApi.Controllers
 
             DTORefractory newRefractory = new DTORefractory
             {
-                RefractoryDescription = "", //descriptionRef Body
+                RefractoryDescription = "", //descriptionRef Body (send next step EditRefractory by Id)
                 RefractoryType = httpRequest.Params["Type"],
                 RefractoryBrand = httpRequest.Params["Brand"],
                 DateCreate = DateTime.Now,
                 UserInfoId = authtor.Id,
                 RefractoryPicture = filename,
                 Density = float.Parse(httpRequest.Params["Density"]),
-                MaxWorkTemperature = float.Parse(httpRequest.Params["MaxWorkTemperature"]),                
+                MaxWorkTemperature = float.Parse(httpRequest.Params["MaxWorkTemperature"]), 
                 Lime = float.Parse(httpRequest.Params["Lime"]),
                 Alumina = float.Parse(httpRequest.Params["Alumina"]),
                 Silica = float.Parse(httpRequest.Params["Silica"]),
