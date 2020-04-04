@@ -7,7 +7,7 @@
               <div><br></div>
               <img [src]="refractoryService.refractory.Src" alt="Головний малюнок" height="420">            
 
-              <!-- Initial Refractory     -->
+         <!-- Initial Refractory     -->
         <div class="initialRefractory" *ngIf="!refractoryOnEdit">
           <span class="text-black font-weight-bold anchor" >  {{refractoryService.refractory.RefractoryType}} </span>
           <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-              <!-- Post  edit  -->
+              <!-- Ref  edit  -->
               <form #EditRefForm="ngForm" (ngSubmit)="OnRefractoryEdit(EditRefForm)" *ngIf="refractoryOnEdit">
 
                 <div class="form-group">
@@ -56,10 +56,13 @@
 
 
                   <div class="form-group">
-                    <label class="control-label" for="RefractoryType">Застосування вогнетриву:</label>
-                    <textarea class="form-control" rows="1" name="RefractoryType" #RefractoryType="ngModel" [(ngModel)]="refractoryService.refractory.RefractoryType"></textarea>
+                    <label class="control-label" for="Type">Застосування вогнетриву:</label>
+                    <textarea class="form-control" rows="1" name="Type" #Type="ngModel" [(ngModel)]="refractoryService.refractory.RefractoryType"></textarea>
                   </div>
+
                   <input class="btn btn-danger" type="submit" id="submit" value="Edit">
                 </form>
+
+                
         </div>
     </div>

@@ -10,7 +10,7 @@ export class ModeratorService {
 
   readonly rootUrl = 'https://localhost:44302/api/moder';
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private postService: RefractoryService) { }
+  constructor(private http: HttpClient, private toastr: ToastrService, private refService: RefractoryService) { }
 
 
   BlockRefractory(RefId: string) {
@@ -21,7 +21,7 @@ export class ModeratorService {
     (
       (res:any) => {
         this.toastr.success('Данi по вогнетриву заблоковано');
-        this.postService.GetAllRefractories();
+        this.refService.GetAllRefractories();
         console.log("updated");
        },
       err => {
@@ -40,7 +40,7 @@ export class ModeratorService {
     (
       (res:any) => {
         this.toastr.success('Данi по вогнетриву разблоковано');
-        this.postService.GetAllRefractories();
+        this.refService.GetAllRefractories();
         console.log("updated");
        },
       err => {

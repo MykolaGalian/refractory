@@ -83,7 +83,8 @@ export class RefractoryService {
     return this.http.post(this.rootUrl+'/add', formData, {headers: tokenHeader});
   }
 
-  EditRefractory(postId: number, form: NgForm) {  
+  EditRefractory(refId: number, form: NgForm) { 
+    debugger 
     const body: EditRefractory = {
       RefractoryDescription: form.value.Description, 
       RefractoryBrand: form.value.Brand,
@@ -99,10 +100,10 @@ export class RefractoryService {
       Price: form.value.Price
     }
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
-    return this.http.put(this.rootUrl + '/'+postId , body, {headers: tokenHeader});
+    return this.http.put(this.rootUrl + '/'+refId , body, {headers: tokenHeader});
   }
 
-  //for new refractory add text body, after send picture and get post Id !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //for new refractory add text body, after send picture and get ref Id !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   AddBodyForRefractory(ref: Refractory) {
     const body: EditRefractory = {
       RefractoryDescription: this.bodyForNewRefractory, 

@@ -1,29 +1,29 @@
+<div class="container">
+  <div class="row">
 
-<div class="row">
-  <div class="col-md-9">
+      <div class="col-xs-11 col-sm-11">
+       <div class="row">
 
-    <div class="card refractory pointer"  *ngFor="let pd of refService.refractories">
-      <div class="card-body">
-        <h4 class="card-title">{{pd.RefractoryBrand}}</h4><br>
-        <img [src]="pd.Src" alt="Головний малюнок" height="300">
-        <div><br></div>
-        <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span><br>
-        <span class="text-black font-weight-bold anchor" >Застосунок вогнетриву:  {{pd.RefractoryType}} </span>
-       
-        <div  (click)="populateForm(pd)"><h5><u>Перейти до опису вогнетрива</u></h5></div>
+           <div class="col-xs-3"  *ngFor="let pd of refService.refractories"> 
+            <div class="card-body">                
+              <h4 class="card-body">{{pd.RefractoryBrand}}</h4><br>
+              <img [src]="pd.Src" alt="Головний малюнок" height="300" length="300">
+              <div><br></div>
+              <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span><br>
+              <span class="text-black font-weight-bold anchor" >Застосунок вогнетриву:  {{pd.RefractoryType}} </span>        
+              <div  (click)="populateForm(pd)"><h5><u>Перейти до опису вогнетрива</u></h5></div> 
+            </div> 
+          </div> 
+          
+       </div>   
       </div>
-    </div>
-  </div>
 
-  <div class="col-md-3">
-        <!-- teg list -->
+      <div class="col-xs-1 col-sm-1">
         <h4>Застосунок вогнетрива:</h4>
         <div class="tegs"  *ngFor="let teg of refService.tegslist" >
           <span (click)="searchByTeg(teg)">{{teg}} </span>
-        </div>
+        </div>           
+      </div>
+
   </div>
 </div>
-
-
-
-

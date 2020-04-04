@@ -43,6 +43,8 @@ export class UserRefractoryComponent implements OnInit {
   OnAddComment(comment:string) {
     this.commentService.AddComment(this.refractoryService.refractory.Id, comment).subscribe((data: any) => {
       this.toastr.success('Відгук додано');
+      
+      this.refractoryService.GetRefractoryById(this.refractoryService.refractory.Id);
         this.commentText = '';
       },
       Error => {
@@ -54,7 +56,8 @@ export class UserRefractoryComponent implements OnInit {
 
     this.commentService.RemoveComment(commentId).subscribe((data: any) => {
       this.toastr.success('Відгук видалено');
-      this.refractoryService.GetRefractoryById(this.refractoryService.tempRefractoryId);
+      
+      this.refractoryService.GetRefractoryById(this.refractoryService.refractory.Id);
     },
     Error => {
       this.toastr.error('HTTP status code', Error.status);

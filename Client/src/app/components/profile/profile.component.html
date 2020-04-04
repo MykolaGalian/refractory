@@ -1,17 +1,14 @@
 <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand text-white">Профіль:  "{{service.userDetails.Name}} {{service.userDetails.LastName}}" </a>
-        <button class="btn btn-danger my-2 my-sm-0" (click)="addPost()">Додати вогнетрив</button>
+        <button class="btn btn-danger my-4 my-sm-0" (click)="addPost()">Додати вогнетрив</button>
         <button *ngIf="service.userDetails.IsAdmin" class="btn btn-danger my-2 my-sm-0" (click)="userManager()">Керування користувачами</button>
         <button *ngIf="service.userDetails.IsModerator" class="btn btn-danger my-2 my-sm-0" (click)="postModerator()">Керування статтями</button>
-        <button class="btn btn-danger my-2 my-sm-0" (click)="onProfileEdit()">Редагувати профіль</button>  
-        
-        
-        <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Вийти</button>
+        <button class="btn btn-danger my-4 my-sm-0" (click)="onProfileEdit()">Редагувати профіль</button>         
+        <button class="btn btn-danger my-4 my-sm-0" (click)="onLogout()">Вийти</button>
 </nav>
-
       <div class="row">
-        <div class="col-md-3"> 
-          <div class="card m-5" style="width:18rem" *ngIf="service.userDetails">
+        <div class="col-xs-6 col-sm-6"> 
+          <div class="card m-5" style="width:34rem" *ngIf="service.userDetails">
             <ul class="list-group">
               <li class="list-group-item"> <img [src]="service.imageUrl" height="200"></li>    
               <input type="button" value="Завантажити фото" onclick="document.getElementById('fileUpload').click();" />
@@ -25,21 +22,23 @@
               <li class="list-group-item" *ngIf="service.userDetails.IsAdmin"><strong>Тип користувача: Admin</strong></li>
               <li class="list-group-item" *ngIf="service.userDetails.IsModerator"><strong>Тип користувача: Moderator</strong></li>
             </ul>
-         </div>          
+         </div>                   
         </div>
-
-        <div class="col-md-9">   
-          <h4 class="card-title" style="margin-top: 40px">Статті вогнетривів користувача:</h4>
-          <div class="card refractory pointer"  *ngFor="let pd of service.userDetails.Refractories" style="margin-right:40px">
-            <div class="card-body">  
-              <h4 class="card-title">{{pd.RefractoryBrand}}</h4>
-              <img [src]="pd.Src" alt="Заглавная картинка из поста " height="300"><div><br></div>  
-              <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span>
-              <span class="text-black font-weight-bold anchor" >  {{pd.RefractoryType}} </span>   
-              <div  (click)="populateForms(pd)" >  <h5><u>Перейти до опису вогнетрива</u></h5></div>
+        <div class="col-xs-6 col-sm-6">   
+          <h4 style="margin-top: 40px">Статті вогнетривів користувача:</h4>
+          <div class="row">             
+              <div class="col-xs-3" *ngFor="let pd of service.userDetails.Refractories" style="margin-right:40px">
+                <div class="card-body">  
+                  <h4 class="card-title">{{pd.RefractoryBrand}}</h4>
+                  <img [src]="pd.Src" alt="Заглавная картинка из поста " height="300"><div><br></div>  
+                  <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span>
+                  <span class="text-black font-weight-bold anchor" >  {{pd.RefractoryType}} </span>   
+                  <div  (click)="populateForms(pd)" >  <h5><u>Перейти до опису вогнетрива</u></h5></div>
+                </div>
             </div>
-        </div>
-        </div>
+          </div>
+        </div> 
       </div>
+
       
 

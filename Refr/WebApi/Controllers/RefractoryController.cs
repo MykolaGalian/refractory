@@ -189,6 +189,7 @@ namespace WebApi.Controllers
 
             refractory.RefractoryDescription = updateRef.RefractoryDescription;
             refractory.RefractoryType = updateRef.RefractoryType;
+            refractory.RefractoryBrand = updateRef.RefractoryBrand;
             refractory.LastEdit = DateTime.Now;
 
             refractory.Density = updateRef.Density;
