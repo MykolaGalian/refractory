@@ -13,6 +13,18 @@
           <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>
 
           <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>
+          
+
+          <h5>Фiзичнi властивостi вогнетрива:</h5>
+          <span class="text-black font-weight-bold anchor">Щільність вогнетриву, гр/см3: {{refractoryService.refractory.Density}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Максимальна робоча температура, градусів: {{refractoryService.refractory.MaxWorkTemperature}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація CaO, %: {{refractoryService.refractory.Lime}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація Al2O3, %: {{refractoryService.refractory.Alumina}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація SiO2, %: {{refractoryService.refractory.Silica}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація MgO, %: {{refractoryService.refractory.Magnesia}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація C, %: {{refractoryService.refractory.Carbon}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Вартість, USD/т: {{refractoryService.refractory.Price}}</span><br> 
+          <br> <br> 
 
           <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
           <span class="text-black font-weight-bold anchor">Стаття розміщенна: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br>
@@ -44,20 +56,49 @@
               <!-- Ref  edit  -->
               <form #EditRefForm="ngForm" (ngSubmit)="OnRefractoryEdit(EditRefForm)" *ngIf="refractoryOnEdit">
 
-                <div class="form-group">
+                 <div class="form-group">
                    <label class="control-label" for="Brand">Маркування вогнетриву:</label>
                      <textarea class="form-control" rows="1" #Brand="ngModel" name="Brand" [(ngModel)]="refractoryService.refractory.RefractoryBrand"></textarea>  
                   </div>
-
                   <div class="form-group">
                       <label class="control-label" for="Description">Опис вогнетриву:</label>
                   <quill-editor [style]="editorStyle" [modules]="config"  #Description="ngModel" name="Description" [(ngModel)]="refractoryService.refractory.RefractoryDescription">  </quill-editor>
                   </div>
-
-
                   <div class="form-group">
                     <label class="control-label" for="Type">Застосування вогнетриву:</label>
                     <textarea class="form-control" rows="1" name="Type" #Type="ngModel" [(ngModel)]="refractoryService.refractory.RefractoryType"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Density">Щільність вогнетриву, гр/см3: </label>
+                    <textarea class="form-control" rows="1" name="Density" #Density="ngModel" [(ngModel)]="refractoryService.refractory.Density"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="MaxWorkTemperature">Максимальна робоча температура, градусів: </label>
+                    <textarea class="form-control" rows="1" name="MaxWorkTemperature" #MaxWorkTemperature="ngModel" [(ngModel)]="refractoryService.refractory.MaxWorkTemperature"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Lime">Концентрація CaO, %:</label>
+                    <textarea class="form-control" rows="1" name="Lime" #Lime="ngModel" [(ngModel)]="refractoryService.refractory.Lime"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Alumina">Концентрація Al2O3, %:</label>
+                    <textarea class="form-control" rows="1" name="Alumina" #Alumina="ngModel" [(ngModel)]="refractoryService.refractory.Alumina"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Silica">Концентрація SiO2, %:</label>
+                    <textarea class="form-control" rows="1" name="Silica" #Silica="ngModel" [(ngModel)]="refractoryService.refractory.Silica"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Magnesia">Концентрація MgO, %:</label>
+                    <textarea class="form-control" rows="1" name="Magnesia" #Magnesia="ngModel" [(ngModel)]="refractoryService.refractory.Magnesia"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Carbon">Концентрація C, %:</label>
+                    <textarea class="form-control" rows="1" name="Carbon" #Carbon="ngModel" [(ngModel)]="refractoryService.refractory.Carbon"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label" for="Price">Вартість, USD/т: </label>
+                    <textarea class="form-control" rows="1" name="Price" #Price="ngModel" [(ngModel)]="refractoryService.refractory.Price"></textarea>
                   </div>
 
                   <input class="btn btn-danger" type="submit" id="submit" value="Edit">

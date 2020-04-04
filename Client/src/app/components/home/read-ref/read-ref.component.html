@@ -3,8 +3,20 @@
           <span class="text-black font-weight-bold anchor" >  {{refractoryService.refractory.RefractoryType}} </span>  
           <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>
           <img [src]="refractoryService.refractory.Src" alt="Заглавная картинка из поста " height="420">
-              <div><br></div>
-          <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>         
+            
+          <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>   
+          
+          <h5>Фiзичнi властивостi вогнетрива:</h5>
+          <span class="text-black font-weight-bold anchor">Щільність вогнетриву, гр/см3: {{refractoryService.refractory.Density}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Максимальна робоча температура, градусів: {{refractoryService.refractory.MaxWorkTemperature}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація CaO, %: {{refractoryService.refractory.Lime}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація Al2O3, %: {{refractoryService.refractory.Alumina}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація SiO2, %: {{refractoryService.refractory.Silica}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація MgO, %: {{refractoryService.refractory.Magnesia}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Концентрація C, %: {{refractoryService.refractory.Carbon}}</span><br> 
+          <span class="text-black font-weight-bold anchor">Вартість, USD/т: {{refractoryService.refractory.Price}}</span><br> 
+          <br> <br> 
+
           <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
           <span class="text-black font-weight-bold anchor">Стаття розміщенна: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br><br>      
         
