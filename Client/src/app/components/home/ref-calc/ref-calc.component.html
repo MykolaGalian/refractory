@@ -1,0 +1,118 @@
+<h3 style="font-family:georgia,garamond,serif;font-size:20px;font-style:italic; margin-left:40px; font-weight: bold;">Розрахунок необхідної кількості вогнетриву для робочої футеровки сталь ковша</h3>
+
+<div class="row">
+    <div class="col-xs-6 col-sm-6"> 
+      <div class="card m-5" style="width:34rem">
+       
+        <form #CalcRefForm="ngForm"  (ngSubmit)="onSubmit(CalcRefForm) ">           
+          <h4 style="margin-top: 0px; margin-left: 0px;">Кирпич першого типу:</h4>
+          <div class="form-group">
+            <label class="control-label" for="FirstBrickA1">Ширина лицьової грані, мм:</label>
+            <textarea class="form-control" rows="1"  #FirstBrickA1="ngModel" name="FirstBrickA1" (ngModel)="CalcRefForm.FirstBrickA1" ></textarea>
+          </div>
+      
+          <div class="form-group">
+            <label class="control-label" for="FirstBrickA2">Ширина задньої грані, мм:</label>
+            <textarea class="form-control" rows="1"  #FirstBrickA2="ngModel" name="FirstBrickA2" (ngModel)="CalcRefForm.FirstBrickA2" ></textarea>
+          </div>
+
+          <h4 style="margin-top: 0px; margin-left: 0px;">Кирпич другого типу:</h4>
+          <div class="form-group">
+            <label class="control-label" for="SecondBrickA1">Ширина лицьової грані, мм:</label>
+            <textarea class="form-control" rows="1"  #SecondBrickA1="ngModel" name="SecondBrickA1" (ngModel)="CalcRefForm.SecondBrickA1" ></textarea>
+          </div>
+      
+          <div class="form-group">
+            <label class="control-label" for="SecondBrickA2">Ширина задньої грані, мм:</label>
+            <textarea class="form-control" rows="1"  #SecondBrickA2="ngModel" name="SecondBrickA2" (ngModel)="CalcRefForm.SecondBrickA2" ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="BrickLength">Довжина кирпича, мм:</label>
+            <textarea class="form-control" rows="1"  #BrickLength="ngModel" name="BrickLength" (ngModel)="CalcRefForm.BrickLength" ></textarea>
+          </div>
+
+          <h4 style="margin-top: 0px; margin-left: 0px;">Параметри зони сталь ковша:</h4>
+          <div class="form-group">
+            <label class="control-label" for="TopDiameter">Верхнiй внутрiшнiй дiаметер зони, мм:</label>
+            <textarea class="form-control" rows="1"  #TopDiameter="ngModel" name="TopDiameter" (ngModel)="CalcRefForm.TopDiameter" ></textarea>
+          </div>
+      
+          <div class="form-group">
+            <label class="control-label" for="BottomDiameter">Нижнiй внутрiшнiй дiаметер зони, мм:</label>
+            <textarea class="form-control" rows="1"  #BottomDiameter="ngModel" name="BottomDiameter" (ngModel)="CalcRefForm.BottomDiameter" ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="RowNumber">Кiлькiсть рядiв кирпича:</label>
+            <textarea class="form-control" rows="1"  #RowNumber="ngModel" name="RowNumber" (ngModel)="CalcRefForm.RowNumber" ></textarea>
+          </div> 
+
+          <input class="btn btn-success" type="submit" id="submit" value="Розрахувати">
+        </form>
+
+     </div>                   
+    </div>
+    <div class="col-xs-6 col-sm-6"> 
+      <div class="row">             
+         <div class="col-xs-3" style="margin-right:0px">
+            <h4 style="margin-top: 0px; margin-left: 170px;">Схема сталь ковша:</h4>
+            <div class="card-body">       
+                <div class="card-image ">          
+                    <img class="img-fluid" style="margin-top: 0px;" src="assets/img/ladle.jpg" alt="Alternate Text" style="height:400px;"/>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-3" style="margin-right:0px">
+            <h4 style="margin-top: 0px; margin-left: 10px;">Схема кирпича:</h4>
+            <div class="card-body">  
+                <div class="card-image ">          
+                    <img style="margin-left: 40px;" class="img-fluid" style="margin-top: 0px;" src="assets/img/briks.png" alt="Alternate Text" style="height:250px;"/>   
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">A1</th>
+                            <td>Ширина лицьової грані</td>                            
+                          </tr>      
+                          <tr>
+                            <th scope="row">A2</th>
+                            <td>Ширина задньої грані</td>                            
+                          </tr> 
+                          <tr>
+                            <th scope="row">H</th>
+                            <td>Довжина кирпича</td>                            
+                          </tr>                     
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+        </div> 
+        
+        <div class="col-xs-3" style="margin-right:0px">
+            <h4 style="margin-top: 0px; margin-left: 170px;">Результати розрахунку:</h4>
+            <div class="card-body">       
+                <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Кiлькiсть кирпича першого типу:</th>
+                        <td></td>                            
+                      </tr>      
+                      <tr>
+                        <th scope="row">Кiлькiсть кирпича другого типу:</th>
+                        <td></td>                            
+                      </tr> 
+                      <tr>
+                        <th scope="row">Загальна маса кирпича,т:</th>
+                        <td></td>                            
+                      </tr>    
+                      <tr>
+                        <th scope="row">Загальна вартість кирпича,$:</th>
+                        <td></td>                            
+                      </tr>                  
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div> 
+  </div>

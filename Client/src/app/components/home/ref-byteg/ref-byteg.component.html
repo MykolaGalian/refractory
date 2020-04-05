@@ -6,7 +6,7 @@
             <h4 class="col-xs-3">{{pd.RefractoryBrand}}</h4><br>
             <img [src]="pd.Src" alt="Заглавная картинка из поста" height="300">
             <div><br></div>
-            <span class="text-black font-weight-bold anchor" >{{pd.DateCreate | date : "MMM d, y"}}</span>
+            <span class="text-black font-weight-bold anchor" >Дата публікації: {{pd.DateCreate | date : "MMM d, y"}}</span>
             <div  (click)="populateForm(pd)"><h5><u>Перейти до опису вогнетрива</u></h5>      
         </div>
     </div>

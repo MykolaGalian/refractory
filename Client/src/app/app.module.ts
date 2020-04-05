@@ -16,7 +16,6 @@ import { ModeratorService } from './shared/moderator.service';
 import { AdminService} from './shared/admin.service';
 import { CommentService } from './shared/comment.service';
 
-
 import { RefractoryAddComponent } from './components/ref-add/ref-add.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -33,6 +32,7 @@ import { ModeratorComponent } from './components/moderator/moderator.component';
 import { RefractoryListComponent } from './components/moderator/ref-list/ref-list.component';
 import { RefractoryBytegComponent } from './components/home/ref-byteg/ref-byteg.component';
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { RefCalcComponent } from './components/home/ref-calc/ref-calc.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { EditProfileComponent } from './components/profile/edit-profile/edit-pro
     UserListComponent,
     AdminCommandsComponent,
     ModeratorComponent,
-    RefractoryListComponent, RefractoryBytegComponent, EditProfileComponent
+    RefractoryListComponent, RefractoryBytegComponent, EditProfileComponent, RefCalcComponent
 
   ],
   exports: [RouterModule],
@@ -62,9 +62,7 @@ import { EditProfileComponent } from './components/profile/edit-profile/edit-pro
     HttpClientModule,
     ToastrModule.forRoot(),
     QuillModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
-
-
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [UserService,AuthGuard,RefractoryService,CommentService, AdminService, ModeratorService],
   bootstrap: [AppComponent]

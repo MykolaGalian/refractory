@@ -5,6 +5,11 @@ import { Router } from '@angular/router';
 import { CommentService } from '../../../shared/comment.service';
 import { ToastrService } from 'ngx-toastr';
 
+export interface ZoneOfRefractory { // обьект для выпадающего списка - зоны применения огнеупоров
+  value: string;
+}
+
+
 @Component({
   selector: 'app-user-ref',
   templateUrl: './user-ref.component.html',
@@ -19,6 +24,13 @@ export class UserRefractoryComponent implements OnInit {
               private commentService: CommentService, private toastr: ToastrService) {}
 
   ngOnInit() {  }
+
+  ZonesOfRefractory: ZoneOfRefractory[] = [ 
+    { value: "Metal"},
+    { value: "Slag"},
+    { value: "Flange"},
+    { value: "Transition"}   
+  ] 
 
   OnRefractoryEdit(form:NgForm) {
     this.refractoryService.EditRefractory(this.refractoryService.refractory.Id, form).subscribe((data: any) => {
@@ -62,8 +74,10 @@ export class UserRefractoryComponent implements OnInit {
     Error => {
       this.toastr.error('HTTP status code', Error.status);
     });
+  }
 
-
+  calcRef(){
+    this.router.navigateByUrl('/ref-calc');
   }
 
 }

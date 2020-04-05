@@ -1,11 +1,11 @@
-<div class="card refractory pointer">
-        <div class="card-body">
-          <span class="text-black font-weight-bold anchor" >  {{refractoryService.refractory.RefractoryType}} </span>  
-          <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>
-          <img [src]="refractoryService.refractory.Src" alt="Заглавная картинка из поста " height="420">
-            
+<div class="card refractory pointer"> 
+
+        <div class="card-body">                 
+          <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>  
+          <span class="text-black font-weight-bold anchor" >Зона сталь ковша:  {{refractoryService.refractory.RefractoryType}} </span>   <br>
+          <img [src]="refractoryService.refractory.Src" alt="Заглавная картинка из поста " height="420">     
           <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>   
-          
+
           <h5>Фiзичнi властивостi вогнетрива:</h5>
           <span class="text-black font-weight-bold anchor">Щільність вогнетриву, гр/см3: {{refractoryService.refractory.Density}}</span><br> 
           <span class="text-black font-weight-bold anchor">Максимальна робоча температура, градусів: {{refractoryService.refractory.MaxWorkTemperature}}</span><br> 
@@ -18,8 +18,9 @@
           <br> <br> 
 
           <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
-          <span class="text-black font-weight-bold anchor">Стаття розміщенна: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br><br>      
-        
+          <span class="text-black font-weight-bold anchor">Дата публікації: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br><br>      
+          <button class="btn btn-info my-4 my-sm-0" (click)="calcRef()" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button> 
+          <br><br>    
           <h5><u>Відгуки про вогнетрив:</u></h5>
                 <div class="comment"  *ngFor="let comment of refractoryService.refractory.Comments" >
                   <span>{{comment.DateCreation | date : "MMM d, y"}}</span><br>
@@ -38,7 +39,7 @@
                   <button id="sendButton" type="submit" class="btn btn-info">Додати відгук</button>
                 </form>
           </div>
-
-
+            <br><br>    
+                   
         </div>
     </div>

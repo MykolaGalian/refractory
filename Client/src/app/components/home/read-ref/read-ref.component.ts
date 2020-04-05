@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RefractoryService } from '../../../shared/refractory.service';
 import { CommentService } from '../../../shared/comment.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ReadRefractoryComponent implements OnInit {
   private userLogin: string = '';
   private commentText: string = '';
 
-  constructor(private refractoryService: RefractoryService, private commentService: CommentService, private toastr: ToastrService) { }
+  constructor(private refractoryService: RefractoryService, private commentService: CommentService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
    this.userLogin =this.refractoryService.refractory.UserInfo.Login;
@@ -35,5 +36,8 @@ export class ReadRefractoryComponent implements OnInit {
         this.toastr.error('HTTP status code', Error.status);
       });
   } 
+  calcRef(){
+    this.router.navigateByUrl('/ref-calc');
+  }
 
 }

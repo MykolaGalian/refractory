@@ -21,9 +21,13 @@
   </div>    
 
     <div class="form-group">
-      <label class="control-label" for="Type">Застосування вогнетриву (Metal, Slag, Flange):</label>
-      <textarea class="form-control" rows="1"  #Type="ngModel" name="Type" (ngModel)="addRefractory.Type" ></textarea>
+      <label class="control-label" for="Type">Зона сталь ковша:</label>
+      <select name="Type" #Type="ngModel" (ngModel)="addRefractory.Type">
+        <option disabled>Виберіть зону сталь ковша</option>
+        <option *ngFor="let zone of ZonesOfRefractory" [value]="zone.value">{{zone.value}}</option>
+      </select>      
     </div>
+
 
     <div class="form-group">
       <label class="control-label" for="Density">Щільність вогнетриву, гр/см3:</label>

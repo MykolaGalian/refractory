@@ -11,6 +11,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import {ModeratorComponent} from './components/moderator/moderator.component';
 import { RefractoryBytegComponent } from './components/home/ref-byteg/ref-byteg.component';
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { RefCalcComponent } from './components/home/ref-calc/ref-calc.component';
 
 
 
@@ -29,6 +30,7 @@ export const appRoutes: Routes = [
     {path: 'moder', component: ModeratorComponent, canActivate:[AuthGuard]},
     {path: 'ref-byteg', component: RefractoryBytegComponent}, 
     {path: 'profile-edit', component: EditProfileComponent, canActivate:[AuthGuard]},
+    {path: 'ref-calc', component: RefCalcComponent, canActivate:[AuthGuard]},
     
     {path: '**', redirectTo: '/login'}
     

@@ -5,13 +5,16 @@ import { EditRefractory } from '../model/refractory/editRefractory';
 import { NgForm } from '@angular/forms';
 import { Refractory } from '../model/refractory/refractory';
 import { Router } from '@angular/router';
+import { Refcalc } from '../model/refractory/refcalc';
+import { RefcalcResult } from '../model/refractory/refcalcResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RefractoryService {
 
-  //private refractoryOnEdit:boolean=false;
+  refcalc: Refcalc =null;
+  refCalcRes: RefcalcResult = null;
 
   tegslist: string[] =null;
   tempRefractoryId: number = 0;
@@ -185,6 +188,19 @@ export class RefractoryService {
               this.router.navigateByUrl('/ref-byteg');
         });
   }
+
+  GetRefrCalc(data: Refcalc){
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+ 
+    const body: Refcalc = data;
+    debugger
+       return this.http.post(this.rootUrl + '/calcRef', body , {headers:reqHeader}).
+
+       subscribe((res: any) => {
+           this.refCalcRes = res as RefcalcResult;   
+           console.log(this.refCalcRes);
+  });
+}
 }
 
 

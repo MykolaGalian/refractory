@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
+export interface ZoneOfRefractory { // обьект для выпадающего списка - зоны применения огнеупоров
+  value: string;
+}
 
 @Component({
   selector: 'app-ref-add',
@@ -14,6 +17,14 @@ import { ToastrService } from 'ngx-toastr';
 export class RefractoryAddComponent implements OnInit {
 
   constructor(private refractoryService: RefractoryService, private router: Router, private toastr: ToastrService) { }
+
+
+  ZonesOfRefractory: ZoneOfRefractory[] = [ 
+    { value: "Metal"},
+    { value: "Slag"},
+    { value: "Flange"},
+    { value: "Transition"}   
+  ] 
 
  fileToUpload: File = null;
  imageUrl: any = null;

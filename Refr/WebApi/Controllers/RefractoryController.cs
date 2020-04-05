@@ -11,7 +11,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Collections.Generic;
-
+using WebApi.Models.Refractory;
+using System.Diagnostics;
+using IronPython.Hosting;
+using System.Text;
 
 namespace WebApi.Controllers
 {
@@ -263,7 +266,43 @@ namespace WebApi.Controllers
             image.SaveAs(filePath);
 
             return imageName;
+        }
 
+        // 
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("calcRef")]
+        public async Task<IHttpActionResult> calcRef([FromBody] RefractoryCalculationModel Refractory)
+        {
+            var psi = new ProcessStartInfo();
+            psi.FileName = @"C:\\Users\\mykola\\AppData\\Local\\Programs\\Python\\Python37\\python.exe";
+            var script = @"C:\\Users\\mykola\\source\\repos\\pytest\\pytest\\pytest.py";
+            var a1 = Refractory.a1;
+            var a2 = Refractory.a2;
+            var inL = Refractory.inL;
+            var b1 = Refractory.b1;
+            var b2 = Refractory.b2;
+            var outL = Refractory.outL;
+
+            psi.Arguments = $"{script} {a2} {a1} {outL} {b1} {b2} {inL}";
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardOutput = true;
+            var Min_y_ = "";
+            var Max_y_ = "";
+            var Min_x_ = "";
+            var Max_x_ = "";
+
+            using (var process = Process.Start(psi))
+            {
+
+                Min_y_ = process.StandardOutput.ReadLine();
+                Max_y_ = process.StandardOutput.ReadLine();
+                Min_x_ = process.StandardOutput.ReadLine();
+                Max_x_ = process.StandardOutput.ReadLine();
+            }           
+        
+            return Ok(new { Min_y = Min_y_, Max_y = Max_y_, Min_x = Min_x_, Max_x = Max_x_ });
         }
 
     }
