@@ -284,26 +284,56 @@ namespace WebApi.Controllers
             var b2 = Refractory.b2;
             var outL = Refractory.outL;
 
-            psi.Arguments = $"{script} {a2} {a1} {outL} {b1} {b2} {inL}";
+            psi.Arguments = $"{script} {a1} {a2} {inL} {b1} {b2} {outL}";
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.RedirectStandardOutput = true;
-            var Min_y_ = "";
-            var Max_y_ = "";
-            var Min_x_ = "";
-            var Max_x_ = "";
-
+            var Min_y_1 = "";
+            var Min_x_1 = "";
+           
             using (var process = Process.Start(psi))
             {
+                Min_y_1 = process.StandardOutput.ReadLine();
+                Min_x_1 = process.StandardOutput.ReadLine();
+            }
 
-                Min_y_ = process.StandardOutput.ReadLine();
-                Max_y_ = process.StandardOutput.ReadLine();
-                Min_x_ = process.StandardOutput.ReadLine();
-                Max_x_ = process.StandardOutput.ReadLine();
-            }           
-        
-            return Ok(new { Min_y = Min_y_, Max_y = Max_y_, Min_x = Min_x_, Max_x = Max_x_ });
+            var dataTest = CalcRefManual(Refractory);
+            return Ok(new { Y = Min_y_1, X = Min_x_1 , A = dataTest.A.ToString(), B = dataTest.B.ToString()});
         }
 
+        private DataCalc CalcRefManual(RefractoryCalculationModel Refractory) {
+            double a=0;
+            double b=0;
+            
+
+            try
+            {
+                string inLstr="";
+                int index1 = Refractory.inL.LastIndexOf(".");
+                if (index1 > 0) inLstr = Refractory.inL.Substring(0, index1);
+                else inLstr = Refractory.inL;
+                double inL =  int.Parse(inLstr);
+
+                string outLstr = "";
+                int index2 = Refractory.outL.LastIndexOf(".");
+                if (index2 > 0) outLstr = Refractory.outL.Substring(0, index2);
+                else outLstr = Refractory.outL;
+                double outL= int.Parse(outLstr);
+
+
+                a = (inL * double.Parse(Refractory.b2) - outL * double.Parse(Refractory.b1)) / (double.Parse(Refractory.a1) * double.Parse(Refractory.b2) - double.Parse(Refractory.a2) * double.Parse(Refractory.b1));
+
+                 b = (outL * double.Parse(Refractory.a1) - inL * double.Parse(Refractory.a2)) / (double.Parse(Refractory.a1) * double.Parse(Refractory.b2) - double.Parse(Refractory.a2) * double.Parse(Refractory.b1));
+            } catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
+
+            return new DataCalc() { A = a.ToString(), B = b.ToString() };
+        }
+
+        public class DataCalc {
+            public string A { get; set; }
+            public string B { get; set; }
+        }
     }
 }

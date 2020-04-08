@@ -35,7 +35,7 @@ export class RefCalcComponent implements OnInit {
        let lengthTopInner = 2 * 3.14 * radiusTopInner;
        let lengthTopOuter = 2 * 3.14 * radiusTopOuter;
 
-       debugger
+       
 
        
 
@@ -51,7 +51,7 @@ export class RefCalcComponent implements OnInit {
 
        //let density = this.refService.refractory.Density;
        //let price = this.refService.refractory.Price;
-       debugger
+       
        this.refService.GetRefrCalc(datas);
    }
 }

@@ -87,7 +87,7 @@ export class RefractoryService {
   }
 
   EditRefractory(refId: number, form: NgForm) { 
-    debugger 
+     
     const body: EditRefractory = {
       RefractoryDescription: form.value.Description, 
       RefractoryBrand: form.value.Brand,
@@ -193,7 +193,7 @@ export class RefractoryService {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
  
     const body: Refcalc = data;
-    debugger
+    
        return this.http.post(this.rootUrl + '/calcRef', body , {headers:reqHeader}).
 
        subscribe((res: any) => {
