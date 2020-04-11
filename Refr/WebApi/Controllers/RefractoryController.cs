@@ -268,72 +268,75 @@ namespace WebApi.Controllers
             return imageName;
         }
 
-        // 
         [HttpPost]
         [AllowAnonymous]
-        [Route("calcRef")]
-        public async Task<IHttpActionResult> calcRef([FromBody] RefractoryCalculationModel Refractory)
+        [Route("calcRefRow")]
+        public async Task<IHttpActionResult> CalcRefRow([FromBody] RefractoryCalculationModel Refractory)
         {
-            var psi = new ProcessStartInfo();
-            psi.FileName = @"C:\\Users\\mykola\\AppData\\Local\\Programs\\Python\\Python37\\python.exe";
-            var script = @"C:\\Users\\mykola\\source\\repos\\pytest\\pytest\\pytest.py";
-            var a1 = Refractory.a1;
-            var a2 = Refractory.a2;
-            var inL = Refractory.inL;
-            var b1 = Refractory.b1;
-            var b2 = Refractory.b2;
-            var outL = Refractory.outL;
-
-            psi.Arguments = $"{script} {a1} {a2} {inL} {b1} {b2} {outL}";
-            psi.UseShellExecute = false;
-            psi.CreateNoWindow = true;
-            psi.RedirectStandardOutput = true;
-            var Min_y_1 = "";
-            var Min_x_1 = "";
-           
-            using (var process = Process.Start(psi))
-            {
-                Min_y_1 = process.StandardOutput.ReadLine();
-                Min_x_1 = process.StandardOutput.ReadLine();
-            }
-
             var dataTest = CalcRefManual(Refractory);
-            return Ok(new { Y = Min_y_1, X = Min_x_1 , A = dataTest.A.ToString(), B = dataTest.B.ToString()});
+            return Ok(dataTest);
         }
 
-        private DataCalc CalcRefManual(RefractoryCalculationModel Refractory) {
-            double a=0;
-            double b=0;
-            
+        private CalcRes CalcRefManual(RefractoryCalculationModel Refractory) {
 
-            try
+            List<DataCalc> RowRefractory = new List<DataCalc>();
+            float radiusTopInner = Refractory.TopDiameter / 2;
+            float radiusButtomInner = Refractory.BottomDiameter / 2;
+            float radiusDelta = (radiusTopInner - radiusButtomInner) / Refractory.RowNumber;
+
+            float RadiusIn = 0;
+            float RadiusOut = 0;
+            float LenghtIn = 0;
+            float LenghtOut = 0;
+            float a = 0;
+            float b = 0;
+
+            for (int i = 0; i < Refractory.RowNumber; i++)
             {
-                string inLstr="";
-                int index1 = Refractory.inL.LastIndexOf(".");
-                if (index1 > 0) inLstr = Refractory.inL.Substring(0, index1);
-                else inLstr = Refractory.inL;
-                double inL =  int.Parse(inLstr);
+                RadiusIn = radiusButtomInner + i * radiusDelta;
+                RadiusOut = RadiusIn + Refractory.BrickLength;
+                LenghtIn = (float)(2 * 3.14 * RadiusIn);
+                LenghtOut = (float)(2 * 3.14 * RadiusOut); 
 
-                string outLstr = "";
-                int index2 = Refractory.outL.LastIndexOf(".");
-                if (index2 > 0) outLstr = Refractory.outL.Substring(0, index2);
-                else outLstr = Refractory.outL;
-                double outL= int.Parse(outLstr);
+                a = (LenghtIn * Refractory.b2 - LenghtOut * Refractory.b1) / (Refractory.a1 * Refractory.b2 - Refractory.a2 * Refractory.b1);
 
+                b = (LenghtOut * Refractory.a1 - LenghtIn * Refractory.a2) / (Refractory.a1 * Refractory.b2 - Refractory.a2 * Refractory.b1);
+                
+                if (a <= 0 || b <= 0) {
+                    return null;
+                }
 
-                a = (inL * double.Parse(Refractory.b2) - outL * double.Parse(Refractory.b1)) / (double.Parse(Refractory.a1) * double.Parse(Refractory.b2) - double.Parse(Refractory.a2) * double.Parse(Refractory.b1));
-
-                 b = (outL * double.Parse(Refractory.a1) - inL * double.Parse(Refractory.a2)) / (double.Parse(Refractory.a1) * double.Parse(Refractory.b2) - double.Parse(Refractory.a2) * double.Parse(Refractory.b1));
-            } catch (Exception e) {
-                Console.WriteLine(e.Message);
+                RowRefractory.Add( new DataCalc() { A = Math.Ceiling(a), B = Math.Ceiling(b) });
             }
 
-            return new DataCalc() { A = a.ToString(), B = b.ToString() };
+            int totalA=0;
+            int totalB=0;
+            foreach(var item in RowRefractory){
+                totalA = totalA + (int)item.A;
+                totalB = totalB + (int)item.B;
+            }
+            double density = Refractory.Density;
+            double massAt = (density * 0.5f * ( Refractory.a1 + Refractory.a2 ) * Refractory.BrickLength * 100 * totalA) / 1000000000;
+            double massBt = (density * 0.5f * ( Refractory.b1 + Refractory.b2 ) * Refractory.BrickLength * 100 * totalB) / 1000000000;
+
+            double totalMass = massAt + massBt;
+
+            double totalPrice = totalMass * Refractory.Price;
+
+            return  new CalcRes() { TotalA = totalA , TotalB = totalB, TotalMass = totalMass, TotalPrice = totalPrice };
         }
 
         public class DataCalc {
-            public string A { get; set; }
-            public string B { get; set; }
+            public double A { get; set; }
+            public double B { get; set; }
+        }
+
+        public class CalcRes {
+            public double TotalA { get; set; }
+            public double TotalB { get; set; }
+            public double TotalMass { get; set; }
+            public double TotalPrice { get; set; }
+
         }
     }
 }

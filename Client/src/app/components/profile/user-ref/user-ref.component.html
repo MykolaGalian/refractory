@@ -26,7 +26,7 @@
           <span class="text-black font-weight-bold anchor">Вартість, USD/т: {{refractoryService.refractory.Price}}</span><br> 
           <br>
 
-          <button class="btn btn-info my-4 my-sm-0" (click)="calcRef()" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button> 
+          <button class="btn btn-info my-4 my-sm-0" (click)="calcRef(refractoryService.refractory)" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button> 
           <br><br> 
           <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
           <span class="text-black font-weight-bold anchor">Дата публікації: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br>

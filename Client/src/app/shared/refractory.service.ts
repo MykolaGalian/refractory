@@ -7,6 +7,7 @@ import { Refractory } from '../model/refractory/refractory';
 import { Router } from '@angular/router';
 import { Refcalc } from '../model/refractory/refcalc';
 import { RefcalcResult } from '../model/refractory/refcalcResult';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class RefractoryService {
   refractoryForGetId: Refractory = null;
   bodyForNewRefractory: string = null;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
   GetRefractories() {
        var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
@@ -194,10 +195,14 @@ export class RefractoryService {
  
     const body: Refcalc = data;
     
-       return this.http.post(this.rootUrl + '/calcRef', body , {headers:reqHeader}).
+       return this.http.post(this.rootUrl + '/CalcRefRow', body , {headers:reqHeader}).
 
        subscribe((res: any) => {
-           this.refCalcRes = res as RefcalcResult;   
+           this.refCalcRes = res as RefcalcResult;  
+            
+           if(this.refCalcRes === null) {
+            this.toastr.error('З даних виробів неможливо викласти ковш');
+           }
            console.log(this.refCalcRes);
   });
 }

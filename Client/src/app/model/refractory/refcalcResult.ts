@@ -1,6 +1,6 @@
 export class RefcalcResult {  
-    Y:string;
-    X:string;
-    A:string;
-    B:string;
+TotalA : string;
+TotalB : string;
+TotalMass : string;
+TotalPrice : string;
 }

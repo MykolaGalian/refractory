@@ -36,8 +36,9 @@ export class ReadRefractoryComponent implements OnInit {
         this.toastr.error('HTTP status code', Error.status);
       });
   } 
-  calcRef(){
-    this.router.navigateByUrl('/ref-calc');
+  calcRef(data: any){
+    this.refractoryService.refractory = Object.assign({}, data); 
+    this.router.navigateByUrl('/ref-calc');    
   }
 
 }

@@ -76,8 +76,9 @@ export class UserRefractoryComponent implements OnInit {
     });
   }
 
-  calcRef(){
-    this.router.navigateByUrl('/ref-calc');
+  calcRef(data: any){
+    this.refractoryService.refractory = Object.assign({}, data); 
+    this.router.navigateByUrl('/ref-calc');    
   }
 
 }

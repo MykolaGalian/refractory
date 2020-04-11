@@ -30,28 +30,19 @@ export class RefCalcComponent implements OnInit {
        let BottomDiameter = parseFloat(data.value.BottomDiameter); 
        let RowNumber = parseFloat(data.value.RowNumber); 
 
-       let radiusTopInner = TopDiameter/2;
-       let radiusTopOuter = radiusTopInner + BrickLength;
-       let lengthTopInner = 2 * 3.14 * radiusTopInner;
-       let lengthTopOuter = 2 * 3.14 * radiusTopOuter;
-
-       
-
-       
-
        const datas: Refcalc = {
        a1: FirstBrickA1.toString(),
        a2: FirstBrickA2.toString(),
        b1: SecondBrickA1.toString(),
        b2: SecondBrickA2.toString(),
-       inL:lengthTopInner.toString(),
-       outL : lengthTopOuter.toString()
+       BrickLength:BrickLength.toString(),
+       TopDiameter : TopDiameter.toString(),
+       BottomDiameter : BottomDiameter.toString(),
+       RowNumber : RowNumber.toString(),
+       Density : this.refService.refractory.Density,
+       Price: this.refService.refractory.Price
       }
-      
-
-       //let density = this.refService.refractory.Density;
-       //let price = this.refService.refractory.Price;
-       
+          
        this.refService.GetRefrCalc(datas);
    }
 }
