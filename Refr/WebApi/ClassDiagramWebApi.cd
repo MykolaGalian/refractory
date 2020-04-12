@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="WebApi.FilterConfig">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.RouteConfig">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Startup">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAgAEAgAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\Startup.Auth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.WebApiConfig">
+    <Position X="4.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.WebApiApplication">
+    <Position X="2.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.App_Start.NinjectWebCommon">
+    <Position X="17" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAQACAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAA=</HashCode>
+      <FileName>App_Start\Ninject.Web.Common.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.CalcService.CalcRes">
+    <Position X="13" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CalcService\CalcRes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.CalcService.CalcService">
+    <Position X="13" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>CalcService\CalcService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.CalcService.DataCalc">
+    <Position X="11.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAEAAAA=</HashCode>
+      <FileName>CalcService\DataCalc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.AccountsController">
+    <Position X="2.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAJAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.AdminController">
+    <Position X="0.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.CommentController">
+    <Position X="4.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAEIAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Controllers\CommentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.ModeratorController">
+    <Position X="6.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ModeratorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.RefractoryController">
+    <Position X="8.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAACCBAAAQAgAQAgAAAAAAIAAIAAAAAAEAAAACAQA=</HashCode>
+      <FileName>Controllers\RefractoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.UsersController">
+    <Position X="6.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAkAARAAAAAAAAAAQAAAIAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Mapper.MapperInitializer">
+    <Position X="21" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mapper\MapperInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Mapper.MapViewModels">
+    <Position X="21" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mapper\MapViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Account.LoginViewModel">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Models\Account\LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Account.RegisterViewModel">
+    <Position X="17.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAgAAAAAAQAAAAAAAACAAAQAAAAIAg=</HashCode>
+      <FileName>Models\Account\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Comment.CommentViewModel">
+    <Position X="7" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CgACAAAAAAAAAAAAAAAgAAAAAAAAABEAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\Comment\CommentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Refractory.RefractoryCalculationModel">
+    <Position X="11.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAQAIAIAAQAAAAAABAABAAgAAAAAgAQAAAAA=</HashCode>
+      <FileName>Models\Refractory\RefractoryCalculationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Post.RefractoryEditViewModel">
+    <Position X="9" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAwAAAAAAACAAAAABQAAAAEAIAAGAAAABAAA=</HashCode>
+      <FileName>Models\Refractory\RefractoryEditViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.Post.RefractoryViewModel">
+    <Position X="15.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAACEAAgAwAAAAAAACAAAAABQAAEAlEIAAGAAAABIAA=</HashCode>
+      <FileName>Models\Refractory\RefractoryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.User.ChangeProfileViewModel">
+    <Position X="11.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAgAAAAAAQAAAABAgAAAAAQAAAAAIg=</HashCode>
+      <FileName>Models\User\ChangeProfileViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Models.User.ProfileViewModel">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAgAAACIAQACAABAgAAAAAQAAAAAIg=</HashCode>
+      <FileName>Models\User\ProfileViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Providers.ApplicationOAuthProvider">
+    <Position X="19" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAgAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <FileName>Providers\ApplicationOAuthProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

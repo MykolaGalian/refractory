@@ -297,6 +297,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClassDiagramWebApi.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

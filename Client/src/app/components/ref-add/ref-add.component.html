@@ -5,7 +5,7 @@
       <p *ngIf="imageUrl!=null">
         <img [src]="imageUrl">
       </p>
-      <input  class="btn btn-info" type="button" value="Upload picture" onclick="document.getElementById('fileUpload').click();" />
+      <input  class="btn btn-info" type="button" value="Завантажити фото" onclick="document.getElementById('fileUpload').click();" />
       <input visibility="hidden" style="display: none;" type="file" id="fileUpload" #Image [ngModelOptions]="{standalone: true}"
              ngModel accept="image/*" (change)="handleFileInput($event.target.files)" required>
     </div>    
