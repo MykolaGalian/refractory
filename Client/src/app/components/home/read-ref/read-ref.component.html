@@ -6,19 +6,53 @@
           <img [src]="refractoryService.refractory.Src" alt="Заглавная картинка из поста " height="420">     
           <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>   
 
-          <h5>Фiзичнi властивостi вогнетрива:</h5>
-          <span class="text-black font-weight-bold anchor">Щільність вогнетриву, гр/см3: {{refractoryService.refractory.Density}}</span><br> 
-          <span class="text-black font-weight-bold anchor">Максимальна робоча температура, градусів: {{refractoryService.refractory.MaxWorkTemperature}}</span><br><br> 
-          <h5>Хімічний склад вогнетрива:</h5>
-          <span class="text-black font-weight-bold anchor">Концентрація CaO, %: {{refractoryService.refractory.Lime}}</span><br> 
-          <span class="text-black font-weight-bold anchor">Концентрація Al2O3, %: {{refractoryService.refractory.Alumina}}</span><br> 
-          <span class="text-black font-weight-bold anchor">Концентрація SiO2, %: {{refractoryService.refractory.Silica}}</span><br> 
-          <span class="text-black font-weight-bold anchor">Концентрація MgO, %: {{refractoryService.refractory.Magnesia}}</span><br> 
-          <span class="text-black font-weight-bold anchor">Концентрація C, %: {{refractoryService.refractory.Carbon}}</span><br> <br> 
 
-          <span class="text-black font-weight-bold anchor">Вартість, USD/т: {{refractoryService.refractory.Price}}</span><br> 
-          <br> <br> 
-
+          <h5 style="margin-left: 100px;">Фiзичнi властивостi та хімічний склад вогнетрива:</h5>
+          <div style="margin-right: 700px; margin-left: 50px;">
+            <table class="table table-striped">
+              <tbody>
+                <tr >
+                  <th style="font-size: 18px;" scope="row">Щільність вогнетриву,гр/см3</th>
+                  <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Density}}</td>                            
+                </tr>    
+                <tr >
+                  <th style="font-size: 18px;" scope="row">Максимальна робоча температура,°C</th>
+                  <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.MaxWorkTemperature}}</td>
+              </tr> 
+              <tr >
+                <th style="font-size: 18px;" scope="row">Концентрація CaO, %</th>
+                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Lime}}</td>                            
+              </tr>      
+              <tr >
+                <th  style="font-size: 18px;" scope="row">Концентрація Al2O3, %</th>
+                <td  style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Alumina}}</td>                            
+              </tr> 
+              <tr >
+                <th  style="font-size: 18px;" scope="row">Концентрація SiO2, %</th>
+                <td  style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Silica}}</td>                            
+              </tr>    
+              <tr >
+                <th style="font-size: 18px;" scope="row">Концентрація MgO, %</th>
+                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Magnesia}}</td>                            
+              </tr>    
+              <tr >
+                <th style="font-size: 18px;" scope="row">Концентрація C, %</th>
+                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Carbon}}</td>
+            </tr>            
+            </tbody>
+        </table>
+     </div>  
+     <div style="margin-right: 700px; margin-left: 50px;">     
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th  style="font-size: 18px; width:50%" scope="row">Вартість, USD/т</th>
+            <td  style="font-size: 20px;font-weight: bold">{{refractoryService.refractory.Price}}</td>                            
+          </tr> 
+        </tbody>
+      </table>
+    </div> 
+<br>
           <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
           <span class="text-black font-weight-bold anchor">Дата публікації: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br><br>      
           <button class="btn btn-info my-4 my-sm-0" (click)="calcRef(refractoryService.refractory)" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button> 
