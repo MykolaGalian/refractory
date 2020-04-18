@@ -12,7 +12,7 @@ export class UserService {
 
   editProfile: UserDetails = null;
   userDetails : UserDetails = null;
-  usersDetails : UserDetails[] =null;
+  usersDetails : UserDetails[] =null;  
 
   readonly BaseURI = 'https://localhost:44302';
   imageUrl: any = "/assets/img/unknown-user.png";
@@ -69,7 +69,7 @@ export class UserService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
     return this.http.get(this.rootUrl + 'users/profile', {headers: tokenHeader}).subscribe(
       (res:any) => {
-        this.userDetails = res;
+        this.userDetails = res;        
         if (this.userDetails.UserAvatar !== null) {
           this.imageUrl = this.rootUrl+'users/image/get?imageName=' + this.userDetails.UserAvatar + '&userLogin=' + this.userDetails.Login;
         }
@@ -82,7 +82,7 @@ export class UserService {
         console.log(err);
       },
     );
-  }
+  }  
 
   getAllUserProfiles() {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
@@ -90,11 +90,9 @@ export class UserService {
     .then(res => this.usersDetails = res as UserDetails[]);
   }
 
-  GetUserByLogin(login: string) {
-
-     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
-      return this.http.get(this.rootUrl + 'users/' + login, { headers: tokenHeader });
-
+  GetUser() {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.get(this.rootUrl + 'users/profile', {headers: tokenHeader});
   }
 
   UpdateAvatar(fileToUpload: File) {
