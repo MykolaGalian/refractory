@@ -18,9 +18,9 @@ namespace BLL.Services
         }
        
 
-        public async Task BlockAccount(int userId, string aLogin)
+        public async Task BlockAccount(int userId, string login)
         {
-            if (userId > 0 && aLogin != null && aLogin.Length > 3)
+            if (userId > 0 && login != null && login.Length > 3)
             {
                 UserInfo user = await _uow.UserInfo.SelectById(userId);
                 if(user.IsBlocked) throw new ArgumentException("User alredy blocked");

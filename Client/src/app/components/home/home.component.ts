@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private refService: RefractoryService, private router: Router, private service: UserService) { }
 
   ngOnInit() {
+    
     this.refService.GetRefractories();
     this.service.getUserProfile();
     this.refService.GetTegs();

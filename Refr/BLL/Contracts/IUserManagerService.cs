@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace BLL.Contracts
 {
     public interface IUserManagerService
-    {
-        Task<bool> CheckUserByLoginPas(DTOUser user);
+    {       
         Task<OperationDetails> Create(DTOUser user);
         Task<ClaimsIdentity> GetClaim(string username, string password);
         Task<DTOUser> GetUserByLogin(string login);

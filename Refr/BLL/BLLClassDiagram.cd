@@ -52,11 +52,6 @@
   </Class>
   <Class Name="BLL.Services.BLLUnitOfWork" BaseTypeListCollapsed="true">
     <Position X="10.25" Y="0.5" Width="1.5" />
-    <AssociationLine Name="_userInfoService" Type="BLL.Services.UserInfoService">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.584" Y="0.311" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="_commentService" Type="BLL.Services.CommentService" ManuallyRouted="true">
       <Path>
         <Point X="10.344" Y="3.468" />
@@ -69,12 +64,17 @@
         <Position X="-0.067" Y="2.955" />
       </MemberNameLabel>
     </AssociationLine>
+    <AssociationLine Name="_userInfoService" Type="BLL.Services.UserInfoService">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.584" Y="0.311" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="_userManagerService" Type="BLL.Services.UserManagerService" ManuallyRouted="true">
       <Path>
         <Point X="10.25" Y="2.934" />
         <Point X="8.058" Y="2.934" />
-        <Point X="8.058" Y="5.749" />
-        <Point X="7.5" Y="5.749" />
+        <Point X="8.058" Y="5.607" />
+        <Point X="7.5" Y="5.607" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.252" Y="1.794" />
@@ -86,20 +86,20 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_adminService" />
-      <Field Name="_userManagerService" />
-      <Field Name="_userInfoService" />
       <Field Name="_commentService" />
-      <Field Name="_moderatorService" />
       <Field Name="_refractoryService" />
-      <Property Name="RefractoryService" />
+      <Field Name="_userInfoService" />
+      <Field Name="_userManagerService" />
+      <Field Name="_moderatorService" />
       <Property Name="ModeratorService" />
+      <Property Name="RefractoryService" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="BLL.Services.CommentService" BaseTypeListCollapsed="true">
     <Position X="8.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAIADAAAACAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAIACAAAAAAAAAAAAABAAAIAAAAAAAAAAAACAA=</HashCode>
       <FileName>Services\CommentService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -131,7 +131,7 @@
   <Class Name="BLL.Services.UserManagerService" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAQAAABAAAAAIAAAAAAAIAUAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAABAAAAAIAAAAAAAIAUAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\UserManagerService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -153,7 +153,7 @@
   <Interface Name="BLL.Contracts.ICommentService" Collapsed="true">
     <Position X="8.25" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAIABAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAIAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Contracts\ICommentService.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -181,7 +181,7 @@
   <Interface Name="BLL.Contracts.IUserManagerService" Collapsed="true">
     <Position X="5.75" Y="3" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAQAAABAAAAAIAAAAAAAAAUAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAABAAAAAIAAAAAAAAAUAAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IUserManagerService.cs</FileName>
     </TypeIdentifier>
   </Interface>

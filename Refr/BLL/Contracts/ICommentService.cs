@@ -9,7 +9,7 @@ namespace BLL.Contracts
     {
         Task AddComment(DTOComment dtoComment);
         Task DeleteComment(int dtoCommentId); 
-        Task<IEnumerable<DTOComment>> GetCommentsToRefractory(int refId);
-        Task<DTOComment> GetCommentByComId(int comId);
+        Task<IEnumerable<DTOComment>> GetCommentsForRefractory(int refId);
+        Task<DTOComment> GetCommentById(int comId);
     }
 }

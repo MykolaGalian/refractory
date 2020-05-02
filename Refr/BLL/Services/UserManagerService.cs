@@ -22,16 +22,7 @@ namespace BLL.Services
         {
             _uow = uow;
         }
-
-        public async Task<bool> CheckUserByLoginPas(DTOUser dtouser)
-        {
-            string username = dtouser.Login;
-            string password = dtouser.Password;
-
-            var user = await _uow.UserManager.FindAsync(username, password);
-
-            return  await _uow.UserManager.CheckPasswordAsync(user, dtouser.Password); 
-        }
+       
 
         public async Task<OperationDetails> Create(DTOUser dtouser)
         {

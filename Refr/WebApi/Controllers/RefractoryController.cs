@@ -103,7 +103,7 @@ namespace WebApi.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("image/get")]
-        public IHttpActionResult GetImageForRefractory([FromUri]string imageName, [FromUri] string userLogin)
+        public IHttpActionResult GetImageForRef([FromUri]string imageName, [FromUri] string userLogin)
         {
             var result = new HttpResponseMessage(HttpStatusCode.OK); //made HttpResponseMessage 
 
@@ -171,7 +171,7 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("{refId}")]
-        public async Task<IHttpActionResult> EditRefractory([FromUri]int refId, [FromBody] RefractoryEditViewModel updateRef)
+        public async Task<IHttpActionResult> EditRefractory([FromUri]int refId, [FromBody] RefractoryEditViewModel uRef)
         {
             var authtor = await _uow.UserInfoService.GetUserById(User.Identity.GetUserId<int>());
             if (authtor == null)
@@ -190,19 +190,19 @@ namespace WebApi.Controllers
             if (refractory.IsBlocked)
                 return BadRequest("Refractory blocked.");
 
-            refractory.RefractoryDescription = updateRef.RefractoryDescription;
-            refractory.RefractoryType = updateRef.RefractoryType;
-            refractory.RefractoryBrand = updateRef.RefractoryBrand;
+            refractory.RefractoryDescription = uRef.RefractoryDescription;
+            refractory.RefractoryType = uRef.RefractoryType;
+            refractory.RefractoryBrand = uRef.RefractoryBrand;
             refractory.LastEdit = DateTime.Now;
 
-            refractory.Density = updateRef.Density;
-            refractory.MaxWorkTemperature = updateRef.MaxWorkTemperature;            
-            refractory.Lime = updateRef.Lime;
-            refractory.Alumina = updateRef.Alumina;
-            refractory.Silica = updateRef.Silica;
-            refractory.Magnesia = updateRef.Magnesia;
-            refractory.Carbon = updateRef.Carbon;
-            refractory.Price = updateRef.Price;
+            refractory.Density = uRef.Density;
+            refractory.MaxWorkTemperature = uRef.MaxWorkTemperature;            
+            refractory.Lime = uRef.Lime;
+            refractory.Alumina = uRef.Alumina;
+            refractory.Silica = uRef.Silica;
+            refractory.Magnesia = uRef.Magnesia;
+            refractory.Carbon = uRef.Carbon;
+            refractory.Price = uRef.Price;
 
             refractory.UserInfo = null;
             refractory.Comments = null;

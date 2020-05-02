@@ -73,7 +73,7 @@ namespace WebApi.Controllers
                 return this.Unauthorized();
 
             List<CommentViewModel> comments = AutoMapper.Mapper.Map<IEnumerable<DTOComment>, List<CommentViewModel>>(
-            await _uow.CommentService.GetCommentsToRefractory(refId));
+            await _uow.CommentService.GetCommentsForRefractory(refId));
 
             if (comments != null)
                 return Ok(comments);
@@ -92,7 +92,7 @@ namespace WebApi.Controllers
 
             var userId = User.Identity.GetUserId<int>();
 
-            var comment = await _uow.CommentService.GetCommentByComId(commentId);
+            var comment = await _uow.CommentService.GetCommentById(commentId);
             if (comment == null)
                 return NotFound();
 

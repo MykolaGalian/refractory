@@ -127,6 +127,7 @@ export class RefractoryService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
     return this.http.put(this.rootUrl + '/'+ ref.Id , body, {headers: tokenHeader}).
     subscribe((res: any) => {
+      this.toastr.info('Вогнетрив додано');
       this.router.navigate(['/profile']);
     });
   }
