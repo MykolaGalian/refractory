@@ -196,7 +196,7 @@ namespace WebApi.Controllers
             refractory.LastEdit = DateTime.Now;
 
             refractory.Density = uRef.Density;
-            refractory.MaxWorkTemperature = uRef.MaxWorkTemperature;            
+            refractory.MaxWorkTemperature = uRef.MaxWorkTemperature;
             refractory.Lime = uRef.Lime;
             refractory.Alumina = uRef.Alumina;
             refractory.Silica = uRef.Silica;

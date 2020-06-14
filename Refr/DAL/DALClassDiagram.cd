@@ -1,135 +1,150 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DAL.EF.ApplicationDbContext">
-    <Position X="7" Y="0.5" Width="6" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIAAAAAAAgAEAAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>EF\ApplicationDbContext .cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.EF.ContextInitializer">
-    <Position X="10" Y="3" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EF\ContextInitializer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Identity.ApplicationUser">
-    <Position X="16.5" Y="2" Width="4" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\ApplicationUser.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Identity.CustomRole">
-    <Position X="18.5" Y="7" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\CustomRole.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="DAL.Identity.ApplicationUserManager">
-    <Position X="17.75" Y="0.5" Width="2.25" />
+    <Position X="6" Y="4.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Identity\IdentityConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DAL.Identity.ApplicationRoleManager">
-    <Position X="14.25" Y="2" Width="2" />
+    <Position X="6" Y="3" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Identity\IdentityConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DAL.Identity.CustomUserRole">
-    <Position X="16.75" Y="7.25" Width="1.5" />
+  <Class Name="DAL.Repositories.GenericRepository&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="2.75" Width="2" />
+    <AssociationLine Name="_db" Type="DAL.EF.ApplicationDbContext" FixedToPoint="true">
+      <Path>
+        <Point X="12.688" Y="5.007" />
+        <Point X="12.688" Y="5.5" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\IdentityModels.cs</FileName>
+      <HashCode>AAQAgMAAACAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Repositories\GenericRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_db" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.Repositories.UnitOfWork" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="3.25" Width="2" />
+    <AssociationLine Name="_roleManager" Type="DAL.Identity.ApplicationRoleManager" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="4.062" />
+        <Point X="8" Y="4.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.585" Y="-0.419" Height="0.182" Width="1.058" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_userManager" Type="DAL.Identity.ApplicationUserManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="6.051" />
+        <Point X="8.377" Y="6.051" />
+        <Point X="8.377" Y="6.062" />
+        <Point X="8.25" Y="6.062" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.898" Y="-0.393" Height="0.182" Width="1.134" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_comments" Type="DAL.Repositories.GenericRepository&lt;T&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="10.5" Y="4.312" />
+        <Point X="11.5" Y="4.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_users" Type="DAL.Repositories.GenericRepository&lt;T&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="10.5" Y="4.812" />
+        <Point X="11.5" Y="4.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAhICAECAEACAAAAAAAAAgAAAAAJAAAEAAAAAAIAA=</HashCode>
+      <FileName>Repositories\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_db" />
+      <Field Name="_roleManager" />
+      <Field Name="_userManager" />
+      <Field Name="_comments" />
+      <Field Name="_refractory" />
+      <Field Name="_users" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DAL.EF.ApplicationDbContext" Collapsed="true">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAgAEAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>EF\ApplicationDbContext .cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DAL.Identity.CustomUserClaim">
-    <Position X="18" Y="5.75" Width="1.5" />
+  <Class Name="DAL.Identity.ApplicationUser">
+    <Position X="14" Y="5.75" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\IdentityModels.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Identity\ApplicationUser.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Identity.CustomUserLogin">
-    <Position X="15" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\IdentityModels.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Identity.CustomUserStore">
-    <Position X="15" Y="4.25" Width="5.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\IdentityModels.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Identity.CustomRoleStore">
-    <Position X="15" Y="5.75" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Identity\IdentityModels.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DAL.Models.Comment">
-    <Position X="4.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAAAAAAAgAAAAAAAAABEAAEAAAAAEIAA=</HashCode>
-      <FileName>Models\Comment.cs</FileName>
-    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UserInfo" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="DAL.Models.MyEntity">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="16.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\MyEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DAL.Models.Refractory">
-    <Position X="0.5" Y="2" Width="2" />
+    <Position X="14" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>CAAAEAAgAwAAAAAAACAAAAABQAAEAlEIAAGAAAABIAA=</HashCode>
       <FileName>Models\Refractory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DAL.Models.UserInfo">
-    <Position X="2.75" Y="2" Width="1.5" />
+    <Position X="16.25" Y="2" Width="1.5" />
+    <InheritanceLine Type="DAL.Models.MyEntity" FixedToPoint="true">
+      <Path>
+        <Point X="17" Y="1.603" />
+        <Point X="17" Y="2" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAwAAACAAQAAAABAgAAAAAQAAAAAIg=</HashCode>
       <FileName>Models\UserInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DAL.Repositories.GenericRepository&lt;T&gt;" BaseTypeListCollapsed="true">
-    <Position X="12.25" Y="5.25" Width="2" />
+  <Class Name="DAL.Models.Comment">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DAL.Models.MyEntity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="17.75" Y="1.062" />
+        <Point X="18" Y="1.062" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAQAgMAAACAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>Repositories\GenericRepository.cs</FileName>
+      <HashCode>AgAAAAAAAAAAAAAAAAAgAAAAAAAAABEAAEAAAAAEIAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="DAL.Repositories.UnitOfWork" BaseTypeListCollapsed="true">
-    <Position X="7.75" Y="4.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAhICAECAEACAAAAAAAAAgAAAAAJAAAEAAAAAAIAA=</HashCode>
-      <FileName>Repositories\UnitOfWork.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="DAL.Contracts.IGenericRepository&lt;T&gt;">
-    <Position X="10" Y="5.5" Width="2" />
+    <Position X="11.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAQAAMAAACAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Contracts\IGenericRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DAL.Contracts.IUnitOfWork">
-    <Position X="6" Y="6" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAICAACAAAAAAAAAAAAAAAAAAABAAAEAAAAAAIAA=</HashCode>
       <FileName>Contracts\IUnitOfWork.cs</FileName>

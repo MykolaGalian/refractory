@@ -1,49 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="BLL.DTO.DTOComment">
-    <Position X="17.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgACAAAAAAAAAAAAAAAgAAAAAAAAABEAAEAAAAAEIAA=</HashCode>
-      <FileName>DTO\DTOComment.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BLL.DTO.DTORefractory">
-    <Position X="15.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAACEAAgAwAAAAAAACAAAAABQAAEAlEIAAGAAAABIAA=</HashCode>
-      <FileName>DTO\DTORefractory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BLL.DTO.DTOUser">
-    <Position X="19" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAgAAAAAAQAAgABAgACAEAQAAAAAIg=</HashCode>
-      <FileName>DTO\DTOUser.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BLL.Infrastructure.DIResolver">
-    <Position X="1.75" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
-      <FileName>Infrastructure\DIResolver.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BLL.Infrastructure.MapDTOModels">
-    <Position X="17.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Infrastructure\MapDTOModels.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="BLL.Infrastructure.OperationDetails">
-    <Position X="3.5" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAIQAAAAA=</HashCode>
-      <FileName>Infrastructure\OperationDetails.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="BLL.Services.AdminService" BaseTypeListCollapsed="true">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+    <Position X="12.5" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAABAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\AdminService.cs</FileName>
@@ -52,16 +13,23 @@
   </Class>
   <Class Name="BLL.Services.BLLUnitOfWork" BaseTypeListCollapsed="true">
     <Position X="10.25" Y="0.5" Width="1.5" />
-    <AssociationLine Name="_commentService" Type="BLL.Services.CommentService" ManuallyRouted="true">
+    <AssociationLine Name="_adminService" Type="BLL.Services.AdminService" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="10.344" Y="3.468" />
-        <Point X="10.344" Y="4.017" />
-        <Point X="9.97" Y="4.017" />
-        <Point X="9.97" Y="7.422" />
-        <Point X="9.75" Y="7.422" />
+        <Point X="11.75" Y="2.812" />
+        <Point X="12.125" Y="2.812" />
+        <Point X="12.125" Y="4" />
+        <Point X="12.5" Y="4" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_commentService" Type="BLL.Services.CommentService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.344" Y="3.276" />
+        <Point X="10.344" Y="3.582" />
+        <Point X="9.438" Y="3.582" />
+        <Point X="9.438" Y="3.75" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.067" Y="2.955" />
+        <Position X="2.955" Y="-0.067" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="_userInfoService" Type="BLL.Services.UserInfoService">
@@ -69,12 +37,12 @@
         <Position X="-0.584" Y="0.311" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="_userManagerService" Type="BLL.Services.UserManagerService" ManuallyRouted="true">
+    <AssociationLine Name="_userManagerService" Type="BLL.Services.UserManagerService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="10.25" Y="2.934" />
-        <Point X="8.058" Y="2.934" />
-        <Point X="8.058" Y="5.607" />
-        <Point X="7.5" Y="5.607" />
+        <Point X="10.25" Y="3.062" />
+        <Point X="8.058" Y="3.062" />
+        <Point X="8.058" Y="4" />
+        <Point X="7.5" Y="4" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.252" Y="1.794" />
@@ -91,13 +59,14 @@
       <Field Name="_userInfoService" />
       <Field Name="_userManagerService" />
       <Field Name="_moderatorService" />
+      <Field Name="_uow" />
       <Property Name="ModeratorService" />
       <Property Name="RefractoryService" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="BLL.Services.CommentService" BaseTypeListCollapsed="true">
-    <Position X="8.25" Y="5.25" Width="1.5" />
+    <Position X="8.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAIACAAAAAAAAAAAAABAAAIAAAAAAAAAAAACAA=</HashCode>
       <FileName>Services\CommentService.cs</FileName>
@@ -113,7 +82,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="BLL.Services.RefractoryService" BaseTypeListCollapsed="true">
-    <Position X="1.5" Y="1.5" Width="1.5" />
+    <Position X="2" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAACACAIACAQAAAQAgAAQAAAAAAIAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Services\RefractoryService.cs</FileName>
@@ -121,7 +90,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="BLL.Services.UserInfoService" BaseTypeListCollapsed="true">
-    <Position X="10.75" Y="5.25" Width="1.5" />
+    <Position X="10.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQQAAAIIASABAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Services\UserInfoService.cs</FileName>
@@ -137,21 +106,21 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="BLL.Contracts.IAdminService" Collapsed="true">
-    <Position X="12.75" Y="1.75" Width="1.5" />
+    <Position X="12.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IAdminService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="BLL.Contracts.IBLLUnitOfWork" Collapsed="true">
-    <Position X="12" Y="0.5" Width="1.5" />
+    <Position X="12.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAACAAACAQAAAAQgAAA=</HashCode>
       <FileName>Contracts\IBLLUnitOfWork.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="BLL.Contracts.ICommentService" Collapsed="true">
-    <Position X="8.25" Y="8" Width="1.5" />
+    <Position X="8.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAIAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Contracts\ICommentService.cs</FileName>
@@ -165,14 +134,14 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="BLL.Contracts.IRefractoryService" Collapsed="true">
-    <Position X="1.5" Y="0.5" Width="1.5" />
+    <Position X="2" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAACACAIAAAQAAAQAgAAQAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Contracts\IRefractoryService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="BLL.Contracts.IUserInfoService" Collapsed="true">
-    <Position X="10.75" Y="8.5" Width="1.5" />
+    <Position X="10.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQQAAAIIAQABAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IUserInfoService.cs</FileName>
@@ -184,6 +153,10 @@
       <HashCode>AAAAAAAAAQAAABAAAAAIAAAAAAAAAUAAAAAAAAAAAAA=</HashCode>
       <FileName>Contracts\IUserManagerService.cs</FileName>
     </TypeIdentifier>
+  </Interface>
+  <Interface Name="DAL.Contracts.IUnitOfWork" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

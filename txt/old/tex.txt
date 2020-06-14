@@ -1,4 +1,4 @@
-WebApi + identity
+WebApi 
 - automapper
 - Ninject.Web.Common.WebHost
 - Microsoft.Owin.Cors

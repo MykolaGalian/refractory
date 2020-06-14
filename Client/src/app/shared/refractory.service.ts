@@ -195,7 +195,7 @@ export class RefractoryService {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
  
     const body: Refcalc = data;
-    
+    debugger
        return this.http.post(this.rootUrl + '/CalcRefRow', body , {headers:reqHeader}).
 
        subscribe((res: any) => {

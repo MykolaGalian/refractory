@@ -14,7 +14,7 @@ export class UserService {
   userDetails : UserDetails = null;
   usersDetails : UserDetails[] =null;  
 
-  readonly BaseURI = 'https://localhost:44302';
+  readonly BaseURI = 'https://localhost:44302'; //44302
   imageUrl: any = "/assets/img/unknown-user.png";
   readonly rootUrl = 'https://localhost:44302/api/';
 
