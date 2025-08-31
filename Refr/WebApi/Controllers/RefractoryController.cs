@@ -13,7 +13,6 @@ using System.Net.Http;
 using System.Collections.Generic;
 using WebApi.Models.Refractory;
 using System.Diagnostics;
-using IronPython.Hosting;
 using System.Text;
 
 namespace WebApi.Controllers
