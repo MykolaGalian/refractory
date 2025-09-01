@@ -1,0 +1,145 @@
+<div class="card refractory pointer" *ngIf="refractory">
+  <div class="card-body">
+    <div class="edit-buttons">
+      <button (click)="refractoryOnEdit=true">&#9998;</button>
+      <button (click)="OnDeleteRefractory()">&times;</button>
+    </div>
+    <div><br></div>
+    <img [src]="refractory.Src" alt="Головний малюнок" height="200">
+
+    <!-- Initial Refractory -->
+    <div class="initialRefractory" *ngIf="!refractoryOnEdit">
+      <span class="text-black font-weight-bold anchor">{{refractory.RefractoryType}}</span>
+      <h4 class="card-title">{{refractory.RefractoryBrand}}</h4>
+
+      <h5 class="card-title"><label [innerHTML]="refractory.RefractoryDescription"></label></h5>
+
+      <h5 style="margin-left: 100px;">Фiзичнi властивостi та хімічний склад вогнетрива:</h5>
+      <div style="margin-right: 700px; margin-left: 50px;">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Щільність вогнетриву,гр/см3</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Density}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Максимальна робоча температура,°C</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.MaxWorkTemperature}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Концентрація CaO, %</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Lime}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Концентрація Al2O3, %</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Alumina}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Концентрація SiO2, %</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Silica}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Концентрація MgO, %</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Magnesia}}</td>
+            </tr>
+            <tr>
+              <th style="font-size: 18px;" scope="row">Концентрація C, %</th>
+              <td style="font-size: 18px;font-weight: bold">{{refractory.Carbon}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-right: 700px; margin-left: 50px;">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th style="font-size: 18px; width:50%" scope="row">Вартість, USD/т</th>
+              <td style="font-size: 20px;font-weight: bold">{{refractory.Price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+      <button class="btn btn-info my-4 my-sm-0" (click)="calcRef(refractory)" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button>
+      <br><br>
+      <span class="text-black font-weight-bold anchor">Розміщенно: {{refractory.UserInfo.Name}} {{refractory.UserInfo.LastName}}, {{refractory.UserInfo.Position}}</span><br>
+      <span class="text-black font-weight-bold anchor">Дата публікації: {{refractory.DateCreate | date : "MMM d, y"}}</span><br>
+      <span class="text-black font-weight-bold anchor" *ngIf="refractory.LastEdit!=null">Стаття зміненна: {{refractory.LastEdit | date : "MMM d, y"}}</span><br><br>
+
+      <h5><u>Відгуки про вогнетрив:</u></h5>
+      <div class="comment" *ngFor="let comment of refractory.Comments">
+        <span>{{comment.DateCreation | date : "MMM d, y"}}</span><br>
+        <span>"{{comment.CommentBody}}"</span><br>
+        <span>{{comment.UserInfo.Name}} {{comment.UserInfo.LastName}}, {{comment.UserInfo.Position}}</span>
+        <span>
+          <button class="del-com-button" (click)="OnDeleteComment(comment.Id)">&times;</button>
+        </span><br><br>
+      </div>
+
+      <!-- add comment -->
+      <div class="addComments">
+        <form (ngSubmit)="OnAddComment(commentText)">
+          <div class="form-group">
+            <label class="col-form-label">Новий відгук про роботу вогнетрива:</label>
+            <textarea class="add-comment form-control" [(ngModel)]="commentText" name="commentText"></textarea>
+          </div>
+          <button id="sendButton" type="submit" class="btn btn-info">Додати відгук</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Ref edit -->
+    <form #EditRefForm="ngForm" (ngSubmit)="OnRefractoryEdit(EditRefForm)" *ngIf="refractoryOnEdit">
+      <div class="form-group">
+        <label class="control-label" for="Brand">Маркування вогнетриву:</label>
+        <textarea class="form-control" rows="1" name="Brand" [(ngModel)]="refractory.RefractoryBrand"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Description">Опис вогнетриву:</label>
+        <quill-editor name="Description" [(ngModel)]="refractory.RefractoryDescription" placeholder="Редагувати опис вогнетриву..."></quill-editor>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Type">Зона сталь ковша:</label>
+        <select name="Type" [(ngModel)]="refractory.RefractoryType" class="form-control">
+          <option *ngFor="let zone of ZonesOfRefractory" [value]="zone.value">{{zone.value}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Density">Щільність вогнетриву, гр/см3:</label>
+        <textarea class="form-control" rows="1" name="Density" [(ngModel)]="refractory.Density"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="MaxWorkTemperature">Максимальна робоча температура, градусів:</label>
+        <textarea class="form-control" rows="1" name="MaxWorkTemperature" [(ngModel)]="refractory.MaxWorkTemperature"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Lime">Концентрація CaO, %:</label>
+        <textarea class="form-control" rows="1" name="Lime" [(ngModel)]="refractory.Lime"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Alumina">Концентрація Al2O3, %:</label>
+        <textarea class="form-control" rows="1" name="Alumina" [(ngModel)]="refractory.Alumina"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Silica">Концентрація SiO2, %:</label>
+        <textarea class="form-control" rows="1" name="Silica" [(ngModel)]="refractory.Silica"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Magnesia">Концентрація MgO, %:</label>
+        <textarea class="form-control" rows="1" name="Magnesia" [(ngModel)]="refractory.Magnesia"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Carbon">Концентрація C, %:</label>
+        <textarea class="form-control" rows="1" name="Carbon" [(ngModel)]="refractory.Carbon"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="Price">Вартість, USD/т:</label>
+        <textarea class="form-control" rows="1" name="Price" [(ngModel)]="refractory.Price"></textarea>
+      </div>
+
+      <input class="btn btn-danger" type="submit" id="submit" value="Зберегти">
+      <button type="button" class="btn btn-secondary ml-2" (click)="refractoryOnEdit=false">Скасувати</button>
+    </form>
+  </div>
+</div>

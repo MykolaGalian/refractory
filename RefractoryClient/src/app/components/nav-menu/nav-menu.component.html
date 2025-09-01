@@ -1,0 +1,24 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom mb-3">
+    <a class="navbar-brand" [routerLink]="isLoggedIn ? ['/home'] : null">
+      <h3 style="font-family:georgia,garamond,serif;font-size:30px;font-style:italic; margin-left:40px; font-weight: bold;">Вогнетриви для ливарного цеху</h3>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation" *ngIf="isLoggedIn">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" *ngIf="isLoggedIn">
+      <ul class="navbar-nav flex-grow-2">  
+        <li class="nav-item">
+          <a class="nav-link text-dark" [routerLink]='["/home"]'>Каталог вогнетривів</a>
+        </li>   
+        <li class="nav-item">
+          <a class="nav-link text-dark" [routerLink]='["/profile"]'>Профіль</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark logout-link" (click)="onLogout()">Вийти</a>
+        </li>     
+      </ul>
+    </div>  
+  </nav>
+</header>

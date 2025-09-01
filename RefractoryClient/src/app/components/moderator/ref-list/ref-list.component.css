@@ -1,0 +1,108 @@
+.card {
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.anchor {
+  cursor: pointer;
+  color: #333;
+}
+
+.anchor:hover {
+  text-decoration: underline;
+}
+
+.status-active {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-blocked {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.card img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 15px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h5 u {
+  color: #007bff;
+  cursor: pointer;
+}
+
+h5 u:hover {
+  color: #0056b3;
+}
+
+.edit-buttons {
+  margin: 10px 0;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.pointer {
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 15px;
+  }
+  
+  .card img {
+    max-width: 250px;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+}

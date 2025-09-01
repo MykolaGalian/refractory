@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-sm-10">
+      <div class="row">
+        <div class="col-xs-3" *ngFor="let pd of refractories">
+          <div class="card-body">
+            <h4 class="card-body">{{pd.RefractoryBrand}}</h4>
+            <img [src]="pd.Src" alt="Головний малюнок" height="300" length="300">
+            <div><br></div>
+            <span class="text-black font-weight-bold anchor">Дата публікації: {{pd.DateCreate | date : "MMM d, y"}}</span><br>
+            <span class="text-black font-weight-bold anchor">Зона сталь ковша: {{pd.RefractoryType}}</span>
+            <div (click)="populateForm(pd)"><h5><u>Перейти до опису вогнетрива</u></h5></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-1 col-sm-2" style="background-color: rgb(224, 235, 255)">
+      <h4>Зона ковша:</h4>
+      <div class="tegs" *ngFor="let teg of tegsList">
+        <span (click)="searchByTeg(teg)">{{teg}}</span>
+      </div>
+    </div>
+  </div>
+</div>

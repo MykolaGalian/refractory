@@ -1,0 +1,71 @@
+<div class="add-refractory-form jumbotron container text-center">
+  <form #AddRefForm="ngForm" (ngSubmit)="onSubmit(AddRefForm)">
+    <div class="add-image">
+      <p *ngIf="imageUrl!=null">
+        <img [src]="imageUrl">
+      </p>
+      <input class="btn btn-info" type="button" value="Завантажити фото" onclick="document.getElementById('fileUpload').click();" />
+      <input style="display: none;" type="file" id="fileUpload" accept="image/*" (change)="handleFileInput($any($event.target).files)" required>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Brand">Маркування вогнетриву:</label>
+      <textarea class="form-control" rows="1" name="Brand" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Description">Опис вогнетриву:</label>
+      <quill-editor name="Description" ngModel placeholder="Введіть опис вогнетриву..."></quill-editor>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Type">Зона сталь ковша:</label>
+      <select name="Type" ngModel class="form-control">
+        <option disabled>Виберіть зону сталь ковша</option>
+        <option *ngFor="let zone of ZonesOfRefractory" [value]="zone.value">{{zone.value}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Density">Щільність вогнетриву, гр/см3:</label>
+      <textarea class="form-control" rows="1" name="Density" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="MaxWorkTemperature">Максимальна робоча температура, градусів:</label>
+      <textarea class="form-control" rows="1" name="MaxWorkTemperature" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Lime">Концентрація CaO, %:</label>
+      <textarea class="form-control" rows="1" name="Lime" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Alumina">Концентрація Al2O3, %:</label>
+      <textarea class="form-control" rows="1" name="Alumina" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Silica">Концентрація SiO2, %:</label>
+      <textarea class="form-control" rows="1" name="Silica" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Magnesia">Концентрація MgO, %:</label>
+      <textarea class="form-control" rows="1" name="Magnesia" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Carbon">Концентрація C, %:</label>
+      <textarea class="form-control" rows="1" name="Carbon" ngModel></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Price">Вартість, USD/т:</label>
+      <textarea class="form-control" rows="1" name="Price" ngModel></textarea>
+    </div>
+
+    <input class="btn btn-success" type="submit" [disabled]="fileToUpload==null" id="submit" value="Додати новий вогнетрив">
+  </form>
+</div>
