@@ -1,48 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { RefractoryService } from 'src/app/shared/refractory.service';
-import { NgForm } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Refcalc } from 'src/app/model/refractory/refcalc';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { RefractoryService } from '../../../services/refractory.service';
+import { Refcalc } from '../../../models/refcalc.model';
 
 @Component({
   selector: 'app-ref-calc',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './ref-calc.component.html',
   styleUrls: ['./ref-calc.component.css']
 })
 export class RefCalcComponent implements OnInit {
+  private refService = inject(RefractoryService);
 
-  constructor(private refService: RefractoryService) { }
-
-  ngOnInit() {
+  get refCalcRes() {
+    return this.refService.refCalcRes;
   }
 
-  onSubmit(form: NgForm) {   
-      this.CalcRefForm(form);     
-   }
+  get refractory() {
+    return this.refService.refractory;
+  }
 
-   CalcRefForm(data: any){
-       let FirstBrickA1 = parseFloat(data.value.FirstBrickA1); 
-       let FirstBrickA2 = parseFloat(data.value.FirstBrickA2); 
-       let SecondBrickA1 = parseFloat(data.value.SecondBrickA1); 
-       let SecondBrickA2 = parseFloat(data.value.SecondBrickA2); 
-       let BrickLength = parseFloat(data.value.BrickLength); 
-       let TopDiameter = parseFloat(data.value.TopDiameter); 
-       let BottomDiameter = parseFloat(data.value.BottomDiameter); 
-       let RowNumber = parseFloat(data.value.RowNumber); 
+  ngOnInit(): void {
+    // Component initialization
+  }
 
-       const datas: Refcalc = {
-       a1: FirstBrickA1.toString(),
-       a2: FirstBrickA2.toString(),
-       b1: SecondBrickA1.toString(),
-       b2: SecondBrickA2.toString(),
-       BrickLength:BrickLength.toString(),
-       TopDiameter : TopDiameter.toString(),
-       BottomDiameter : BottomDiameter.toString(),
-       RowNumber : RowNumber.toString(),
-       Density : this.refService.refractory.Density,
-       Price: this.refService.refractory.Price
-      }
-          
-       this.refService.GetRefrCalc(datas);
-   }
+  onSubmit(form: NgForm): void {
+    this.CalcRefForm(form);
+  }
+
+  CalcRefForm(data: any): void {
+    const FirstBrickA1 = parseFloat(data.value.FirstBrickA1);
+    const FirstBrickA2 = parseFloat(data.value.FirstBrickA2);
+    const SecondBrickA1 = parseFloat(data.value.SecondBrickA1);
+    const SecondBrickA2 = parseFloat(data.value.SecondBrickA2);
+    const BrickLength = parseFloat(data.value.BrickLength);
+    const TopDiameter = parseFloat(data.value.TopDiameter);
+    const BottomDiameter = parseFloat(data.value.BottomDiameter);
+    const RowNumber = parseFloat(data.value.RowNumber);
+
+    const calcData: Refcalc = {
+      a1: FirstBrickA1.toString(),
+      a2: FirstBrickA2.toString(),
+      b1: SecondBrickA1.toString(),
+      b2: SecondBrickA2.toString(),
+      BrickLength: BrickLength.toString(),
+      TopDiameter: TopDiameter.toString(),
+      BottomDiameter: BottomDiameter.toString(),
+      RowNumber: RowNumber.toString(),
+      Density: this.refService.refractory?.Density || '',
+      Price: this.refService.refractory?.Price || ''
+    };
+
+    this.refService.GetRefrCalc(calcData);
+  }
 }

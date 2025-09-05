@@ -1,24 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { RefractoryService } from '../../../shared/refractory.service';
-import { Refractory } from '../../../model/refractory/refractory';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { RefractoryService } from '../../../services/refractory.service';
+import { Refractory } from '../../../models/refractory.models';
 
 @Component({
   selector: 'app-ref-byteg',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './ref-byteg.component.html',
   styleUrls: ['./ref-byteg.component.css']
 })
 export class RefractoryBytegComponent implements OnInit {
+  private refractoryService = inject(RefractoryService);
+  private router = inject(Router);
 
-  constructor(private refractoryService: RefractoryService, private router: Router) { }
-
-  ngOnInit() {
+  get refractoryByTeg() {
+    return this.refractoryService.refractoryByTeg;
   }
 
-  populateForm(pd: Refractory) {       // метод обновляет данные во временном обьекте (refractoryService.Refractory) типа Refractory на основании обьекта выделенного из списка pd в представлении
-    this.refractoryService.refractory = Object.assign({}, pd);   // Object.assign - предотвращает корректировку полей в
+  ngOnInit(): void {
+    // Component initialization
+  }
+
+  populateForm(pd: Refractory): void {
+    this.refractoryService.refractory = Object.assign({}, pd);
     this.refractoryService.tempRefractoryId = pd.Id;
     this.router.navigate(['/read-ref']);
   }
-
 }

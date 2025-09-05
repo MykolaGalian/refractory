@@ -1,19 +1,22 @@
 <table class="table table-hover">
-    <thead class="thead-light">
-      <tr>
-        <th>Логін</th>
-        <th>Ім'я Прізвище</th>
-        <th>Посада</th>
-        <th>Статус блокування кристувача</th>
-
-      </tr>
-    </thead>
+  <thead class="thead-light">
+    <tr>
+      <th>Логін</th>
+      <th>Ім'я Прізвище</th>
+      <th>Посада</th>
+      <th>Статус блокування користувача</th>
+    </tr>
+  </thead>
+  <tbody>
     <tr *ngFor="let pd of service.usersDetails">
       <td (click)="populateForm(pd)">{{pd.Login}}</td>
       <td (click)="populateForm(pd)">{{pd.Name}} {{pd.LastName}}</td>
       <td (click)="populateForm(pd)">{{pd.Position}}</td>
-      <td (click)="populateForm(pd)">{{pd.IsBlocked}}</td>
-
+      <td (click)="populateForm(pd)">
+        <span [class]="pd.IsBlocked ? 'status-blocked' : 'status-active'">
+          {{pd.IsBlocked ? 'Заблокований' : 'Активний'}}
+        </span>
+      </td>
     </tr>
-  </table>
-
+  </tbody>
+</table>

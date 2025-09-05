@@ -1,84 +1,78 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { UserService } from '../../../shared/user.service';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+  private router = inject(Router);
+  private userService = inject(UserService);
 
-
-  constructor(private router: Router,private service: UserService, private toastr: ToastrService ) { }
-
-  ngOnInit() {
-    console.log(this.service.userDetails.Id);
-    console.log(this.service.userDetails.Login);
-
-   this.initEditProfile();
-
+  get service() {
+    return this.userService;
   }
 
-  initEditProfile(){
-  this.service.editProfile =
-  { Id: this.service.userDetails.Id,
-    Login: this.service.userDetails.Login,
-    Name: this.service.userDetails.Name,
-    LastName: this.service.userDetails.LastName,
-    Email: this.service.userDetails.Email,
-    Position: this.service.userDetails.Position,
-    UserAvatar: this.service.userDetails.UserAvatar,
-    DateRegistration: this.service.userDetails.DateRegistration,
-    Refractories: this.service.userDetails.Refractories,
-    IsAdmin: this.service.userDetails.IsAdmin,
-    IsModerator: this.service.userDetails.IsModerator,
-    IsBlocked: this.service.userDetails.IsBlocked
-    };
-
-
+  ngOnInit(): void {
+    this.initEditProfile();
   }
 
-  OnSubmit() {
-    this.service.EditUserProfile().
-      subscribe(
-        (res:any) => {
-          this.service.getUserProfile();
-          this.toastr.success('Профіль користувача оновлено');
-          console.log("updated");
-
-         },
-        err => {
-          console.log(err);
-          this.toastr.error('HTTP status code', err.status);
-        }
-
-      );
-
+  initEditProfile(): void {
+    if (this.userService.userDetails) {
+      this.userService.editProfile = {
+        Id: this.userService.userDetails.Id,
+        Login: this.userService.userDetails.Login,
+        Name: this.userService.userDetails.Name,
+        LastName: this.userService.userDetails.LastName,
+        Email: this.userService.userDetails.Email,
+        Position: this.userService.userDetails.Position,
+        UserAvatar: this.userService.userDetails.UserAvatar,
+        DateRegistration: this.userService.userDetails.DateRegistration,
+        Refractories: this.userService.userDetails.Refractories,
+        IsAdmin: this.userService.userDetails.IsAdmin,
+        IsModerator: this.userService.userDetails.IsModerator,
+        IsBlocked: this.userService.userDetails.IsBlocked
+      };
+    }
   }
 
-
-  OnDeleteAcc() {
-    this.service.DeleteAccount().
-    subscribe(
-      (res:any) => {
-        this.toastr.success('Профіль користувача видалено');
-        console.log("deleted");
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('Login');
-        this.router.navigate(['/login']);
-
-       },
-      err => {
-        console.log(err);
-        this.toastr.error('HTTP status code', err.status);
+  OnSubmit(): void {
+    if (!this.userService.editProfile?.Name || this.userService.editProfile.Name.trim() === '') {
+      alert('Будь ласка, введіть ім\'я');
+      return;
+    }
+    
+    this.userService.EditUserProfile().subscribe({
+      next: (res: any) => {
+        this.userService.getUserProfile();
+        alert('Профіль користувача оновлено');
+      },
+      error: (err) => {
+        console.error('Edit profile error:', err);
+        alert(`HTTP status code: ${err.status}`);
       }
-
-    );
-
+    });
   }
 
+  OnDeleteAcc(): void {
+    if (confirm('Ви впевнені, що хочете видалити акаунт?')) {
+      this.userService.DeleteAccount().subscribe({
+        next: (res: any) => {
+          alert('Профіль користувача видалено');
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('Login');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          alert(`HTTP status code: ${err.status}`);
+        }
+      });
+    }
+  }
 }
