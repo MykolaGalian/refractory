@@ -1,81 +1,77 @@
-<div class="card refractory pointer"> 
+<div class="card refractory pointer" *ngIf="refractory$ | async as refractory">
+  <div class="card-body">
+    <h4 class="card-title">{{refractory?.RefractoryBrand}}</h4>
+    <span class="text-black font-weight-bold anchor">Зона сталь ковша: {{refractory?.RefractoryType}}</span><br>
+    <img [src]="refractory?.Src" alt="Заглавная картинка из поста" height="200" *ngIf="refractory?.Src">
+    <h5 class="card-title"><label [innerHTML]="refractory?.RefractoryDescription"></label></h5>
 
-        <div class="card-body">                 
-          <h4 class="card-title">{{refractoryService.refractory.RefractoryBrand}}</h4>  
-          <span class="text-black font-weight-bold anchor" >Зона сталь ковша:  {{refractoryService.refractory.RefractoryType}} </span>   <br>
-          <img [src]="refractoryService.refractory.Src" alt="Заглавная картинка из поста " height="200">     
-          <h5 class="card-title"><label [innerHtml]="refractoryService.refractory.RefractoryDescription"></label></h5>   
-
-
-          <h5 style="margin-left: 100px;">Фiзичнi властивостi та хімічний склад вогнетрива:</h5>
-          <div style="margin-right: 700px; margin-left: 50px;">
-            <table class="table table-striped">
-              <tbody>
-                <tr >
-                  <th style="font-size: 18px;" scope="row">Щільність вогнетриву,гр/см3</th>
-                  <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Density}}</td>                            
-                </tr>    
-                <tr >
-                  <th style="font-size: 18px;" scope="row">Максимальна робоча температура,°C</th>
-                  <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.MaxWorkTemperature}}</td>
-              </tr> 
-              <tr >
-                <th style="font-size: 18px;" scope="row">Концентрація CaO, %</th>
-                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Lime}}</td>                            
-              </tr>      
-              <tr >
-                <th  style="font-size: 18px;" scope="row">Концентрація Al2O3, %</th>
-                <td  style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Alumina}}</td>                            
-              </tr> 
-              <tr >
-                <th  style="font-size: 18px;" scope="row">Концентрація SiO2, %</th>
-                <td  style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Silica}}</td>                            
-              </tr>    
-              <tr >
-                <th style="font-size: 18px;" scope="row">Концентрація MgO, %</th>
-                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Magnesia}}</td>                            
-              </tr>    
-              <tr >
-                <th style="font-size: 18px;" scope="row">Концентрація C, %</th>
-                <td style="font-size: 18px;font-weight: bold">{{refractoryService.refractory.Carbon}}</td>
-            </tr>            
-            </tbody>
-        </table>
-     </div>  
-     <div style="margin-right: 700px; margin-left: 50px;">     
+    <h5 style="margin-left: 100px;">Фiзичнi властивостi та хімічний склад вогнетрива:</h5>
+    <div style="margin-right: 700px; margin-left: 50px;">
       <table class="table table-striped">
         <tbody>
           <tr>
-            <th  style="font-size: 18px; width:50%" scope="row">Вартість, USD/т</th>
-            <td  style="font-size: 20px;font-weight: bold">{{refractoryService.refractory.Price}}</td>                            
-          </tr> 
+            <th style="font-size: 18px;" scope="row">Щільність вогнетриву,гр/см3</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Density}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Максимальна робоча температура,°C</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.MaxWorkTemperature}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Концентрація CaO, %</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Lime}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Концентрація Al2O3, %</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Alumina}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Концентрація SiO2, %</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Silica}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Концентрація MgO, %</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Magnesia}}</td>
+          </tr>
+          <tr>
+            <th style="font-size: 18px;" scope="row">Концентрація C, %</th>
+            <td style="font-size: 18px;font-weight: bold">{{refractory?.Carbon}}</td>
+          </tr>
         </tbody>
       </table>
-    </div> 
-<br>
-          <span class="text-black font-weight-bold anchor">Розміщенно: {{refractoryService.refractory.UserInfo.Name}}  {{refractoryService.refractory.UserInfo.LastName}}, {{refractoryService.refractory.UserInfo.Position}}</span><br>     
-          <span class="text-black font-weight-bold anchor">Дата публікації: {{refractoryService.refractory.DateCreate | date : "MMM d, y"}}</span><br><br>      
-          <button class="btn btn-info my-4 my-sm-0" (click)="calcRef(refractoryService.refractory)" style="max-width: 400px; margin-left: 20px;">Розрахувати необхiдну кiлькiсть вогнетриву</button> 
-          <br><br>    
-          <h5><u>Відгуки про вогнетрив:</u></h5>
-                <div class="comment"  *ngFor="let comment of refractoryService.refractory.Comments" >
-                  <span>{{comment.DateCreation | date : "MMM d, y"}}</span><br>
-                  <span>"{{comment.CommentBody}}"</span><br>
-                  <span>{{comment.UserInfo.Name}} {{comment.UserInfo.LastName}}, {{comment.UserInfo.Position}}</span>
-                   <br><br>
-                </div>
-
-                <!--add comment-->
-          <div class="addComments" *ngIf="!AutorizeCheck()">
-              <form #messageForm="ngForm"  #commentInput (ngSubmit)="OnAddComment(CommentText.value);">
-                  <div class="form-group">
-                    <label class="col-form-label">Новий відгук про роботу вогнетрива:</label>
-                    <textarea class="add-comment form-control" #CommentText [(ngModel)]="commentText" [ngModelOptions]="{standalone: true}"></textarea>
-                  </div>
-                  <button id="sendButton" type="submit" class="btn btn-info">Додати відгук</button>
-                </form>
-          </div>
-            <br><br>    
-                   
-        </div>
     </div>
+    <div style="margin-right: 700px; margin-left: 50px;">
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th style="font-size: 18px; width:50%" scope="row">Вартість, USD/т</th>
+            <td style="font-size: 20px;font-weight: bold">{{refractory?.Price}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <span class="text-black font-weight-bold anchor">Розміщенно: {{refractory?.UserInfo?.Name}} {{refractory?.UserInfo?.LastName}}, {{refractory?.UserInfo?.Position}}</span><br>
+    <span class="text-black font-weight-bold anchor">Дата публікації: {{refractory?.DateCreate | date : "MMM d, y"}}</span><br><br>
+    <button class="btn btn-info my-4 my-sm-0" (click)="calcRef(refractory)" style="max-width: 400px; margin-left: 20px;" *ngIf="refractory">Розрахувати необхiдну кiлькiсть вогнетриву</button>
+    <br><br>
+    <h5><u>Відгуки про вогнетрив:</u></h5>
+    <div class="comment" *ngFor="let comment of refractory?.Comments">
+      <span>{{comment.DateCreation | date : "MMM d, y"}}</span><br>
+      <span>"{{comment.CommentBody}}"</span><br>
+      <span>{{comment.UserInfo?.Name}} {{comment.UserInfo?.LastName}}, {{comment.UserInfo?.Position}}</span>
+      <br><br>
+    </div>
+
+    <div class="addComments" *ngIf="!AutorizeCheck()">
+      <form (ngSubmit)="OnAddComment(commentText)">
+        <div class="form-group">
+          <label class="col-form-label">Новий відгук про роботу вогнетрива:</label>
+          <textarea class="add-comment form-control" [(ngModel)]="commentText" name="commentText"></textarea>
+        </div>
+        <button id="sendButton" type="submit" class="btn btn-info">Додати відгук</button>
+      </form>
+    </div>
+    <br><br>
+  </div>
+</div>

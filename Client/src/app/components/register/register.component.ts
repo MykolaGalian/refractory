@@ -1,39 +1,42 @@
-import { UserService } from '../../shared/user.service';
-import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-
-
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  private userService = inject(UserService);
+  private router = inject(Router);
 
-  constructor(public service: UserService, public toastr: ToastrService,  private router: Router) { }  
-
-
-  ngOnInit() {
-    this.service.formModel.reset();
-    
+  get formModel(): FormGroup {
+    return this.userService.formModel;
   }
 
-  onSubmit() {
-    this.service.register().subscribe(
-      (res: any) => {
-        if (res !== null) {
-          this.service.formModel.reset();
-          console.log(res); 
-          this.toastr.success('Створено нового користувача.');
-          this.router.navigateByUrl('/login');
-        }         
-      },
-      err => {
-        console.log(err);              
-        this.toastr.error('HTTP status code', err.status);
-      }
-    );
+  ngOnInit(): void {
+    this.userService.formModel.reset();
+  }
+
+  onSubmit(): void {
+    if (this.formModel.valid) {
+      this.userService.register().subscribe({
+        next: (res: any) => {
+          if (res !== null) {
+            this.userService.formModel.reset();
+            alert('Створено нового користувача.');
+            this.router.navigateByUrl('/login');
+          }
+        },
+        error: (err) => {
+          alert(`HTTP status code: ${err.status}`);
+        }
+      });
+    }
   }
 }

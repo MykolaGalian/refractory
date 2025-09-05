@@ -1,4 +1,57 @@
+.card-body {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.card-body h4 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.card-body img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.anchor {
+  cursor: pointer;
+}
+
+.anchor:hover {
+  text-decoration: underline;
+}
+
 .tegs {
-    color: rgb(10, 2, 39);    
-    font-size: 26px
-  }
+  margin-bottom: 10px;
+}
+
+.tegs span {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.tegs span:hover {
+  background-color: #0056b3;
+}
+
+.col-xs-1, .col-sm-2 {
+  padding: 15px;
+}
+
+.col-xs-1 h4, .col-sm-2 h4 {
+  margin-bottom: 15px;
+  color: #333;
+}

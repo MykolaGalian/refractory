@@ -1,22 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../shared/user.service';
-import { UserDetails } from 'src/app/model/user/user-details';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../../../services/user.service';
+import { UserDetails } from '../../../models/user.models';
 
 @Component({
   selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  private userService = inject(UserService);
 
-  constructor(private service: UserService) { }
-
-  ngOnInit() {
-    this.service.getAllUserProfiles();
- 
+  get service() {
+    return this.userService;
   }
-  populateForm(pd: UserDetails){
-     this.service.userDetails = Object.assign({}, pd);
-     
+
+  ngOnInit(): void {
+    this.userService.getAllUserProfiles();
+  }
+
+  populateForm(pd: UserDetails): void {
+    this.userService.userDetails = Object.assign({}, pd);
   }
 }
