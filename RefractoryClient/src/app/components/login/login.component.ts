@@ -28,18 +28,14 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
       (res: any) => {
-        console.log(res);
         localStorage.setItem('access_token', res.access_token);
         localStorage.setItem('Login', form.value.Login);
-        console.log(form.value.Login);
 
         this.service.GetUser().subscribe(
           (res: any) => {
-            console.log("res", res);
             this.router.navigateByUrl('/profile');
           },
           err => {
-            console.log(err);
             if (err.status === 400) {
               localStorage.removeItem('access_token');
               localStorage.removeItem('Login');
@@ -50,7 +46,6 @@ export class LoginComponent implements OnInit {
         );
       },
       err => {
-        console.log("this error", err);
         this.toastr.error('HTTP status code', err.status);
       }
     );

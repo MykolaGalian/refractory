@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RefractoryApp.BLL.Contracts;
 using RefractoryApp.BLL.DTO;
 using RefractoryApp.DAL.Contracts;
@@ -47,9 +48,16 @@ public class UserInfoService : IUserInfoService
         if (string.IsNullOrWhiteSpace(user.LastName))
             throw new ArgumentException("LastName is required", nameof(user.LastName));
 
-        // Обновляем UserInfo
-        var userInfo = _mapper.Map<UserInfo>(user);
-        await _uow.UserInfos.UpdateAsync(userInfo);
+        // Получаем существующую сущность и обновляем её поля
+        var existingUserInfo = await _uow.UserInfos.SelectByIdAsync(user.Id);
+        if (existingUserInfo == null)
+            throw new ArgumentException("User not found", nameof(user.Id));
+
+        existingUserInfo.Name = user.Name;
+        existingUserInfo.LastName = user.LastName;
+        existingUserInfo.Position = user.Position;
+        
+        await _uow.UserInfos.UpdateAsync(existingUserInfo);
 
         // Обновляем ApplicationUser (только email)
         var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());
@@ -67,15 +75,20 @@ public class UserInfoService : IUserInfoService
         if (userId <= 0)
             throw new ArgumentException("User ID must be greater than 0", nameof(userId));
 
-        // Удаляем связанные комментарии
-        var userComments = await _uow.Comments.SelectAllAsync(x => x.UserInfoId == userId);
+        // Удаляем связанные комментарии через прямой запрос
+        var context = _uow.Context;
+        var userComments = await context.Comments
+            .Where(x => x.UserInfoId == userId)
+            .ToListAsync();
         foreach (var comment in userComments)
         {
             await _uow.Comments.DeleteAsync(comment.Id);
         }
 
-        // Удаляем связанные огнеупоры
-        var userRefractories = await _uow.Refractories.SelectAllAsync(x => x.UserInfoId == userId);
+        // Удаляем связанные огнеупоры через прямой запрос
+        var userRefractories = await context.Refractories
+            .Where(x => x.UserInfoId == userId)
+            .ToListAsync();
         foreach (var refractory in userRefractories)
         {
             await _uow.Refractories.DeleteAsync(refractory.Id);
@@ -115,6 +128,18 @@ public class UserInfoService : IUserInfoService
     public async Task<DTOUser?> GetUserByIdAsync(int id)
     {
         var userInfo = await _uow.UserInfos.SelectByIdAsync(id);
+        return userInfo != null ? _mapper.Map<DTOUser>(userInfo) : null;
+    }
+
+    public async Task<DTOUser?> GetUserByIdWithRefractoriesAsync(int id)
+    {
+        var context = _uow.Context;
+        var userInfo = await context.UserInfos
+            .Include(u => u.Refractories)
+            .ThenInclude(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .FirstOrDefaultAsync(u => u.Id == id);
+            
         return userInfo != null ? _mapper.Map<DTOUser>(userInfo) : null;
     }
 

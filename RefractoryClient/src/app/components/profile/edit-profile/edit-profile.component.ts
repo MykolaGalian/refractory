@@ -20,8 +20,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.userService.userDetails?.Id);
-    console.log(this.userService.userDetails?.Login);
     this.initEditProfile();
   }
 
@@ -45,14 +43,18 @@ export class EditProfileComponent implements OnInit {
   }
 
   OnSubmit(): void {
+    if (!this.userService.editProfile?.Name || this.userService.editProfile.Name.trim() === '') {
+      alert('Будь ласка, введіть ім\'я');
+      return;
+    }
+    
     this.userService.EditUserProfile().subscribe({
       next: (res: any) => {
         this.userService.getUserProfile();
         alert('Профіль користувача оновлено');
-        console.log("updated");
       },
       error: (err) => {
-        console.log(err);
+        console.error('Edit profile error:', err);
         alert(`HTTP status code: ${err.status}`);
       }
     });
@@ -63,13 +65,11 @@ export class EditProfileComponent implements OnInit {
       this.userService.DeleteAccount().subscribe({
         next: (res: any) => {
           alert('Профіль користувача видалено');
-          console.log("deleted");
           localStorage.removeItem('access_token');
           localStorage.removeItem('Login');
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          console.log(err);
           alert(`HTTP status code: ${err.status}`);
         }
       });

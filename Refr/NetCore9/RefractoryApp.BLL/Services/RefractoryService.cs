@@ -25,8 +25,14 @@ public class RefractoryService : IRefractoryService
 
     public async Task<List<DTORefractory>> GetAllRefractoriesAsync()
     {
-        var refractories = (await _uow.Refractories.SelectAllAsync())
-            .OrderByDescending(x => x.DateCreate);
+        // Получаем контекст через UnitOfWork для прямых запросов с Include
+        var context = _uow.Context;
+        var refractories = await context.Refractories
+            .Include(r => r.UserInfo)
+            .Include(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .OrderByDescending(x => x.DateCreate)
+            .ToListAsync();
 
         return _mapper.Map<List<DTORefractory>>(refractories);
     }
@@ -48,17 +54,36 @@ public class RefractoryService : IRefractoryService
         if (dtoRefractory.UserInfoId == 0)
             throw new ArgumentException("UserInfoId is required", nameof(dtoRefractory.UserInfoId));
 
-        var refractory = _mapper.Map<Refractory>(dtoRefractory);
-        refractory.LastEdit = DateTime.Now;
+        // Получаем существующую сущность и обновляем её поля
+        var existingRefractory = await _uow.Refractories.SelectByIdAsync(dtoRefractory.Id);
+        if (existingRefractory == null)
+            throw new ArgumentException("Refractory not found", nameof(dtoRefractory.Id));
+
+        existingRefractory.RefractoryDescription = dtoRefractory.RefractoryDescription;
+        existingRefractory.RefractoryBrand = dtoRefractory.RefractoryBrand;
+        existingRefractory.RefractoryType = dtoRefractory.RefractoryType;
+        existingRefractory.Density = dtoRefractory.Density;
+        existingRefractory.MaxWorkTemperature = dtoRefractory.MaxWorkTemperature;
+        existingRefractory.Lime = dtoRefractory.Lime;
+        existingRefractory.Alumina = dtoRefractory.Alumina;
+        existingRefractory.Silica = dtoRefractory.Silica;
+        existingRefractory.Magnesia = dtoRefractory.Magnesia;
+        existingRefractory.Carbon = dtoRefractory.Carbon;
+        existingRefractory.Price = dtoRefractory.Price;
+        existingRefractory.LastEdit = DateTime.Now;
         
-        await _uow.Refractories.UpdateAsync(refractory);
+        await _uow.Refractories.UpdateAsync(existingRefractory);
         await _uow.SaveAsync();
     }
 
     public async Task DeleteRefractoryAsync(int refId)
     {
-        // Сначала удаляем связанные комментарии
-        var comments = await _uow.Comments.SelectAllAsync(x => x.RefractoryId == refId);
+        // Сначала удаляем связанные комментарии через прямой запрос
+        var context = _uow.Context;
+        var comments = await context.Comments
+            .Where(x => x.RefractoryId == refId)
+            .ToListAsync();
+            
         foreach (var comment in comments)
         {
             await _uow.Comments.DeleteAsync(comment.Id);
@@ -70,38 +95,56 @@ public class RefractoryService : IRefractoryService
 
     public async Task<DTORefractory?> GetRefractoryByRefIdAsync(int refId)
     {
-        var refractory = await _uow.Refractories.SelectByIdAsync(refId);
+        var context = _uow.Context;
+        var refractory = await context.Refractories
+            .Include(r => r.UserInfo)
+            .Include(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .FirstOrDefaultAsync(r => r.Id == refId);
+            
         if (refractory == null) return null;
-
-        // Загружаем комментарии
-        var comments = await _uow.Comments.SelectAllAsync(x => x.RefractoryId == refId);
-        refractory.Comments = comments.ToList();
 
         return _mapper.Map<DTORefractory>(refractory);
     }
 
     public async Task<DTORefractory?> GetRefractoryByBrandAsync(string refBrand)
     {
-        var refractories = await _uow.Refractories.SelectAllAsync(x => x.RefractoryBrand == refBrand);
-        var refractory = refractories.FirstOrDefault();
+        var context = _uow.Context;
+        var refractory = await context.Refractories
+            .Include(r => r.UserInfo)
+            .Include(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .FirstOrDefaultAsync(x => x.RefractoryBrand == refBrand);
         
         return refractory != null ? _mapper.Map<DTORefractory>(refractory) : null;
     }
 
     public async Task<IEnumerable<DTORefractory>> GetRefractoriesByUserIdAsync(int userid)
     {
-        var refractories = await _uow.Refractories.SelectAllAsync(x => x.UserInfoId == userid);
-        var sortedRefractories = refractories.OrderByDescending(x => x.DateCreate);
+        var context = _uow.Context;
+        var refractories = await context.Refractories
+            .Include(r => r.UserInfo)
+            .Include(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .Where(x => x.UserInfoId == userid)
+            .OrderByDescending(x => x.DateCreate)
+            .ToListAsync();
         
-        return _mapper.Map<IEnumerable<DTORefractory>>(sortedRefractories);
+        return _mapper.Map<IEnumerable<DTORefractory>>(refractories);
     }
 
     public async Task<IEnumerable<DTORefractory>> GetRefractoriesByTypeAsync(string refType)
     {
-        var refractories = await _uow.Refractories.SelectAllAsync(x => x.RefractoryType == refType);
-        var sortedRefractories = refractories.OrderByDescending(x => x.DateCreate);
+        var context = _uow.Context;
+        var refractories = await context.Refractories
+            .Include(r => r.UserInfo)
+            .Include(r => r.Comments)
+            .ThenInclude(c => c.UserInfo)
+            .Where(x => x.RefractoryType == refType)
+            .OrderByDescending(x => x.DateCreate)
+            .ToListAsync();
         
-        return _mapper.Map<IEnumerable<DTORefractory>>(sortedRefractories);
+        return _mapper.Map<IEnumerable<DTORefractory>>(refractories);
     }
 
     public async Task<IEnumerable<string>> GetAllRefTypesAsync()

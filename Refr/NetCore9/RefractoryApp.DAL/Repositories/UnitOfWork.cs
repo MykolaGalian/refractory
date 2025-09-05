@@ -28,6 +28,7 @@ public class UnitOfWork : IUnitOfWork
 
     public UserManager<ApplicationUser> UserManager => _userManager;
     public RoleManager<ApplicationRole> RoleManager => _roleManager;
+    public ApplicationDbContext Context => _context;
 
     public IGenericRepository<Comment> Comments =>
         _comments ??= new GenericRepository<Comment>(_context);

@@ -9,22 +9,20 @@ import { environment } from '../../environments/environment';
 })
 export class AdminService {
 
-  readonly rootUrl = environment.apiUrl + '/admins';
+  readonly rootUrl = environment.apiUrl + '/admin';
 
   constructor(private http: HttpClient, private service: UserService, private toastr: ToastrService) { }
 
   BlockAccount(): void {
     if (this.service.userDetails) {
-      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-      this.http.get(this.rootUrl + "/block/user/" + this.service.userDetails.Login, {headers: tokenHeader}).
+      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+      this.http.get(this.rootUrl + "/block/user/" + this.service.userDetails.Login, {headers: tokenHeader, responseType: 'text'}).
       subscribe(
         (res: any) => {
           this.toastr.success('Користувача заблоковано');
           this.service.getAllUserProfiles();
-          console.log("updated");
          },
         err => {
-          console.log(err);
           this.toastr.error('HTTP status code', err.status);
         }
       );
@@ -33,16 +31,14 @@ export class AdminService {
 
   UnblockAccount(): void {
     if (this.service.userDetails) {
-      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-      this.http.get(this.rootUrl + "/unblock/user/" + this.service.userDetails.Login, {headers: tokenHeader}).
+      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+      this.http.get(this.rootUrl + "/unblock/user/" + this.service.userDetails.Login, {headers: tokenHeader, responseType: 'text'}).
       subscribe(
         (res: any) => {
           this.toastr.success('Користувач розблокован');
           this.service.getAllUserProfiles();
-          console.log("updated");
          },
         err => {
-          console.log(err);
           this.toastr.error('HTTP status code', err.status);
         },
       );

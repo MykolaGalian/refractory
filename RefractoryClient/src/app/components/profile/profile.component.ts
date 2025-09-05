@@ -31,10 +31,8 @@ export class ProfileComponent implements OnInit {
   onLogout(): void {
     this.userService.LogOut().subscribe({
       next: (res: any) => {
-        console.log("LoggedOut");
       },
       error: (err) => {
-        console.log(err);
       }
     });
 
@@ -66,6 +64,7 @@ export class ProfileComponent implements OnInit {
 
   populateForms(pd: Refractory): void {
     this.refractoryService.refractory = Object.assign({}, pd);
+    this.refractoryService.tempRefractoryId = pd.Id;
     this.router.navigate(['/user-ref']);
   }
 

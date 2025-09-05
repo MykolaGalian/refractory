@@ -29,13 +29,11 @@ export class RegisterComponent implements OnInit {
         next: (res: any) => {
           if (res !== null) {
             this.userService.formModel.reset();
-            console.log(res);
             alert('Створено нового користувача.');
             this.router.navigateByUrl('/login');
           }
         },
         error: (err) => {
-          console.log(err);
           alert(`HTTP status code: ${err.status}`);
         }
       });

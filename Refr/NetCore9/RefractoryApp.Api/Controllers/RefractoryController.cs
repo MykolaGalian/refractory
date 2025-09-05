@@ -47,6 +47,7 @@ public class RefractoryController : ControllerBase
     }
 
     [HttpGet("{refId}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetRefractoryByRefId(int refId)
     {
         var refractory = await _uow.RefractoryService.GetRefractoryByRefIdAsync(refId);
@@ -59,6 +60,7 @@ public class RefractoryController : ControllerBase
 
     [HttpPost("getrefractoriesbytype")]
     [AllowAnonymous]
+    
     public async Task<IActionResult> GetRefractoriesByType([FromForm] string type)
     {
         var refractories = await _uow.RefractoryService.GetRefractoriesByTypeAsync(type);
@@ -82,6 +84,7 @@ public class RefractoryController : ControllerBase
 
     [HttpGet("getalltypes")]
     [AllowAnonymous]
+    
     public async Task<IActionResult> GetAllTypes()
     {
         var types = await _uow.RefractoryService.GetAllRefTypesAsync();
@@ -93,6 +96,7 @@ public class RefractoryController : ControllerBase
 
     [HttpGet("image/get")]
     [AllowAnonymous]
+    
     public IActionResult GetImageForRef(string imageName, string userLogin)
     {
         var imagePath = Path.Combine(_env.WebRootPath ?? "wwwroot", "Images", userLogin, "refractories", imageName);
@@ -109,6 +113,7 @@ public class RefractoryController : ControllerBase
         IFormFile refPicture,
         [FromForm] string type,
         [FromForm] string brand,
+        [FromForm] string description,
         [FromForm] float density,
         [FromForm] float maxWorkTemperature,
         [FromForm] float lime,
@@ -136,7 +141,7 @@ public class RefractoryController : ControllerBase
 
         var newRefractory = new DTORefractory
         {
-            RefractoryDescription = "",
+            RefractoryDescription = description ?? "",
             RefractoryType = type,
             RefractoryBrand = brand,
             DateCreate = DateTime.Now,
@@ -183,25 +188,20 @@ public class RefractoryController : ControllerBase
         if (refractory.IsBlocked)
             return BadRequest("Refractory blocked.");
 
-        refractory.RefractoryDescription = uRef.RefractoryDescription;
-        refractory.RefractoryType = uRef.RefractoryType;
-        refractory.RefractoryBrand = uRef.RefractoryBrand;
-        refractory.LastEdit = DateTime.Now;
-        refractory.Density = uRef.Density;
-        refractory.MaxWorkTemperature = uRef.MaxWorkTemperature;
-        refractory.Lime = uRef.Lime;
-        refractory.Alumina = uRef.Alumina;
-        refractory.Silica = uRef.Silica;
-        refractory.Magnesia = uRef.Magnesia;
-        refractory.Carbon = uRef.Carbon;
-        refractory.Price = uRef.Price;
+        // Создаем правильный DTO для обновления
+        var updatedRefractory = _mapper.Map<RefractoryEditViewModel, DTORefractory>(uRef);
+        updatedRefractory.Id = refId;
+        updatedRefractory.UserInfoId = refractory.UserInfoId;
+        updatedRefractory.DateCreate = refractory.DateCreate;
+        updatedRefractory.RefractoryPicture = refractory.RefractoryPicture;
+        updatedRefractory.IsBlocked = refractory.IsBlocked;
 
-        await _uow.RefractoryService.EditRefractoryAsync(refractory);
+        await _uow.RefractoryService.EditRefractoryAsync(updatedRefractory);
         return Ok("Refractory edited");
     }
 
     [HttpPost("getrefbybrand")]
-    [AllowAnonymous]
+    
     public async Task<IActionResult> GetRefByBrand([FromBody] RefractoryEditViewModel refractory)
     {
         if (string.IsNullOrEmpty(refractory.RefractoryBrand))
@@ -245,6 +245,7 @@ public class RefractoryController : ControllerBase
 
     [HttpPost("calcRefRow")]
     [AllowAnonymous]
+    
     public IActionResult CalcRefRow([FromBody] RefractoryCalculationModel refractory)
     {
         var result = CalcService.CalcRefManual(refractory);
@@ -256,7 +257,7 @@ public class RefractoryController : ControllerBase
         var userLogin = _userManager.GetUserName(User);
         if (userLogin == null)
             throw new UnauthorizedAccessException("User not found");
-        var imageName = Path.GetFileNameWithoutExtension(image.FileName)[..Math.Min(5, Path.GetFileNameWithoutExtension(image.FileName).Length)] + Path.GetExtension(image.FileName);
+        var imageName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
 
         var userRefractoriesDir = Path.Combine(_env.WebRootPath ?? "wwwroot", "Images", userLogin, "refractories");
         if (!Directory.Exists(userRefractoriesDir))

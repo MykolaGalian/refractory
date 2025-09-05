@@ -29,6 +29,7 @@ export class RefractoryAddComponent implements OnInit {
 
   fileToUpload: File | null = null;
   imageUrl: any = null;
+  description: string = '';
 
   ngOnInit(): void {
   }
@@ -47,15 +48,21 @@ export class RefractoryAddComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
+    console.log('Form values:', form.value);
+    console.log('Description from component:', this.description);
+    
+    if (!this.description || this.description.trim() === '') {
+      alert('Будь ласка, введіть опис вогнетриву');
+      return;
+    }
+    
     if (this.fileToUpload !== null) {
-      this.refractoryService.AddRefractory(form, this.fileToUpload).subscribe({
+      this.refractoryService.AddRefractory(form, this.fileToUpload, this.description).subscribe({
         next: (data: any) => {
-          alert('Вогнетрив успішно додано');
-          this.refractoryService.GetRefractoryByBrand(form);
           this.router.navigate(['/profile']);
         },
         error: (error) => {
-          console.log(error);
+          console.error('Error details:', error);
           alert(`Помилка: ${error.status}`);
         }
       });

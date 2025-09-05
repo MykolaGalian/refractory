@@ -6,6 +6,7 @@ import { Refractory, Refcalc, RefcalcResult } from '../models/refractory.models'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,67 +21,165 @@ export class RefractoryService {
   refractoryByTeg: Refractory[] | null = null;
   moderRefractories: Refractory[] | null = null;
   refractories: Refractory[] | null = null;
-  refractory: Refractory | null = null;
+  
+  private _refractory = new BehaviorSubject<Refractory | null>(null);
+  public refractory$ = this._refractory.asObservable();
+  
+  get refractory(): Refractory | null {
+    return this._refractory.value;
+  }
+  
+  set refractory(value: Refractory | null) {
+    this._refractory.next(value);
+  }
   readonly rootUrl = environment.apiUrl + '/refractory';
   refractoryForGetId: Refractory | null = null;
   bodyForNewRefractory: string | null = null;
 
   constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
+  // Маппинг данных с API (camelCase) в Angular модель (PascalCase)
+  private mapRefractoryFromApi(res: any): Refractory {
+    return {
+      Id: res.id,
+      RefractoryDescription: res.refractoryDescription,
+      RefractoryBrand: res.refractoryBrand,
+      RefractoryPicture: res.refractoryPicture,
+      UserInfoId: res.userInfoId,
+      UserInfo: res.userInfo ? {
+        Id: res.userInfo.id,
+        Login: res.userInfo.login,
+        Name: res.userInfo.name,
+        LastName: res.userInfo.lastName,
+        Position: res.userInfo.position,
+        UserAvatar: res.userInfo.userAvatar,
+        Email: res.userInfo.email,
+        Refractories: res.userInfo.refractories || [],
+        DateRegistration: res.userInfo.dateRegistration,
+        IsAdmin: res.userInfo.isAdmin,
+        IsModerator: res.userInfo.isModerator,
+        IsBlocked: res.userInfo.isBlocked
+      } : {
+        Id: 0, Login: '', Name: '', LastName: '', Position: '', UserAvatar: '', 
+        Email: '', Refractories: [], DateRegistration: new Date(), 
+        IsAdmin: false, IsModerator: false, IsBlocked: false
+      },
+      DateCreate: res.dateCreate,
+      LastEdit: res.lastEdit,
+      Comments: res.comments ? res.comments.map((comment: any) => ({
+        Id: comment.id,
+        CommentBody: comment.commentBody,
+        RefractoryId: comment.refractoryId,
+        DateCreation: comment.dateCreation,
+        UserInfoId: comment.userInfoId,
+        UserInfo: comment.userInfo ? {
+          Id: comment.userInfo.id,
+          Login: comment.userInfo.login,
+          Name: comment.userInfo.name,
+          LastName: comment.userInfo.lastName,
+          Position: comment.userInfo.position,
+          UserAvatar: comment.userInfo.userAvatar,
+          Email: comment.userInfo.email,
+          Refractories: [],
+          DateRegistration: comment.userInfo.dateRegistration,
+          IsAdmin: comment.userInfo.isAdmin,
+          IsModerator: comment.userInfo.isModerator,
+          IsBlocked: comment.userInfo.isBlocked
+        } : null
+      })) : [],
+      RefractoryType: res.refractoryType,
+      IsBlocked: res.isBlocked,
+      Density: res.density,
+      MaxWorkTemperature: res.maxWorkTemperature,
+      Lime: res.lime,
+      Alumina: res.alumina,
+      Silica: res.silica,
+      Magnesia: res.magnesia,
+      Carbon: res.carbon,
+      Price: res.price,
+      Src: '' // будет установлено позже
+    };
+  }
+
   GetRefractories() {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
     return this.http.get(this.rootUrl + '/getallrefractories', {headers: reqHeader}).
     subscribe((res: any) => {
-      this.refractories = res as Refractory[];
+      this.refractories = res.map((item: any) => this.mapRefractoryFromApi(item));
 
-      for (let i = 0; i < this.refractories.length; i++) {
-        this.refractories[i].Src = this.rootUrl + '/image/get?imageName=' + this.refractories[i].RefractoryPicture + '&userLogin=' + this.refractories[i].UserInfo.Login;
+      if (this.refractories) {
+        for (let i = 0; i < this.refractories.length; i++) {
+          if (this.refractories[i].RefractoryPicture && this.refractories[i].UserInfo?.Login) {
+            this.refractories[i].Src = this.rootUrl + '/image/get?imageName=' + this.refractories[i].RefractoryPicture + '&userLogin=' + this.refractories[i].UserInfo.Login;
+          } else {
+            this.refractories[i].Src = '';
+          }
+        }
       }
     })
   }
 
   GetRefractoryById(RefId: number) {
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.get(this.rootUrl + '/' + RefId, {headers: tokenHeader}).
-    subscribe((res: any) => {
-      this.refractory = res as Refractory;
-      this.refractory.Src = this.rootUrl + '/image/get?imageName=' + this.refractory.RefractoryPicture + '&userLogin=' + this.refractory.UserInfo.Login;
-    })
-  }
-
-  GetAllRefractories() {
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.get(this.rootUrl + '/getallrefractoriesmoder', {headers: tokenHeader}).
-    subscribe((res: any) => {
-      this.moderRefractories = res as Refractory[];
-      for (let i = 0; i < this.moderRefractories.length; i++) {
-        // Временно используем userLogin из localStorage для изображений модератора
-        const userLogin = this.moderRefractories[i].UserInfo?.Login || localStorage.getItem('Login') || 'default';
-        this.moderRefractories[i].Src = this.rootUrl + '/image/get?imageName=' + this.moderRefractories[i].RefractoryPicture + '&userLogin=' + userLogin;
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    this.http.get(this.rootUrl + '/' + RefId, {headers: tokenHeader}).
+    subscribe({
+      next: (res: any) => {
+        this.refractory = this.mapRefractoryFromApi(res);
+        
+        if (this.refractory.RefractoryPicture && this.refractory.UserInfo?.Login) {
+          this.refractory.Src = this.rootUrl + '/image/get?imageName=' + this.refractory.RefractoryPicture + '&userLogin=' + this.refractory.UserInfo.Login;
+        } else {
+          this.refractory.Src = '';
+        }
+      },
+      error: (error) => {
+        // API error handling can be added here if needed
       }
     })
   }
 
-  // Первый шаг отправка картинки и данных (кроме описания), description отправляем вторым шагом
-  AddRefractory(data: any, fileToUpload: File) {
+  GetAllRefractories() {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.get(this.rootUrl + '/getallrefractoriesmoder', {headers: tokenHeader}).
+    subscribe((res: any) => {
+      this.moderRefractories = res.map((item: any) => this.mapRefractoryFromApi(item));
+      if (this.moderRefractories) {
+        for (let i = 0; i < this.moderRefractories.length; i++) {
+          const userLogin = this.moderRefractories[i].UserInfo?.Login || localStorage.getItem('Login') || 'default';
+          if (this.moderRefractories[i].RefractoryPicture && userLogin) {
+            this.moderRefractories[i].Src = this.rootUrl + '/image/get?imageName=' + this.moderRefractories[i].RefractoryPicture + '&userLogin=' + userLogin;
+          } else {
+            this.moderRefractories[i].Src = '';
+          }
+        }
+      }
+    })
+  }
+
+  // Отправка всех данных включая описание
+  AddRefractory(data: any, fileToUpload: File, description: string) {
+    console.log('Service - received description:', description);
     const formData: FormData = new FormData();
     formData.append('refPicture', fileToUpload, fileToUpload.name); // API ожидает 'refPicture'
 
-    this.bodyForNewRefractory = data.value.Description; // на первом шаге не отправляем
-    formData.append("type", data.value.Type);
-    formData.append("brand", data.value.Brand);
+    this.bodyForNewRefractory = description;
+    formData.append("type", data.value.Type || "");
+    formData.append("brand", data.value.Brand || "");
+    formData.append("description", description || "");
+    
+    console.log('FormData description:', formData.get('description'));
 
-    formData.append("density", data.value.Density);
-    formData.append("maxWorkTemperature", data.value.MaxWorkTemperature);
-    formData.append("lime", data.value.Lime);
-    formData.append("alumina", data.value.Alumina);
-    formData.append("silica", data.value.Silica);
-    formData.append("magnesia", data.value.Magnesia);
-    formData.append("carbon", data.value.Carbon);
-    formData.append("price", data.value.Price);
+    formData.append("density", data.value.Density || "0");
+    formData.append("maxWorkTemperature", data.value.MaxWorkTemperature || "0");
+    formData.append("lime", data.value.Lime || "0");
+    formData.append("alumina", data.value.Alumina || "0");
+    formData.append("silica", data.value.Silica || "0");
+    formData.append("magnesia", data.value.Magnesia || "0");
+    formData.append("carbon", data.value.Carbon || "0");
+    formData.append("price", data.value.Price || "0");
 
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.post(this.rootUrl + '/add', formData, {headers: tokenHeader});
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.post(this.rootUrl + '/add', formData, {headers: tokenHeader, responseType: 'text'});
   }
 
   EditRefractory(refId: number, form: NgForm) {
@@ -98,8 +197,8 @@ export class RefractoryService {
       Carbon: form.value.Carbon,
       Price: form.value.Price
     }
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.put(this.rootUrl + '/' + refId, body, {headers: tokenHeader});
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.put(this.rootUrl + '/' + refId, body, {headers: tokenHeader, responseType: 'text'});
   }
 
   // Для нового огнеупора добавляем текстовое описание после отправки картинки и получения ID
@@ -119,7 +218,7 @@ export class RefractoryService {
       Price: ref.Price
     }
 
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
     return this.http.put(this.rootUrl + '/' + ref.Id, body, {headers: tokenHeader}).
     subscribe((res: any) => {
       this.toastr.info('Вогнетрив додано');
@@ -148,14 +247,14 @@ export class RefractoryService {
     
     return this.http.post(this.rootUrl + '/getrefbybrand', body, {headers: reqHeader}).
     subscribe((res: any) => {
-      this.refractoryForGetId = res as Refractory;   // getting Refractory and RefId from it
+      this.refractoryForGetId = this.mapRefractoryFromApi(res);
       this.AddBodyForRefractory(this.refractoryForGetId)
     });
   }
 
   DeleteRefractory(Id: number) {
-    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.delete(this.rootUrl + '/' + Id, {headers: tokenHeader});
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.delete(this.rootUrl + '/' + Id, {headers: tokenHeader, responseType: 'text'});
   }
 
   GetTegs() {
@@ -168,14 +267,20 @@ export class RefractoryService {
 
   SearchByTeg(type: string) {
     const formData: FormData = new FormData();
-    formData.append("type", type); // API ожидает 'type', а не 'Type'
-    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' }); // Поменял на No-Auth как в старом клиенте
+    formData.append("type", type);
+    var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
 
     return this.http.post(this.rootUrl + '/getrefractoriesbytype', formData, {headers: reqHeader}).
     subscribe((res: any) => {
-      this.refractoryByTeg = res as Refractory[];
-      for (let i = 0; i < this.refractoryByTeg.length; i++) {
-        this.refractoryByTeg[i].Src = this.rootUrl + '/image/get?imageName=' + this.refractoryByTeg[i].RefractoryPicture + '&userLogin=' + this.refractoryByTeg[i].UserInfo.Login;
+      this.refractoryByTeg = res.map((item: any) => this.mapRefractoryFromApi(item));
+      if (this.refractoryByTeg) {
+        for (let i = 0; i < this.refractoryByTeg.length; i++) {
+          if (this.refractoryByTeg[i].RefractoryPicture && this.refractoryByTeg[i].UserInfo?.Login) {
+            this.refractoryByTeg[i].Src = this.rootUrl + '/image/get?imageName=' + this.refractoryByTeg[i].RefractoryPicture + '&userLogin=' + this.refractoryByTeg[i].UserInfo.Login;
+          } else {
+            this.refractoryByTeg[i].Src = '';
+          }
+        }
       }
       this.router.navigateByUrl('/ref-byteg');
     });
@@ -184,37 +289,46 @@ export class RefractoryService {
   GetRefrCalc(data: Refcalc) {
     var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
  
-    // Преобразуем строки в числа для API
+    // Преобразуем строки в числа для API (PascalCase)
     const body = {
-      a1: parseFloat(data.a1),
-      a2: parseFloat(data.a2),
-      b1: parseFloat(data.b1),
-      b2: parseFloat(data.b2),
-      brickLength: parseFloat(data.BrickLength),
-      topDiameter: parseFloat(data.TopDiameter),
-      bottomDiameter: parseFloat(data.BottomDiameter),
-      rowNumber: parseFloat(data.RowNumber),
-      density: parseFloat(data.Density),
-      price: parseFloat(data.Price)
+      a1: parseFloat(data.a1) || 0,
+      a2: parseFloat(data.a2) || 0,
+      b1: parseFloat(data.b1) || 0,
+      b2: parseFloat(data.b2) || 0,
+      BrickLength: parseFloat(data.BrickLength) || 0,
+      TopDiameter: parseFloat(data.TopDiameter) || 0,
+      BottomDiameter: parseFloat(data.BottomDiameter) || 0,
+      RowNumber: parseFloat(data.RowNumber) || 0,
+      Density: parseFloat(data.Density) || 0,
+      Price: parseFloat(data.Price) || 0
     };
+    
+    console.log('Calc body being sent:', body);
 
     return this.http.post(this.rootUrl + '/calcRefRow', body, {headers: reqHeader}).
-    subscribe((res: any) => {
-      // Преобразуем ответ обратно в строки для совместимости
-      if (res) {
-        this.refCalcRes = {TotalA: '', TotalB: '', TotalMass: '', TotalPrice: ''} as RefcalcResult;
-        this.refCalcRes.TotalA = res.totalA.toString();
-        this.refCalcRes.TotalB = res.totalB.toString();
-        this.refCalcRes.TotalMass = res.totalMass.toString();
-        this.refCalcRes.TotalPrice = res.totalPrice.toString();
-      } else {
+    subscribe({
+      next: (res: any) => {
+        // Преобразуем ответ обратно в строки для совместимости
+        if (res) {
+          this.refCalcRes = {TotalA: '', TotalB: '', TotalMass: '', TotalPrice: ''} as RefcalcResult;
+          this.refCalcRes.TotalA = res.totalA.toString();
+          this.refCalcRes.TotalB = res.totalB.toString();
+          this.refCalcRes.TotalMass = res.totalMass.toString();
+          this.refCalcRes.TotalPrice = res.totalPrice.toString();
+        } else {
+          this.refCalcRes = null;
+        }
+              
+        if (this.refCalcRes === null) {
+          this.toastr.error('З даних виробів неможливо викласти ковш');
+        }
+      },
+      error: (err) => {
+        console.error('Calc error:', err);
+        this.toastr.error('Помилка розрахунку: ' + err.status);
         this.refCalcRes = null;
       }
-            
-      if (this.refCalcRes === null) {
-        this.toastr.error('З даних виробів неможливо викласти ковш');
-      }
-      console.log(this.refCalcRes);
     });
   }
+
 }

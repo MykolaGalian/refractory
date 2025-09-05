@@ -26,6 +26,7 @@ public class TokenController : ControllerBase
 
     [HttpPost("token")]
     [AllowAnonymous]
+    
     [Consumes("application/x-www-form-urlencoded")]
     public async Task<IActionResult> Token([FromForm] string username, [FromForm] string password, [FromForm] string grant_type)
     {

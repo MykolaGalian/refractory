@@ -105,6 +105,7 @@ public class UsersController : ControllerBase
 
     [HttpGet("image/get")]
     [AllowAnonymous]
+    
     public IActionResult GetImage(string imageName, string userLogin)
     {
         var imagePath = Path.Combine(_env.WebRootPath ?? "wwwroot", "Images", userLogin, imageName);

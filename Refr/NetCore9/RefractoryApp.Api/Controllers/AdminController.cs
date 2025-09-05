@@ -20,29 +20,37 @@ public class AdminController : ControllerBase
         _userManager = userManager;
     }
 
+
     [HttpGet("block/user/{accountLogin}")]
     public async Task<IActionResult> BlockAccount(string accountLogin)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        try
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        var user = await _uow.UserManagerService.GetUserByLoginAsync(accountLogin);
-        if (user == null)
-            return NotFound();
+            var user = await _uow.UserInfoService.GetUserByLoginAsync(accountLogin);
+            if (user == null)
+                return NotFound($"User {accountLogin} not found");
 
-        if (user.IsBlocked)
-            return BadRequest("User already blocked.");
+            if (user.IsBlocked)
+                return BadRequest("User already blocked.");
 
-        var currentUserId = _userManager.GetUserId(User);
-        if (currentUserId == null)
-            return Unauthorized();
+            var currentUserId = _userManager.GetUserId(User);
+            if (currentUserId == null)
+                return Unauthorized();
 
-        var admin = await _uow.UserInfoService.GetUserByIdAsync(int.Parse(currentUserId));
-        if (admin == null)
-            return BadRequest("Admin not found");
+            var admin = await _uow.UserInfoService.GetUserByIdAsync(int.Parse(currentUserId));
+            if (admin == null)
+                return BadRequest("Admin not found");
 
-        await _uow.AdminService.BlockAccountAsync(user.Id, admin.Login);
-        return Ok("Account blocked");
+            await _uow.AdminService.BlockAccountAsync(user.Id, admin.Login);
+            return Ok("Account blocked");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Error: {ex.Message}");
+        }
     }
 
     [HttpGet("unblock/user/{accountLogin}")]

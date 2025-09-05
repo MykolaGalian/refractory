@@ -7,19 +7,19 @@ import { environment } from '../../environments/environment';
 })
 export class CommentService {
 
-  readonly rootUrl = environment.apiUrl + '/comments/';
+  readonly rootUrl = environment.apiUrl + '/comment/';
 
   constructor(private http: HttpClient) { }
 
   AddComment(postId: number, comment: string) {
-    var Header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});  
+    var Header = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});  
     const formData: FormData = new FormData();
-    formData.append("Coment", comment); 
-    return this.http.post(this.rootUrl + postId, formData, { headers: Header }); 
+    formData.append("comment", comment); 
+    return this.http.post(this.rootUrl + postId, formData, { headers: Header, responseType: 'text' }); 
   }
 
   RemoveComment(comentId: number) {
-    var Header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('access_token')});
-    return this.http.delete(this.rootUrl + comentId, { headers: Header });   
+    var Header = new HttpHeaders({'Authorization': 'Bearer  ' + localStorage.getItem('access_token')});
+    return this.http.delete(this.rootUrl + comentId, { headers: Header, responseType: 'text' });   
   }
 }

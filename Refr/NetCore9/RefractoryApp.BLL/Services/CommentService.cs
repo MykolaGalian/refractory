@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RefractoryApp.BLL.Contracts;
 using RefractoryApp.BLL.DTO;
 using RefractoryApp.DAL.Contracts;
@@ -45,15 +46,23 @@ public class CommentService : ICommentService
 
     public async Task<IEnumerable<DTOComment>> GetCommentsForRefractoryAsync(int refId)
     {
-        var comments = await _uow.Comments.SelectAllAsync(x => x.RefractoryId == refId);
-        var sortedComments = comments.OrderByDescending(x => x.DateCreation);
+        var context = _uow.Context;
+        var comments = await context.Comments
+            .Include(c => c.UserInfo)
+            .Where(x => x.RefractoryId == refId)
+            .OrderByDescending(x => x.DateCreation)
+            .ToListAsync();
         
-        return _mapper.Map<IEnumerable<DTOComment>>(sortedComments);
+        return _mapper.Map<IEnumerable<DTOComment>>(comments);
     }
 
     public async Task<DTOComment?> GetCommentByIdAsync(int comId)
     {
-        var comment = await _uow.Comments.SelectByIdAsync(comId);
+        var context = _uow.Context;
+        var comment = await context.Comments
+            .Include(c => c.UserInfo)
+            .FirstOrDefaultAsync(c => c.Id == comId);
+            
         return comment != null ? _mapper.Map<DTOComment>(comment) : null;
     }
 }

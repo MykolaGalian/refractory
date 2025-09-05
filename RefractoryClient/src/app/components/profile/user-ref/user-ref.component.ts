@@ -5,6 +5,8 @@ import { Router, RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { RefractoryService } from '../../../services/refractory.service';
 import { CommentService } from '../../../services/comment.service';
+import { Observable } from 'rxjs';
+import { Refractory } from '../../../models/refractory.models';
 
 export interface ZoneOfRefractory {
   value: string;
@@ -24,6 +26,8 @@ export class UserRefractoryComponent implements OnInit {
 
   refractoryOnEdit: boolean = false;
   commentText: string = '';
+  
+  refractory$: Observable<Refractory | null>;
 
   get refractory() {
     return this.refractoryService.refractory;
@@ -36,7 +40,23 @@ export class UserRefractoryComponent implements OnInit {
     { value: "Transition" }
   ];
 
+  constructor() {
+    this.refractory$ = this.refractoryService.refractory$;
+  }
+
   ngOnInit(): void {
+    
+    // Изменим условие - загружаем если есть tempRefractoryId
+    if (this.refractoryService.tempRefractoryId) {
+      this.refractoryService.GetRefractoryById(this.refractoryService.tempRefractoryId);
+    } else if (this.refractoryService.refractory?.Id) {
+      this.refractoryService.GetRefractoryById(this.refractoryService.refractory.Id);
+    } else {
+    }
+    
+    // Подписка на изменения
+    this.refractory$.subscribe(refractory => {
+    });
   }
 
   OnRefractoryEdit(form: NgForm): void {
@@ -47,7 +67,6 @@ export class UserRefractoryComponent implements OnInit {
         alert('Стаття по вогнетриву оновлена');
       },
       error: (error) => {
-        console.log(error);
         alert(`HTTP status code: ${error.status}`);
       }
     });
@@ -62,7 +81,6 @@ export class UserRefractoryComponent implements OnInit {
           this.router.navigate(['/profile']);
         },
         error: (error) => {
-          console.log(error);
           alert(`HTTP status code: ${error.status}`);
         }
       });

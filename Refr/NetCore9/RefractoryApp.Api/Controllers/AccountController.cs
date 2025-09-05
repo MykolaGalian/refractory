@@ -36,7 +36,7 @@ public class AccountController : ControllerBase
 
     [Authorize]
     [HttpGet("Logout")]
-    public async Task<IActionResult> Logout()
+    public IActionResult Logout()
     {
         var userName = _userManager.GetUserName(User);
         // Note: JWT tokens are stateless, so server-side logout just acknowledges the request
